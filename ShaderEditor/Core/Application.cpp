@@ -15,7 +15,6 @@
 
 #include "imgui.h"
 #include "backends/imgui_impl_glfw.h"
-#include "backends/imgui_impl_opengl3_loader.h"
 #include "backends/imgui_impl_opengl3.h"
 
 #include <iostream>
@@ -124,7 +123,7 @@ bool Application::OnWindowClose(WindowCloseEvent& e) {
 }
 
 bool Application::OnWindowResize(WindowResizeEvent& e) {
-//    glViewport(0, 0, m_Data.Width, m_Data.Height);
+    glViewport(0, 0, m_Data.Width, m_Data.Height);
     return false;
 }
 
