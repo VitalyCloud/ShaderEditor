@@ -8,7 +8,9 @@
 #ifndef Application_hpp
 #define Application_hpp
 
-#include "Layer.h"
+#include "Layer.hpp"
+#include "Events/Event.hpp"
+#include "Events/ApplicationEvent.hpp"
 
 #include <string>
 #include <memory>
@@ -16,7 +18,7 @@
 
 struct GLFWwindow;
 
-namespace Editor {
+namespace Engine {
 
 struct ApplicationSpecification {
     std::string Name = "Application";
@@ -30,6 +32,7 @@ public:
     
     ~Application();
     
+    void OnEvent(Event &e);
     void Run();
     void PushLayer(const std::shared_ptr<Layer>& layer) { m_LayerStack.emplace_back(layer); layer->OnAttach(); }
     
@@ -41,12 +44,29 @@ public:
     
     void Close();
     
+    GLFWwindow* GetWindow() { return m_WindowHandle; }
+    static Application& Get() { return *s_Application; }
+    
 private:
     void Init();
     void Shutdown();
+    void SetCallbacks();
+    bool OnWindowClose(WindowCloseEvent& e);
+    bool OnWindowResize(WindowResizeEvent& e);
     
 private:
-    ApplicationSpecification m_Specification;
+    static Application* s_Application;
+    using EventCallbackFn = std::function<void(Engine::Event&)>;
+    struct WindowData
+    {
+        std::string Title;
+        int Width, Height;
+        bool VSync;
+        
+        EventCallbackFn EventCallback;
+    };
+    WindowData m_Data;
+    
     GLFWwindow* m_WindowHandle = nullptr;
     bool m_Running = false;
     

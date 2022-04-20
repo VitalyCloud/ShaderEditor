@@ -17,6 +17,7 @@
 		8075220428108FCF00C0AD39 /* Application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8075220228108FCF00C0AD39 /* Application.cpp */; };
 		80752208281095A400C0AD39 /* ImGuiBuild.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80752207281095A400C0AD39 /* ImGuiBuild.cpp */; };
 		8075220A28109CA700C0AD39 /* Editor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8075220928109CA700C0AD39 /* Editor.cpp */; };
+		8075221D2810ADCB00C0AD39 /* Input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8075221C2810ADCB00C0AD39 /* Input.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -43,9 +44,18 @@
 		807521FE28106DB300C0AD39 /* libGLFW.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGLFW.a; path = Vendor/bin/libGLFW.a; sourceTree = "<group>"; };
 		8075220228108FCF00C0AD39 /* Application.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Application.cpp; sourceTree = "<group>"; };
 		8075220328108FCF00C0AD39 /* Application.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Application.hpp; sourceTree = "<group>"; };
-		807522052810914800C0AD39 /* Layer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Layer.h; sourceTree = "<group>"; };
+		807522052810914800C0AD39 /* Layer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Layer.hpp; sourceTree = "<group>"; };
 		80752207281095A400C0AD39 /* ImGuiBuild.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ImGuiBuild.cpp; sourceTree = "<group>"; };
 		8075220928109CA700C0AD39 /* Editor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Editor.cpp; sourceTree = "<group>"; };
+		8075220D2810A1DE00C0AD39 /* ApplicationEvent.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ApplicationEvent.hpp; sourceTree = "<group>"; };
+		8075220E2810A1DE00C0AD39 /* Event.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Event.hpp; sourceTree = "<group>"; };
+		8075220F2810A1DF00C0AD39 /* KeyEvent.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = KeyEvent.hpp; sourceTree = "<group>"; };
+		807522102810A1DF00C0AD39 /* MouseEvent.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MouseEvent.hpp; sourceTree = "<group>"; };
+		807522132810A20A00C0AD39 /* Input.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Input.hpp; sourceTree = "<group>"; };
+		807522142810A20A00C0AD39 /* KeyCodes.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = KeyCodes.hpp; sourceTree = "<group>"; };
+		807522152810A20B00C0AD39 /* MouseCodes.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MouseCodes.hpp; sourceTree = "<group>"; };
+		807522162810A3F800C0AD39 /* Core.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Core.hpp; sourceTree = "<group>"; };
+		8075221C2810ADCB00C0AD39 /* Input.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Input.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,13 +126,38 @@
 		8075220B2810A14100C0AD39 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				807522122810A1F300C0AD39 /* Input */,
+				8075220C2810A1C600C0AD39 /* Events */,
 				807522062810959000C0AD39 /* ImGui */,
 				803AFF3E281068F7005C6FA6 /* EntryPoint.hpp */,
 				8075220228108FCF00C0AD39 /* Application.cpp */,
 				8075220328108FCF00C0AD39 /* Application.hpp */,
-				807522052810914800C0AD39 /* Layer.h */,
+				807522052810914800C0AD39 /* Layer.hpp */,
+				807522162810A3F800C0AD39 /* Core.hpp */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		8075220C2810A1C600C0AD39 /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				8075220E2810A1DE00C0AD39 /* Event.hpp */,
+				8075220D2810A1DE00C0AD39 /* ApplicationEvent.hpp */,
+				8075220F2810A1DF00C0AD39 /* KeyEvent.hpp */,
+				807522102810A1DF00C0AD39 /* MouseEvent.hpp */,
+			);
+			path = Events;
+			sourceTree = "<group>";
+		};
+		807522122810A1F300C0AD39 /* Input */ = {
+			isa = PBXGroup;
+			children = (
+				807522132810A20A00C0AD39 /* Input.hpp */,
+				8075221C2810ADCB00C0AD39 /* Input.cpp */,
+				807522142810A20A00C0AD39 /* KeyCodes.hpp */,
+				807522152810A20B00C0AD39 /* MouseCodes.hpp */,
+			);
+			path = Input;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -186,6 +221,7 @@
 				80752208281095A400C0AD39 /* ImGuiBuild.cpp in Sources */,
 				8075220A28109CA700C0AD39 /* Editor.cpp in Sources */,
 				803AFF3F281068F7005C6FA6 /* EntryPoint.hpp in Sources */,
+				8075221D2810ADCB00C0AD39 /* Input.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -317,6 +353,7 @@
 					Vendor/glm,
 					Vendor/imgui,
 					Vendor/spdlog/include,
+					ShaderEditor,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					Vendor/bin,
@@ -341,6 +378,7 @@
 					Vendor/glm,
 					Vendor/imgui,
 					Vendor/spdlog/include,
+					ShaderEditor,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					Vendor/bin,

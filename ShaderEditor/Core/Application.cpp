@@ -6,6 +6,9 @@
 //
 
 #include "Application.hpp"
+#include "Events/ApplicationEvent.hpp"
+#include "Events/KeyEvent.hpp"
+#include "Events/MouseEvent.hpp"
 
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
@@ -25,9 +28,19 @@ static void glfw_error_callback(int error, const char* description)
     fprintf(stderr, "Glfw Error %d: %s\n", error, description);
 }
 
-namespace Editor {
+namespace Engine {
 
-Application::Application(const ApplicationSpecification& specification) : m_Specification(specification) {
+#define BIND_EVENT_FN(x) std::bind(x, this, std::placeholders::_1)
+
+Application* Application::s_Application = nullptr;
+
+Application::Application(const ApplicationSpecification& specification){
+    assert(s_Application == nullptr);
+    s_Application = this;
+    m_Data.Title = specification.Name;
+    m_Data.Width = specification.Width;
+    m_Data.Height = specification.Height;
+    m_Data.EventCallback = BIND_EVENT_FN(&Application::OnEvent);
     Init();
 }
 
@@ -48,11 +61,12 @@ void Application::Init() {
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
     
-    m_WindowHandle = glfwCreateWindow(m_Specification.Width, m_Specification.Height, m_Specification.Name.c_str(), NULL, NULL);
+    m_WindowHandle = glfwCreateWindow(m_Data.Width, m_Data.Height, m_Data.Title.c_str(), NULL, NULL);
     
     glfwMakeContextCurrent(m_WindowHandle);
     
     glfwSwapInterval(0);
+    m_Data.VSync = true;
     
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
@@ -60,6 +74,8 @@ void Application::Init() {
         return;
     }
     
+    glfwSetWindowUserPointer(m_WindowHandle, &m_Data);
+    SetCallbacks();
     
     const char* glsl_version = "#version 410";
     IMGUI_CHECKVERSION();
@@ -83,6 +99,29 @@ void Application::Init() {
 
 void Application::Close() {
     m_Running = false;
+}
+
+void Application::OnEvent(Event &e) {
+    EventDispatcher dispatcher(e);
+    dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(&Application::OnWindowClose));
+    dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(&Application::OnWindowResize));
+
+    for(auto it = m_LayerStack.end(); it!=m_LayerStack.begin(); )
+    {
+        (*--it)->OnEvent(e);
+        if(e.Handled)
+            break;
+    }
+}
+
+bool Application::OnWindowClose(WindowCloseEvent& e) {
+    Close();
+    return true;
+}
+
+bool Application::OnWindowResize(WindowResizeEvent& e) {
+//    glViewport(0, 0, m_Data.Width, m_Data.Height);
+    return false;
 }
 
 void Application::Shutdown() {
@@ -182,7 +221,7 @@ void Application::Run() {
         
         // End Frame
         ImGuiIO& io = ImGui::GetIO();
-        io.DisplaySize = ImVec2(m_Specification.Width, m_Specification.Height);
+        io.DisplaySize = ImVec2(m_Data.Width, m_Data.Height);
         // Rendering
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -194,6 +233,95 @@ void Application::Run() {
             glfwMakeContextCurrent(backup_current_context);
         }
     }
+}
+
+void Application::SetCallbacks() {
+    glfwSetFramebufferSizeCallback(m_WindowHandle, [](GLFWwindow* window, int width, int height) {
+        WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+        WindowResizeEvent event(width, height);
+        data.Width = width;
+        data.Height = height;
+        data.EventCallback(event);
+    });
+    
+    glfwSetWindowCloseCallback(m_WindowHandle, [](GLFWwindow* window)
+    {
+        WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+        WindowCloseEvent event;
+        data.EventCallback(event);
+    });
+    
+    glfwSetKeyCallback(m_WindowHandle, [](GLFWwindow* window,
+                        int key, int scancode,
+                        int action, int mods)
+    {
+        WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+        switch (action) {
+        case GLFW_PRESS: {
+            KeyPressedEvent event(key, 0);
+            data.EventCallback(event);
+            break;
+        }
+
+        case GLFW_RELEASE: {
+            KeyReleasedEvent event(key);
+            data.EventCallback(event);
+            break;
+        }
+
+        case GLFW_REPEAT: {
+            KeyPressedEvent event(key, 1);
+            data.EventCallback(event);
+            break;
+        }
+
+        default:
+            assert(false); // "Undefined Key action!"
+            break;
+        }
+    });
+    
+    glfwSetMouseButtonCallback(m_WindowHandle, [](GLFWwindow* window,
+                                int button, int action,
+                                int mods)
+    {
+        WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+        switch (action) {
+        case GLFW_PRESS: {
+            MouseButtonPressedEvent event(button);
+            data.EventCallback(event);
+            break;
+        }
+
+        case GLFW_RELEASE: {
+            MouseButtonReleasedEvent event(button);
+            data.EventCallback(event);
+            break;
+        }
+
+        default:
+            assert(false); // "Undefined Mouse Key action!"
+            break;
+        }
+    });
+    
+    glfwSetScrollCallback(m_WindowHandle, [](GLFWwindow* window,
+                        double xOffset,
+                        double yOffset)
+    {
+        WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+        MouseScrolledEvent event((float)xOffset, (float)yOffset);
+        data.EventCallback(event);
+    });
+    
+    glfwSetCursorPosCallback(m_WindowHandle, [](GLFWwindow* window,
+                            double xPos,
+                            double yPos)
+    {
+        WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+        MouseMovedEvent event((float)xPos, (float)yPos);
+        data.EventCallback(event);
+    });
 }
 
 }

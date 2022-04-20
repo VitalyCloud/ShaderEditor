@@ -1,14 +1,16 @@
 //
-//  Layer.h
+//  Layer.hpp
 //  ShaderEditor
 //
 //  Created by Vitaly Cloud on 20.04.2022.
 //
 
-#ifndef Layer_h
-#define Layer_h
+#ifndef Layer_hpp
+#define Layer_hpp
 
-namespace Editor {
+#include "Events/Event.hpp"
+
+namespace Engine {
     
 class Layer {
 public:
@@ -19,9 +21,11 @@ public:
     
     virtual void OnUpdate() {}
     virtual void OnUIRender() {}
+    
+    virtual void OnEvent(Event& e) {}
 };
 
 }
 
 
-#endif /* Layer_h */
+#endif /* Layer_hpp */
