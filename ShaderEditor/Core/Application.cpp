@@ -65,8 +65,7 @@ void Application::Init() {
     
     glfwMakeContextCurrent(m_WindowHandle);
     
-    glfwSwapInterval(0);
-    m_Data.VSync = true;
+    SetVSync(true);
     
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
