@@ -7,13 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		803AFF3F281068F7005C6FA6 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 803AFF3E281068F7005C6FA6 /* main.cpp */; };
+		803AFF3F281068F7005C6FA6 /* EntryPoint.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 803AFF3E281068F7005C6FA6 /* EntryPoint.hpp */; };
 		807521F728106D6800C0AD39 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 807521F628106D6800C0AD39 /* OpenGL.framework */; };
 		807521F928106D8600C0AD39 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 807521F828106D8600C0AD39 /* Cocoa.framework */; };
 		807521FB28106D8D00C0AD39 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 807521FA28106D8D00C0AD39 /* IOKit.framework */; };
 		807521FF28106DB300C0AD39 /* libImGui.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 807521FC28106DB300C0AD39 /* libImGui.a */; };
 		8075220028106DB300C0AD39 /* libGlad.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 807521FD28106DB300C0AD39 /* libGlad.a */; };
 		8075220128106DB300C0AD39 /* libGLFW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 807521FE28106DB300C0AD39 /* libGLFW.a */; };
+		8075220428108FCF00C0AD39 /* Application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8075220228108FCF00C0AD39 /* Application.cpp */; };
+		80752208281095A400C0AD39 /* ImGuiBuild.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80752207281095A400C0AD39 /* ImGuiBuild.cpp */; };
+		8075220A28109CA700C0AD39 /* Editor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8075220928109CA700C0AD39 /* Editor.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -30,7 +33,7 @@
 
 /* Begin PBXFileReference section */
 		803AFF3B281068F7005C6FA6 /* ShaderEditor */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ShaderEditor; sourceTree = BUILT_PRODUCTS_DIR; };
-		803AFF3E281068F7005C6FA6 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		803AFF3E281068F7005C6FA6 /* EntryPoint.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EntryPoint.hpp; sourceTree = "<group>"; };
 		807521F428106CEB00C0AD39 /* ShaderEditor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShaderEditor.entitlements; sourceTree = "<group>"; };
 		807521F628106D6800C0AD39 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		807521F828106D8600C0AD39 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -38,6 +41,11 @@
 		807521FC28106DB300C0AD39 /* libImGui.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libImGui.a; path = Vendor/bin/libImGui.a; sourceTree = "<group>"; };
 		807521FD28106DB300C0AD39 /* libGlad.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGlad.a; path = Vendor/bin/libGlad.a; sourceTree = "<group>"; };
 		807521FE28106DB300C0AD39 /* libGLFW.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGLFW.a; path = Vendor/bin/libGLFW.a; sourceTree = "<group>"; };
+		8075220228108FCF00C0AD39 /* Application.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Application.cpp; sourceTree = "<group>"; };
+		8075220328108FCF00C0AD39 /* Application.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Application.hpp; sourceTree = "<group>"; };
+		807522052810914800C0AD39 /* Layer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Layer.h; sourceTree = "<group>"; };
+		80752207281095A400C0AD39 /* ImGuiBuild.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ImGuiBuild.cpp; sourceTree = "<group>"; };
+		8075220928109CA700C0AD39 /* Editor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Editor.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,7 +86,8 @@
 			isa = PBXGroup;
 			children = (
 				807521F428106CEB00C0AD39 /* ShaderEditor.entitlements */,
-				803AFF3E281068F7005C6FA6 /* main.cpp */,
+				8075220B2810A14100C0AD39 /* Core */,
+				8075220928109CA700C0AD39 /* Editor.cpp */,
 			);
 			path = ShaderEditor;
 			sourceTree = "<group>";
@@ -94,6 +103,26 @@
 				807521F628106D6800C0AD39 /* OpenGL.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		807522062810959000C0AD39 /* ImGui */ = {
+			isa = PBXGroup;
+			children = (
+				80752207281095A400C0AD39 /* ImGuiBuild.cpp */,
+			);
+			path = ImGui;
+			sourceTree = "<group>";
+		};
+		8075220B2810A14100C0AD39 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				807522062810959000C0AD39 /* ImGui */,
+				803AFF3E281068F7005C6FA6 /* EntryPoint.hpp */,
+				8075220228108FCF00C0AD39 /* Application.cpp */,
+				8075220328108FCF00C0AD39 /* Application.hpp */,
+				807522052810914800C0AD39 /* Layer.h */,
+			);
+			path = Core;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -153,7 +182,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				803AFF3F281068F7005C6FA6 /* main.cpp in Sources */,
+				8075220428108FCF00C0AD39 /* Application.cpp in Sources */,
+				80752208281095A400C0AD39 /* ImGuiBuild.cpp in Sources */,
+				8075220A28109CA700C0AD39 /* Editor.cpp in Sources */,
+				803AFF3F281068F7005C6FA6 /* EntryPoint.hpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
