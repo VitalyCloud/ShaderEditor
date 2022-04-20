@@ -101,6 +101,11 @@ void Application::Close() {
     m_Running = false;
 }
 
+void Application::SetVSync(bool enabled) {
+    glfwSwapInterval(enabled ? 1 : 0);
+    m_Data.VSync = enabled;
+}
+
 void Application::OnEvent(Event &e) {
     EventDispatcher dispatcher(e);
     dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(&Application::OnWindowClose));

@@ -46,6 +46,8 @@ public:
     
     GLFWwindow* GetWindow() { return m_WindowHandle; }
     static Application& Get() { return *s_Application; }
+    bool IsVSync() { return m_Data.VSync; }
+    void SetVSync(bool enabled);
     
 private:
     void Init();
