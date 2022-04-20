@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		803AFF3F281068F7005C6FA6 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 803AFF3E281068F7005C6FA6 /* main.cpp */; };
+		807521F728106D6800C0AD39 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 807521F628106D6800C0AD39 /* OpenGL.framework */; };
+		807521F928106D8600C0AD39 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 807521F828106D8600C0AD39 /* Cocoa.framework */; };
+		807521FB28106D8D00C0AD39 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 807521FA28106D8D00C0AD39 /* IOKit.framework */; };
+		807521FF28106DB300C0AD39 /* libImGui.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 807521FC28106DB300C0AD39 /* libImGui.a */; };
+		8075220028106DB300C0AD39 /* libGlad.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 807521FD28106DB300C0AD39 /* libGlad.a */; };
+		8075220128106DB300C0AD39 /* libGLFW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 807521FE28106DB300C0AD39 /* libGLFW.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +31,13 @@
 /* Begin PBXFileReference section */
 		803AFF3B281068F7005C6FA6 /* ShaderEditor */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ShaderEditor; sourceTree = BUILT_PRODUCTS_DIR; };
 		803AFF3E281068F7005C6FA6 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		807521F428106CEB00C0AD39 /* ShaderEditor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShaderEditor.entitlements; sourceTree = "<group>"; };
+		807521F628106D6800C0AD39 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		807521F828106D8600C0AD39 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		807521FA28106D8D00C0AD39 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		807521FC28106DB300C0AD39 /* libImGui.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libImGui.a; path = Vendor/bin/libImGui.a; sourceTree = "<group>"; };
+		807521FD28106DB300C0AD39 /* libGlad.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGlad.a; path = Vendor/bin/libGlad.a; sourceTree = "<group>"; };
+		807521FE28106DB300C0AD39 /* libGLFW.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGLFW.a; path = Vendor/bin/libGLFW.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +45,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				807521FF28106DB300C0AD39 /* libImGui.a in Frameworks */,
+				8075220028106DB300C0AD39 /* libGlad.a in Frameworks */,
+				8075220128106DB300C0AD39 /* libGLFW.a in Frameworks */,
+				807521FB28106D8D00C0AD39 /* IOKit.framework in Frameworks */,
+				807521F928106D8600C0AD39 /* Cocoa.framework in Frameworks */,
+				807521F728106D6800C0AD39 /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -43,6 +62,7 @@
 			children = (
 				803AFF3D281068F7005C6FA6 /* ShaderEditor */,
 				803AFF3C281068F7005C6FA6 /* Products */,
+				807521F528106D6800C0AD39 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -57,9 +77,23 @@
 		803AFF3D281068F7005C6FA6 /* ShaderEditor */ = {
 			isa = PBXGroup;
 			children = (
+				807521F428106CEB00C0AD39 /* ShaderEditor.entitlements */,
 				803AFF3E281068F7005C6FA6 /* main.cpp */,
 			);
 			path = ShaderEditor;
+			sourceTree = "<group>";
+		};
+		807521F528106D6800C0AD39 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				807521FD28106DB300C0AD39 /* libGlad.a */,
+				807521FE28106DB300C0AD39 /* libGLFW.a */,
+				807521FC28106DB300C0AD39 /* libImGui.a */,
+				807521FA28106D8D00C0AD39 /* IOKit.framework */,
+				807521F828106D8600C0AD39 /* Cocoa.framework */,
+				807521F628106D6800C0AD39 /* OpenGL.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,7 +176,7 @@
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
@@ -169,6 +203,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
+					GL_SILENCE_DEPRECATION,
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -200,7 +235,7 @@
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
@@ -222,6 +257,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = GL_SILENCE_DEPRECATION;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -238,20 +274,48 @@
 		803AFF43281068F7005C6FA6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				CODE_SIGN_ENTITLEMENTS = ShaderEditor/ShaderEditor.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UF3GNY88D9;
 				ENABLE_HARDENED_RUNTIME = YES;
+				HEADER_SEARCH_PATHS = (
+					Vendor/GLFW/include,
+					Vendor/Glad/include,
+					Vendor/glm,
+					Vendor/imgui,
+					Vendor/spdlog/include,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					Vendor/bin,
+					"$(PROJECT_DIR)/Vendor/bin",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_WORKSPACE_SKIPPED_SDK_FRAMEWORKS = OpenGL;
 			};
 			name = Debug;
 		};
 		803AFF44281068F7005C6FA6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				CODE_SIGN_ENTITLEMENTS = ShaderEditor/ShaderEditor.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UF3GNY88D9;
 				ENABLE_HARDENED_RUNTIME = YES;
+				HEADER_SEARCH_PATHS = (
+					Vendor/GLFW/include,
+					Vendor/Glad/include,
+					Vendor/glm,
+					Vendor/imgui,
+					Vendor/spdlog/include,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					Vendor/bin,
+					"$(PROJECT_DIR)/Vendor/bin",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_WORKSPACE_SKIPPED_SDK_FRAMEWORKS = OpenGL;
 			};
 			name = Release;
 		};
