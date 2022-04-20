@@ -18,6 +18,7 @@
 		80752208281095A400C0AD39 /* ImGuiBuild.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80752207281095A400C0AD39 /* ImGuiBuild.cpp */; };
 		8075220A28109CA700C0AD39 /* Editor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8075220928109CA700C0AD39 /* Editor.cpp */; };
 		8075221D2810ADCB00C0AD39 /* Input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8075221C2810ADCB00C0AD39 /* Input.cpp */; };
+		8075223E2810B52900C0AD39 /* Framebuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8075223C2810B52900C0AD39 /* Framebuffer.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -56,6 +57,8 @@
 		807522152810A20B00C0AD39 /* MouseCodes.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MouseCodes.hpp; sourceTree = "<group>"; };
 		807522162810A3F800C0AD39 /* Core.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Core.hpp; sourceTree = "<group>"; };
 		8075221C2810ADCB00C0AD39 /* Input.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Input.cpp; sourceTree = "<group>"; };
+		8075223C2810B52900C0AD39 /* Framebuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Framebuffer.cpp; sourceTree = "<group>"; };
+		8075223D2810B52900C0AD39 /* Framebuffer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Framebuffer.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +100,7 @@
 			children = (
 				807521F428106CEB00C0AD39 /* ShaderEditor.entitlements */,
 				8075220B2810A14100C0AD39 /* Core */,
+				807522232810B3F800C0AD39 /* OpenGL */,
 				8075220928109CA700C0AD39 /* Editor.cpp */,
 			);
 			path = ShaderEditor;
@@ -160,6 +164,15 @@
 			path = Input;
 			sourceTree = "<group>";
 		};
+		807522232810B3F800C0AD39 /* OpenGL */ = {
+			isa = PBXGroup;
+			children = (
+				8075223C2810B52900C0AD39 /* Framebuffer.cpp */,
+				8075223D2810B52900C0AD39 /* Framebuffer.hpp */,
+			);
+			path = OpenGL;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -218,6 +231,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8075220428108FCF00C0AD39 /* Application.cpp in Sources */,
+				8075223E2810B52900C0AD39 /* Framebuffer.cpp in Sources */,
 				80752208281095A400C0AD39 /* ImGuiBuild.cpp in Sources */,
 				8075220A28109CA700C0AD39 /* Editor.cpp in Sources */,
 				803AFF3F281068F7005C6FA6 /* EntryPoint.hpp in Sources */,
