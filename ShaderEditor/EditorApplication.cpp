@@ -12,6 +12,18 @@
 
 namespace Editor {
 
+// TODO: Assert
+// TODO: Logging
+// TODO: Camera
+
+// TODO: Main Menu Bar
+
+// TODO: TextEditor Panel
+// TODO: Pipeline Panel
+// TODO: Inspector Panel
+
+// TODO: Textures
+
 class EditorLayer: public Engine::Layer {
 public:
     
