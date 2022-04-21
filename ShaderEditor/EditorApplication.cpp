@@ -8,6 +8,7 @@
 #include "Core/Core.hpp"
 #include "OpenGL/OpenGL.h"
 #include "Renderer/Renderer.hpp"
+#include "Editor/ViewportPanel.hpp"
 
 namespace Editor {
 
@@ -19,6 +20,9 @@ public:
         spec.Width = 800;
         spec.Height = 600;
         m_Framebuffer = Engine::CreateRef<OpenGL::Framebuffer>(spec);
+        m_Viewport.SetTexture((ImTextureID)(uintptr_t)m_Framebuffer->GetColorAttachmentRendererID());
+        m_Viewport.SetResizeCallback(std::bind(&EditorLayer::OnViewportResize,
+                                               this, std::placeholders::_1, std::placeholders::_2));
         
         float positions[3*3] = {
             -0.5f, 0.5f,
@@ -100,8 +104,7 @@ public:
     virtual void OnUIRender() override {
         ImGui::Begin("Hello");
         
-        ImGui::Image((void*)(uintptr_t)m_Framebuffer->GetColorAttachmentRendererID(), ImVec2(800, 600), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
-        
+        m_Viewport.Draw("Viewport");
         
         ImGui::ColorEdit4("Clear Color", &m_ClearColor.x);
         
@@ -114,7 +117,13 @@ public:
         
     }
     
+    void OnViewportResize(uint32_t width, uint32_t height) {
+        std::cout << "Viewport resized: " << width << "x" << height << std::endl;
+    }
+    
 private:
+    ViewportPanel m_Viewport;
+    
     Engine::Ref<OpenGL::Framebuffer> m_Framebuffer;
     Engine::Ref<OpenGL::VertexArray> m_VertexArray;
     Engine::Ref<OpenGL::Shader> m_Shader;
