@@ -14,6 +14,7 @@ namespace OpenGL {
 static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type) {
     switch (type)
     {
+        case ShaderDataType::None:     break;
         case ShaderDataType::Float:    return GL_FLOAT;
         case ShaderDataType::Float2:   return GL_FLOAT;
         case ShaderDataType::Float3:   return GL_FLOAT;
@@ -25,6 +26,7 @@ static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type) {
         case ShaderDataType::Int3:     return GL_INT;
         case ShaderDataType::Int4:     return GL_INT;
         case ShaderDataType::Bool:     return GL_BOOL;
+        
     }
 
     assert(false); // "Unknown ShaderDataType!"
@@ -68,7 +70,7 @@ void VertexArray::AddVertexBuffer(const Engine::Ref<VertexBuffer> &vertexBuffer)
                     ShaderDataTypeToOpenGLBaseType(element.Type),
                     element.Normalized ? GL_TRUE : GL_FALSE,
                     layout.GetStride(),
-                    (const void*)element.Offset);
+                    (void*)(uintptr_t)element.Offset);
                 m_VertexBufferIndex++;
                 break;
             }
@@ -82,7 +84,7 @@ void VertexArray::AddVertexBuffer(const Engine::Ref<VertexBuffer> &vertexBuffer)
                     element.GetComponentCount(),
                     ShaderDataTypeToOpenGLBaseType(element.Type),
                     layout.GetStride(),
-                    (const void*)element.Offset);
+                    (void*)(uintptr_t)element.Offset);
                 m_VertexBufferIndex++;
                 break;
             }
@@ -96,7 +98,7 @@ void VertexArray::AddVertexBuffer(const Engine::Ref<VertexBuffer> &vertexBuffer)
                         ShaderDataTypeToOpenGLBaseType(element.Type),
                         element.Normalized ? GL_TRUE : GL_FALSE,
                         layout.GetStride(),
-                        (const void*)(element.Offset + sizeof(float) * count * i));
+                        (void*)(uintptr_t)(element.Offset + sizeof(float) * count * i));
                     glVertexAttribDivisor(m_VertexBufferIndex, 1);
                     m_VertexBufferIndex++;
                 }

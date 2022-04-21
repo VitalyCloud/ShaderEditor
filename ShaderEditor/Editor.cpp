@@ -88,7 +88,7 @@ public:
     virtual void OnUIRender() override {
         ImGui::Begin("Hello");
         
-        ImGui::Image((ImTextureID*)m_Framebuffer->GetColorAttachmentRendererID(), ImVec2(800, 600), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+        ImGui::Image((void*)(uintptr_t)m_Framebuffer->GetColorAttachmentRendererID(), ImVec2(800, 600), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
         
         
         ImGui::ColorEdit4("Clear Color", &m_ClearColor.x);
