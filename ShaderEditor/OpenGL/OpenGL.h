@@ -10,5 +10,8 @@
 
 #include "Framebuffer.hpp"
 #include "RenderCommand.hpp"
+#include "Shader.hpp"
+#include "Buffer.hpp"
+#include "VertexArray.hpp"
 
 #endif /* OpenGL_h */

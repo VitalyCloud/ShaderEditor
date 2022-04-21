@@ -10,6 +10,8 @@
 
 #include <stdint.h>
 #include "glm/glm.hpp"
+#include "Core/Memory.hpp"
+#include "VertexArray.hpp"
 
 namespace OpenGL {
 
@@ -22,6 +24,8 @@ namespace OpenGL {
         void Clear();
 
         void EnableDepthTesting();
+
+        void DrawIndexed(const Engine::Ref<VertexArray>& vertexArray, uint32_t indexCount = 0);
     }
 
 }
