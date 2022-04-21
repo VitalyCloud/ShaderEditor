@@ -9,6 +9,7 @@
 #include "Events/ApplicationEvent.hpp"
 #include "Events/KeyEvent.hpp"
 #include "Events/MouseEvent.hpp"
+#include "Renderer/Renderer.hpp"
 
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
@@ -123,7 +124,7 @@ bool Application::OnWindowClose(WindowCloseEvent& e) {
 }
 
 bool Application::OnWindowResize(WindowResizeEvent& e) {
-    glViewport(0, 0, m_Data.Width, m_Data.Height);
+    Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
     return false;
 }
 
