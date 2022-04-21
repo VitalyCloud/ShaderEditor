@@ -6,8 +6,7 @@
 //
 
 #include "Core/Core.hpp"
-#include "OpenGL/Framebuffer.hpp"
-#include "glad/glad.h"
+#include "OpenGL/OpenGL.h"
 
 namespace Editor {
 
@@ -24,8 +23,8 @@ public:
     virtual void OnUpdate() override {
         m_Framebuffer->Bind();
         
-        glClearColor(m_ClearColor.x, m_ClearColor.y, m_ClearColor.z, m_ClearColor.w);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        OpenGL::RenderCommand::SetClearColor(m_ClearColor);
+        OpenGL::RenderCommand::Clear();
         
         m_Framebuffer->Unbind();
     }
@@ -44,7 +43,7 @@ public:
     }
     
     virtual void OnEvent(Engine::Event& event) override {
-        std::cout << event.GetName() << std::endl;
+        
     }
     
 private:

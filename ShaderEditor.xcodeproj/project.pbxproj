@@ -19,6 +19,7 @@
 		8075220A28109CA700C0AD39 /* Editor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8075220928109CA700C0AD39 /* Editor.cpp */; };
 		8075221D2810ADCB00C0AD39 /* Input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8075221C2810ADCB00C0AD39 /* Input.cpp */; };
 		8075223E2810B52900C0AD39 /* Framebuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8075223C2810B52900C0AD39 /* Framebuffer.cpp */; };
+		8075224A2811730B00C0AD39 /* RenderCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 807522482811730B00C0AD39 /* RenderCommand.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -59,6 +60,9 @@
 		8075221C2810ADCB00C0AD39 /* Input.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Input.cpp; sourceTree = "<group>"; };
 		8075223C2810B52900C0AD39 /* Framebuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Framebuffer.cpp; sourceTree = "<group>"; };
 		8075223D2810B52900C0AD39 /* Framebuffer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Framebuffer.hpp; sourceTree = "<group>"; };
+		807522482811730B00C0AD39 /* RenderCommand.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RenderCommand.cpp; sourceTree = "<group>"; };
+		807522492811730B00C0AD39 /* RenderCommand.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RenderCommand.hpp; sourceTree = "<group>"; };
+		8075224B281174A000C0AD39 /* OpenGL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenGL.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +173,9 @@
 			children = (
 				8075223C2810B52900C0AD39 /* Framebuffer.cpp */,
 				8075223D2810B52900C0AD39 /* Framebuffer.hpp */,
+				807522482811730B00C0AD39 /* RenderCommand.cpp */,
+				807522492811730B00C0AD39 /* RenderCommand.hpp */,
+				8075224B281174A000C0AD39 /* OpenGL.h */,
 			);
 			path = OpenGL;
 			sourceTree = "<group>";
@@ -233,6 +240,7 @@
 				8075220428108FCF00C0AD39 /* Application.cpp in Sources */,
 				8075223E2810B52900C0AD39 /* Framebuffer.cpp in Sources */,
 				80752208281095A400C0AD39 /* ImGuiBuild.cpp in Sources */,
+				8075224A2811730B00C0AD39 /* RenderCommand.cpp in Sources */,
 				8075220A28109CA700C0AD39 /* Editor.cpp in Sources */,
 				803AFF3F281068F7005C6FA6 /* EntryPoint.hpp in Sources */,
 				8075221D2810ADCB00C0AD39 /* Input.cpp in Sources */,
