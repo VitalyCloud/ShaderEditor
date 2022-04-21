@@ -8,7 +8,7 @@
 #ifndef Framebuffer_hpp
 #define Framebuffer_hpp
 
-#include <iostream>
+#include <stdint.h>
 
 namespace OpenGL {
 

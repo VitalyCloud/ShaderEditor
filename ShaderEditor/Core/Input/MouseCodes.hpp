@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdint.h>
+
 namespace Engine
 {
 	using MouseCode = uint16_t;

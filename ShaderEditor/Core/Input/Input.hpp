@@ -6,6 +6,8 @@
 #include "KeyCodes.hpp"
 #include "MouseCodes.hpp"
 
+#include <utility>
+
 namespace Engine {
 
     class Input

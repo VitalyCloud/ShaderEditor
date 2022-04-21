@@ -8,6 +8,7 @@
 #include "Framebuffer.hpp"
 
 #include "glad/glad.h"
+#include "assert.h"
 
 namespace OpenGL {
 

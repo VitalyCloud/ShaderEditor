@@ -8,7 +8,7 @@
 #ifndef RenderCommand_hpp
 #define RenderCommand_hpp
 
-#include "stdint.h"
+#include <stdint.h>
 #include "glm/glm.hpp"
 
 namespace OpenGL {
