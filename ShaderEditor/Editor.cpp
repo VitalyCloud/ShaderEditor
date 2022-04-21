@@ -20,26 +20,38 @@ public:
         spec.Height = 600;
         m_Framebuffer = Engine::CreateRef<OpenGL::Framebuffer>(spec);
         
-        float verticies[3*2*3] = {
-            -0.5f, 0.5f, 1.0f, 0.0f, 0.0f,
-            0.5f, 0.5f, 0.0f, 1.0f, 0.0f,
-            0.0f, -0.5f, 0.0f, 0.0f, 1.0f
+        float positions[3*3] = {
+            -0.5f, 0.5f,
+            0.5f, 0.5f,
+            0.0f, -0.5f
+        };
+        
+        float colors[3*3] = {
+            1.0f, 0.0f, 0.0f,
+            0.0f, 1.0f, 0.0f,
+            0.0f, 0.0f, 1.0f
         };
         
         uint32_t indicies[3] = {
             0, 1, 2
         };
         
-        auto vertexBuffer = Engine::CreateRef<OpenGL::VertexBuffer>(verticies, sizeof(verticies));
-        vertexBuffer->SetLayout({
+        auto postionBuffer = Engine::CreateRef<OpenGL::VertexBuffer>(positions, sizeof(positions));
+        postionBuffer->SetLayout({
             { OpenGL::ShaderDataType::Float2, "a_Position" },
+            
+        });
+        
+        auto colorBuffer = Engine::CreateRef<OpenGL::VertexBuffer>(colors, sizeof(colors));
+        colorBuffer->SetLayout({
             { OpenGL::ShaderDataType::Float3, "a_Color" },
         });
         
         auto indexBuffer = Engine::CreateRef<OpenGL::IndexBuffer>(indicies, sizeof(indicies) / sizeof(uint32_t));
         
         m_VertexArray = Engine::CreateRef<OpenGL::VertexArray>();
-        m_VertexArray->AddVertexBuffer(vertexBuffer);
+        m_VertexArray->AddVertexBuffer(postionBuffer);
+        m_VertexArray->AddVertexBuffer(colorBuffer);
         m_VertexArray->SetIndexBuffer(indexBuffer);
         
         
