@@ -93,12 +93,14 @@
 		80C4915C28122E9D009FC5E3 /* PlatformDetection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlatformDetection.h; sourceTree = "<group>"; };
 		80C4915D2812359E009FC5E3 /* OrthographicCamera.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = OrthographicCamera.hpp; sourceTree = "<group>"; };
 		80C4915E2812359E009FC5E3 /* OrthographicCamera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OrthographicCamera.cpp; sourceTree = "<group>"; };
+		80CA28292812F44500E53E94 /* Menlo-Regular.embed */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Menlo-Regular.embed"; sourceTree = "<group>"; };
 		80DCD4572812BF3400610807 /* TextBufferView.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TextBufferView.cpp; sourceTree = "<group>"; };
 		80DCD4582812BF3400610807 /* TextBufferView.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TextBufferView.hpp; sourceTree = "<group>"; };
 		80DCD45B2812C2C200610807 /* MacosXUtils.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MacosXUtils.mm; sourceTree = "<group>"; };
 		80DCD4622812C83200610807 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		80DCD4642812CD5400610807 /* TextEditorPanel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TextEditorPanel.cpp; sourceTree = "<group>"; };
 		80DCD4652812CD5400610807 /* TextEditorPanel.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TextEditorPanel.hpp; sourceTree = "<group>"; };
+		80DCD46A2812E24900610807 /* Roboto-Regular.embed */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Roboto-Regular.embed"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +168,8 @@
 			isa = PBXGroup;
 			children = (
 				80752207281095A400C0AD39 /* ImGuiBuild.cpp */,
+				80DCD46A2812E24900610807 /* Roboto-Regular.embed */,
+				80CA28292812F44500E53E94 /* Menlo-Regular.embed */,
 			);
 			path = ImGui;
 			sourceTree = "<group>";

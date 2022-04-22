@@ -19,7 +19,7 @@ namespace Editor {
 
 // TODO: [x] Main Menu Bar
 
-// TODO: [ ] TextEditor Panel
+// TODO: [x] TextEditor Panel
 // TODO: [ ] Pipeline Panel
 // TODO: [ ] Inspector Panel
 
@@ -38,6 +38,33 @@ public:
         m_Viewport.SetTexture((ImTextureID)(uintptr_t)m_Framebuffer->GetColorAttachmentRendererID());
         m_Viewport.SetResizeCallback(std::bind(&EditorLayer::OnViewportResize,
                                                this, std::placeholders::_1, std::placeholders::_2));
+        
+        Engine::Application::Get().SetMenubarCallback([this]() {
+            if (ImGui::BeginMenu("File"))
+            {
+                if (ImGui::MenuItem("Exit"))
+                {
+                    Engine::Application::Get().Close();
+                }
+                ImGui::EndMenu();
+            }
+            if (ImGui::BeginMenu("Windows")) {
+                if (ImGui::MenuItem("Viewport", nullptr, m_ShowViewport))
+                    m_ShowViewport = !m_ShowViewport;
+                if (ImGui::MenuItem("Text Editor", nullptr, m_ShowTextEditor))
+                    m_ShowTextEditor = !m_ShowTextEditor;
+                if (ImGui::MenuItem("ImGui Demo", nullptr, m_ShowImGuiDemo))
+                    m_ShowImGuiDemo = !m_ShowImGuiDemo;
+                ImGui::EndMenu();
+            }
+            
+            if (ImGui::BeginMenu("Settings")) {
+                bool VSync = Engine::Application::Get().IsVSync();
+                if (ImGui::MenuItem("VSync", nullptr, &VSync))
+                    Engine::Application::Get().SetVSync(!VSync);
+                ImGui::EndMenu();
+            }
+        });
         
         float a = 0.5f;
         
@@ -127,11 +154,14 @@ public:
         ImGui::DragFloat3("Camera: ", &m_CameraPostion.x, 0.1, -10, 10);
         ImGui::End();
         
-        m_Viewport.Draw("Viewport");
-        m_TextEditor.Draw("Text Editor");
+        if(m_ShowViewport)
+            m_Viewport.Draw("Viewport", &m_ShowViewport);
         
+        if(m_ShowTextEditor)
+            m_TextEditor.Draw("Text Editor", &m_ShowTextEditor);
         
-        ImGui::ShowDemoWindow();
+        if(m_ShowImGuiDemo)
+            ImGui::ShowDemoWindow(&m_ShowImGuiDemo);
     }
     
     virtual void OnEvent(Engine::Event& event) override {
@@ -155,6 +185,10 @@ private:
     ViewportPanel m_Viewport;
     TextEditorPanel m_TextEditor;
     
+    bool m_ShowViewport = true;
+    bool m_ShowTextEditor = true;
+    bool m_ShowImGuiDemo = false;
+    
     Engine::Ref<OpenGL::Framebuffer> m_Framebuffer;
     Engine::Ref<OpenGL::VertexArray> m_VertexArray;
     Engine::Ref<OpenGL::Shader> m_Shader;
@@ -173,17 +207,17 @@ Engine::Application* Engine::CreateApplication(int argc, char** argv) {
     Engine::Application* app = new Engine::Application(spec);
     app->PushLayer<Editor::EditorLayer>();
  
-    app->SetMenubarCallback([app]()
-    {
-        if (ImGui::BeginMenu("File"))
-        {
-            if (ImGui::MenuItem("Exit"))
-            {
-                app->Close();
-            }
-            ImGui::EndMenu();
-        }
-    });
+//    app->SetMenubarCallback([app]()
+//    {
+//        if (ImGui::BeginMenu("File"))
+//        {
+//            if (ImGui::MenuItem("Exit"))
+//            {
+//                app->Close();
+//            }
+//            ImGui::EndMenu();
+//        }
+//    });
     
     return app;
 }

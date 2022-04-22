@@ -37,6 +37,7 @@ private:
     Engine::Ref<TextBufferView> m_SelectedBuffer = nullptr;
     
     bool m_ConfirmationWindowDisplayed = false;
+    ImFont* m_Font;
 };
 
 

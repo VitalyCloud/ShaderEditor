@@ -23,6 +23,8 @@
 
 #include <iostream>
 
+#include "ImGui/Roboto-Regular.embed"
+
 static void glfw_error_callback(int error, const char* description)
 {
     EN_CORE_ERROR("GLFW Error {0}: {1}", error, description);
@@ -92,6 +94,12 @@ void Application::Init() {
     
     ImGui_ImplGlfw_InitForOpenGL(m_WindowHandle, true);
     ImGui_ImplOpenGL3_Init(glsl_version);
+    
+    // Load default font
+    ImFontConfig fontConfig;
+    fontConfig.FontDataOwnedByAtlas = false;
+    ImFont* robotoFont = io.Fonts->AddFontFromMemoryTTF((void*)g_RobotoRegular, sizeof(g_RobotoRegular), 18.0f, &fontConfig);
+    io.FontDefault = robotoFont;
 }
 
 void Application::Close() {

@@ -20,7 +20,7 @@ public:
     TextBufferView();
     ~TextBufferView();
     
-    void Draw();
+    void Draw(ImFont* font = ImGui::GetIO().FontDefault);
     void OnEvent(Engine::Event& event);
     
     bool OpenFile(const std::string& filepath = "");

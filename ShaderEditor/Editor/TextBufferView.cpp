@@ -23,7 +23,7 @@ TextBufferView::~TextBufferView() {
     
 }
 
-void TextBufferView::Draw() {
+void TextBufferView::Draw(ImFont* font) {
     auto cpos = m_Buffer.GetCursorPosition();
     ImGui::SetWindowSize(ImVec2(800, 600), ImGuiCond_FirstUseEver);
     
@@ -37,10 +37,9 @@ void TextBufferView::Draw() {
     auto id = (uint64_t)this;
     std::string bufferTitle = std::to_string(id);
 
-    
-//    ImGui::PushFont(font);
+    ImGui::PushFont(font);
     m_Buffer.Render(bufferTitle.c_str());
-//    ImGui::PopFont();
+    ImGui::PopFont();
 
     if (m_Buffer.IsTextChanged()) {
         m_TextChanged = true;

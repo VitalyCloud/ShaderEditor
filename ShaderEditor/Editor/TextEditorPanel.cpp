@@ -6,11 +6,17 @@
 //
 
 #include "TextEditorPanel.hpp"
+#include "Core/ImGui/Menlo-Regular.embed"
 
 namespace Editor {
 
 TextEditorPanel::TextEditorPanel() { 
     AddBuffer();
+    
+    ImGuiIO& io = ImGui::GetIO(); (void)io;
+    ImFontConfig fontConfig;
+    fontConfig.FontDataOwnedByAtlas = false;
+    m_Font = io.Fonts->AddFontFromMemoryTTF((void*)g_MenloRegular, sizeof(g_MenloRegular), 20, &fontConfig);
 }
 
 TextEditorPanel::~TextEditorPanel() { 
@@ -116,7 +122,7 @@ void TextEditorPanel::Draw(const char *title, bool *p_open) {
     
     ImGui::BeginChild("BufferChild", ImVec2(0, 0), false, ImGuiWindowFlags_MenuBar);
     if (m_SelectedBuffer) {
-        m_SelectedBuffer->Draw();
+        m_SelectedBuffer->Draw(m_Font);
     }
     ImGui::EndChild();
     
