@@ -16,16 +16,18 @@ namespace Editor {
 // TODO: [x] Logging
 // TODO: [ ] Camera
 
-// TODO: [ ] Main Menu Bar
+// TODO: [x] Main Menu Bar
 
 // TODO: [ ] TextEditor Panel
 // TODO: [ ] Pipeline Panel
 // TODO: [ ] Inspector Panel
 
-// TODO: Textures
+// TODO: [ ] Textures
 
 class EditorLayer: public Engine::Layer {
 public:
+    
+    EditorLayer() : m_Camera(-1.0f, 1.0f, -1.0f, 1.0f) {}
     
     virtual void OnAttach() override {
         OpenGL::FramebufferSpecification spec;
@@ -36,10 +38,12 @@ public:
         m_Viewport.SetResizeCallback(std::bind(&EditorLayer::OnViewportResize,
                                                this, std::placeholders::_1, std::placeholders::_2));
         
-        float positions[3*3] = {
-            -0.5f, 0.5f,
-            0.5f, 0.5f,
-            0.0f, -0.5f
+        float a = 0.5f;
+        
+        float positions[3*2] = {
+            -a, a,
+            a, a,
+            0.0f, -a
         };
         
         float colors[3*3] = {
@@ -77,11 +81,13 @@ public:
             layout(location = 0) in vec2 a_Position;
             layout(location = 1) in vec3 a_Color;
         
+            uniform mat4 u_ViewProjection;
+        
             out vec3 v_Color;
             void main()
             {
                 v_Color = a_Color;
-                gl_Position = vec4(a_Position, 1.0f, 1.0f);
+                gl_Position = u_ViewProjection * vec4(a_Position, 1.0f, 1.0f);
             }
         )";
         
@@ -99,15 +105,16 @@ public:
     }
     
     virtual void OnUpdate() override {
+        m_Camera.SetPostion(m_CameraPostion);
+        
         m_Framebuffer->Bind();
         
         OpenGL::RenderCommand::SetClearColor(m_ClearColor);
         OpenGL::RenderCommand::Clear();
         
-        Renderer::BeginScene();
+        Renderer::BeginScene(m_Camera);
         Renderer::Submit(m_Shader, m_VertexArray);
         Renderer::EndScene();
-        
         
         
         m_Framebuffer->Unbind();
@@ -115,12 +122,12 @@ public:
     
     virtual void OnUIRender() override {
         ImGui::Begin("Hello");
+        ImGui::ColorEdit4("Clear Color", &m_ClearColor.x);
+        ImGui::DragFloat3("Camera: ", &m_CameraPostion.x, 0.1, -10, 10);
+        ImGui::End();
         
         m_Viewport.Draw("Viewport");
         
-        ImGui::ColorEdit4("Clear Color", &m_ClearColor.x);
-        
-        ImGui::End();
         
         ImGui::ShowDemoWindow();
     }
@@ -131,6 +138,15 @@ public:
     
     void OnViewportResize(uint32_t width, uint32_t height) {
         EN_INFO("Viewport resized: {0}x{1}", width, height);
+        
+        float A = (float)width / (float)height;
+        
+        float x = 1;
+        float y = 1;
+        x *= A;
+    
+        m_Camera.SetCamera(-x, x, -y, y);
+        
     }
     
 private:
@@ -139,7 +155,9 @@ private:
     Engine::Ref<OpenGL::Framebuffer> m_Framebuffer;
     Engine::Ref<OpenGL::VertexArray> m_VertexArray;
     Engine::Ref<OpenGL::Shader> m_Shader;
+    Renderer::OrthographicCamera m_Camera;
     
+    glm::vec3 m_CameraPostion = glm::vec3(0.0);
     glm::vec4 m_ClearColor = glm::vec4(0.3f);
 };
 

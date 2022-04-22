@@ -12,14 +12,26 @@
 
 #include "Core/Core.hpp"
 #include "OpenGL/OpenGL.h"
+#include "OrthographicCamera.hpp"
 
 namespace Renderer {
 
-void OnWindowResize(uint32_t width, uint32_t height);
-void BeginScene();
-void EndScene();
-void Submit(const Engine::Ref<OpenGL::Shader> shader, const Engine::Ref<OpenGL::VertexArray>& vertexArray);
+    void OnWindowResize(uint32_t width, uint32_t height);
+
+    void BeginScene(const OrthographicCamera& camera);
+
+    void EndScene();
+
+    void Submit(const Engine::Ref<OpenGL::Shader> shader, const Engine::Ref<OpenGL::VertexArray>& vertexArray);
 
 }
+
+
+
+
+
+
+
+
 
 #endif /* Renderer_hpp */

@@ -27,6 +27,7 @@
 		8075225E2811834700C0AD39 /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8075225C2811834700C0AD39 /* Renderer.cpp */; };
 		80752262281191AE00C0AD39 /* ViewportPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80752260281191AE00C0AD39 /* ViewportPanel.cpp */; };
 		80C4915328122BE7009FC5E3 /* Log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80C4915128122BE7009FC5E3 /* Log.cpp */; };
+		80C4915F2812359E009FC5E3 /* OrthographicCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80C4915E2812359E009FC5E3 /* OrthographicCamera.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -87,6 +88,8 @@
 		80C4915128122BE7009FC5E3 /* Log.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Log.cpp; sourceTree = "<group>"; };
 		80C4915228122BE7009FC5E3 /* Log.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Log.hpp; sourceTree = "<group>"; };
 		80C4915C28122E9D009FC5E3 /* PlatformDetection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlatformDetection.h; sourceTree = "<group>"; };
+		80C4915D2812359E009FC5E3 /* OrthographicCamera.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = OrthographicCamera.hpp; sourceTree = "<group>"; };
+		80C4915E2812359E009FC5E3 /* OrthographicCamera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OrthographicCamera.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +227,8 @@
 			children = (
 				8075225C2811834700C0AD39 /* Renderer.cpp */,
 				8075225D2811834700C0AD39 /* Renderer.hpp */,
+				80C4915E2812359E009FC5E3 /* OrthographicCamera.cpp */,
+				80C4915D2812359E009FC5E3 /* OrthographicCamera.hpp */,
 			);
 			path = Renderer;
 			sourceTree = "<group>";
@@ -305,6 +310,7 @@
 				8075225428117AA500C0AD39 /* Utils.cpp in Sources */,
 				80752262281191AE00C0AD39 /* ViewportPanel.cpp in Sources */,
 				8075224A2811730B00C0AD39 /* RenderCommand.cpp in Sources */,
+				80C4915F2812359E009FC5E3 /* OrthographicCamera.cpp in Sources */,
 				8075220A28109CA700C0AD39 /* EditorApplication.cpp in Sources */,
 				803AFF3F281068F7005C6FA6 /* EntryPoint.cpp in Sources */,
 				8075221D2810ADCB00C0AD39 /* Input.cpp in Sources */,
