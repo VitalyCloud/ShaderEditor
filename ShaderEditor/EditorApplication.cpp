@@ -62,6 +62,17 @@ public:
                 bool VSync = Engine::Application::Get().IsVSync();
                 if (ImGui::MenuItem("VSync", nullptr, &VSync))
                     Engine::Application::Get().SetVSync(!VSync);
+                
+                if(ImGui::BeginMenu("Style")) {
+                    if (ImGui::MenuItem("Light"))
+                        ImGui::StyleColorsLight();
+                    if (ImGui::MenuItem("Dark"))
+                        ImGui::StyleColorsDark();
+                    if (ImGui::MenuItem("Classic"))
+                        ImGui::StyleColorsClassic();
+                    
+                    ImGui::EndMenu();
+                }
                 ImGui::EndMenu();
             }
         });

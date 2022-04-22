@@ -225,10 +225,10 @@ void Application::Run() {
             
             if (m_MenubarCallback)
             {
-                if (ImGui::BeginMenuBar())
+                if (ImGui::BeginMainMenuBar())
                 {
                     m_MenubarCallback();
-                    ImGui::EndMenuBar();
+                    ImGui::EndMainMenuBar();
                 }
             }
             
@@ -253,6 +253,7 @@ void Application::Run() {
             ImGui::RenderPlatformWindowsDefault();
             glfwMakeContextCurrent(backup_current_context);
         }
+        ImGui::EndFrame();
     }
 }
 
