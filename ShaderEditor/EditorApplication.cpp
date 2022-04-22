@@ -14,7 +14,7 @@ namespace Editor {
 
 // TODO: [x] Assert
 // TODO: [x] Logging
-// TODO: [ ] Camera
+// TODO: [x] Camera
 
 // TODO: [x] Main Menu Bar
 
