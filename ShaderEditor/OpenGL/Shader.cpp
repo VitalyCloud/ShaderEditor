@@ -13,6 +13,8 @@
 #include <vector>
 #include <iostream>
 
+#include "Core/Assert.h"
+
 namespace OpenGL {
 
 Shader::Shader(const std::string &vertexSrc, const std::string &fragmentSrc) { 
@@ -32,7 +34,7 @@ Shader::Shader(const std::string &vertexSrc, const std::string &fragmentSrc) {
         glGetShaderInfoLog(vertexShader, maxLength, &maxLength, &infoLog[0]);
         glDeleteShader(vertexShader);
         
-        std::cerr << "Vertex Shader Compilation Failed: " << infoLog.data() << std::endl;
+        EN_CORE_ERROR("Vertex Shader Compilation Failed: {0}", infoLog.data());
         return;
     }
     
@@ -53,7 +55,7 @@ Shader::Shader(const std::string &vertexSrc, const std::string &fragmentSrc) {
         glDeleteShader(fragmentShader);
         glDeleteShader(vertexShader);
     
-        std::cerr << "Fragment Shader Compilation Failed: " << infoLog.data() << std::endl;
+        EN_CORE_ERROR("Fragment Shader Compilation Failed: {0}", infoLog.data());
         return;
     }
     
@@ -79,8 +81,7 @@ Shader::Shader(const std::string &vertexSrc, const std::string &fragmentSrc) {
         glDeleteShader(vertexShader);
         glDeleteShader(fragmentShader);
         
-        std::cerr << "Program Linking Failed:: " << infoLog.data() << std::endl;
-        
+        EN_CORE_ERROR("Program Linking Failed: {0}", infoLog.data());
         return;
     }
     

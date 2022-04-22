@@ -11,6 +11,9 @@
 #include "Events/MouseEvent.hpp"
 #include "Renderer/Renderer.hpp"
 
+#include "PlatformDetection.h"
+#include "Assert.h"
+
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 
@@ -20,12 +23,9 @@
 
 #include <iostream>
 
-
-#define EN_PLATFORM_MACOSX
-
 static void glfw_error_callback(int error, const char* description)
 {
-    fprintf(stderr, "Glfw Error %d: %s\n", error, description);
+    EN_CORE_ERROR("GLFW Error {0}: {1}", error, description);
 }
 
 namespace Engine {
@@ -35,7 +35,8 @@ namespace Engine {
 Application* Application::s_Application = nullptr;
 
 Application::Application(const ApplicationSpecification& specification){
-    assert(s_Application == nullptr);
+//    EN_ASSERT(s_Application, "Application is already created!");
+    EN_CORE_ASSERT(s_Application == nullptr);
     s_Application = this;
     m_Data.Title = specification.Name;
     m_Data.Width = specification.Width;
@@ -50,9 +51,8 @@ Application::~Application() {
 
 void Application::Init() {
     glfwSetErrorCallback(glfw_error_callback);
-    if(!glfwInit()) {
-        std::cerr << "Could not initializa GLFW!\n"; return;
-    }
+    
+    EN_CORE_ASSERT(glfwInit(), "Could not initializa GLFW!");
     
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
@@ -67,11 +67,9 @@ void Application::Init() {
     
     SetVSync(true);
     
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-    {
-        std::cerr << "Failed to initialize GLAD" << std::endl;
-        return;
-    }
+    EN_INFO("Application {0} created. Window size: {1}x{2}. VSync is {3}", m_Data.Title, m_Data.Width, m_Data.Height, m_Data.VSync);
+    
+    EN_CORE_ASSERT(gladLoadGLLoader((GLADloadproc)glfwGetProcAddress), "Failed to initialize GLAD");
     
     glfwSetWindowUserPointer(m_WindowHandle, &m_Data);
     SetCallbacks();

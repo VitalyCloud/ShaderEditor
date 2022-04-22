@@ -8,6 +8,8 @@
 #include "VertexArray.hpp"
 #include "glad/glad.h"
 
+#include "Core/Assert.h"
+
 namespace OpenGL {
 
 
@@ -29,7 +31,7 @@ static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type) {
         
     }
 
-    assert(false); // "Unknown ShaderDataType!"
+    EN_CORE_ASSERT(false, "Unknown ShaderDataType!");
     return 0;
 }
 
@@ -105,7 +107,7 @@ void VertexArray::AddVertexBuffer(const Engine::Ref<VertexBuffer> &vertexBuffer)
                 break;
             }
             default:
-                assert(false); // "Unknown ShaderDataType!"
+                EN_CORE_ASSERT(false, "Unknown ShaderDataType!");
         }
     }
     m_VertexBuffers.push_back(vertexBuffer);

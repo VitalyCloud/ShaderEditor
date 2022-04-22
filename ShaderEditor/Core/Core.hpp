@@ -8,6 +8,9 @@
 #ifndef Core_hpp
 #define Core_hpp
 
+#include "PlatformDetection.h"
+#include "Log.hpp"
+#include "Assert.h"
 #include "Application.hpp"
 #include "Layer.hpp"
 #include "Events/Event.hpp"
@@ -18,6 +21,7 @@
 #include "Input/KeyCodes.hpp"
 #include "Input/MouseCodes.hpp"
 #include "Memory.hpp"
+
 
 #include "glm/glm.hpp"
 #include "imgui.h"

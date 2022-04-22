@@ -12,15 +12,15 @@
 
 namespace Editor {
 
-// TODO: Assert
-// TODO: Logging
-// TODO: Camera
+// TODO: [x] Assert
+// TODO: [x] Logging
+// TODO: [ ] Camera
 
-// TODO: Main Menu Bar
+// TODO: [ ] Main Menu Bar
 
-// TODO: TextEditor Panel
-// TODO: Pipeline Panel
-// TODO: Inspector Panel
+// TODO: [ ] TextEditor Panel
+// TODO: [ ] Pipeline Panel
+// TODO: [ ] Inspector Panel
 
 // TODO: Textures
 
@@ -130,7 +130,7 @@ public:
     }
     
     void OnViewportResize(uint32_t width, uint32_t height) {
-        std::cout << "Viewport resized: " << width << "x" << height << std::endl;
+        EN_INFO("Viewport resized: {0}x{1}", width, height);
     }
     
 private:

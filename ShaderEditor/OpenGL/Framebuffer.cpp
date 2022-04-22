@@ -8,7 +8,8 @@
 #include "Framebuffer.hpp"
 
 #include "glad/glad.h"
-#include "assert.h"
+#include "Core/Assert.h"
+
 
 namespace OpenGL {
 
@@ -55,7 +56,7 @@ void Framebuffer::Invalidate() {
     
     
     // Check status
-    assert(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE); // "Framebuffer is not completed!"
+    EN_CORE_ASSERT(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE, "Framebuffer is not completed!")
     
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }

@@ -6,6 +6,7 @@
 //
 
 #include "Utils.hpp"
+#include "Log.hpp"
 
 #include <fstream>
 
@@ -27,11 +28,11 @@ std::optional<std::string> ReadFile(const std::string& filepath) {
             in.seekg(0, std::ios::beg);
             in.read(&result[0], size);
         } else {
-            // Could not read from file
+            EN_CORE_ERROR("Could not read from file: {0}", filepath);
             return {};
         }
     } else {
-        // Could not open file
+        EN_CORE_ERROR("Could not open file: {0}", filepath);
         return  {};
     }
     

@@ -26,6 +26,7 @@
 		8075225A28117F0900C0AD39 /* VertexArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8075225828117F0900C0AD39 /* VertexArray.cpp */; };
 		8075225E2811834700C0AD39 /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8075225C2811834700C0AD39 /* Renderer.cpp */; };
 		80752262281191AE00C0AD39 /* ViewportPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80752260281191AE00C0AD39 /* ViewportPanel.cpp */; };
+		80C4915328122BE7009FC5E3 /* Log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80C4915128122BE7009FC5E3 /* Log.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -82,6 +83,10 @@
 		8075225D2811834700C0AD39 /* Renderer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Renderer.hpp; sourceTree = "<group>"; };
 		80752260281191AE00C0AD39 /* ViewportPanel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ViewportPanel.cpp; sourceTree = "<group>"; };
 		80752261281191AE00C0AD39 /* ViewportPanel.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ViewportPanel.hpp; sourceTree = "<group>"; };
+		80C4915028122B2C009FC5E3 /* Assert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Assert.h; sourceTree = "<group>"; };
+		80C4915128122BE7009FC5E3 /* Log.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Log.cpp; sourceTree = "<group>"; };
+		80C4915228122BE7009FC5E3 /* Log.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Log.hpp; sourceTree = "<group>"; };
+		80C4915C28122E9D009FC5E3 /* PlatformDetection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlatformDetection.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +171,10 @@
 				807522502811769A00C0AD39 /* Memory.hpp */,
 				8075225328117AA500C0AD39 /* Utils.hpp */,
 				8075225228117AA500C0AD39 /* Utils.cpp */,
+				80C4915028122B2C009FC5E3 /* Assert.h */,
+				80C4915128122BE7009FC5E3 /* Log.cpp */,
+				80C4915228122BE7009FC5E3 /* Log.hpp */,
+				80C4915C28122E9D009FC5E3 /* PlatformDetection.h */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -289,6 +298,7 @@
 				8075225A28117F0900C0AD39 /* VertexArray.cpp in Sources */,
 				8075220428108FCF00C0AD39 /* Application.cpp in Sources */,
 				8075225728117C6B00C0AD39 /* Buffer.cpp in Sources */,
+				80C4915328122BE7009FC5E3 /* Log.cpp in Sources */,
 				8075223E2810B52900C0AD39 /* Framebuffer.cpp in Sources */,
 				8075224E2811764D00C0AD39 /* Shader.cpp in Sources */,
 				80752208281095A400C0AD39 /* ImGuiBuild.cpp in Sources */,
@@ -423,6 +433,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UF3GNY88D9;
 				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					GL_SILENCE_DEPRECATION,
+					EN_DEBUG,
+				);
 				HEADER_SEARCH_PATHS = (
 					Vendor/GLFW/include,
 					Vendor/Glad/include,
