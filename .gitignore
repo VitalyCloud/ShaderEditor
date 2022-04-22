@@ -1,2 +1,7 @@
 bin-int/
 bin/
+
+
+Vendor/*.xcworkspace
+Vendor/Glad/*.xcodeproj
+Vendor/Glad/bin
