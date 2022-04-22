@@ -4,15 +4,12 @@
 //
 //  Created by Vitaly Cloud on 20.04.2022.
 //
-
+#include "Core/pch.h"
 #include "Application.hpp"
 #include "Events/ApplicationEvent.hpp"
 #include "Events/KeyEvent.hpp"
 #include "Events/MouseEvent.hpp"
 #include "Renderer/Renderer.hpp"
-
-#include "PlatformDetection.h"
-#include "Assert.h"
 
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
@@ -21,7 +18,6 @@
 #include "backends/imgui_impl_glfw.h"
 #include "backends/imgui_impl_opengl3.h"
 
-#include <iostream>
 
 #include "ImGui/Roboto-Regular.embed"
 

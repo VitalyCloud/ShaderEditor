@@ -4,10 +4,9 @@
 //
 //  Created by Vitaly Cloud on 22.04.2022.
 //
-
+#include "Core/pch.h"
 #include "TextBufferView.hpp"
-#include "Core/Utils.hpp"
-#include <filesystem>
+
 
 namespace Editor {
 

@@ -94,6 +94,7 @@
 		80C4915D2812359E009FC5E3 /* OrthographicCamera.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = OrthographicCamera.hpp; sourceTree = "<group>"; };
 		80C4915E2812359E009FC5E3 /* OrthographicCamera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OrthographicCamera.cpp; sourceTree = "<group>"; };
 		80CA28292812F44500E53E94 /* Menlo-Regular.embed */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Menlo-Regular.embed"; sourceTree = "<group>"; };
+		80CA28342813462F00E53E94 /* pch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pch.h; sourceTree = "<group>"; };
 		80DCD4572812BF3400610807 /* TextBufferView.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TextBufferView.cpp; sourceTree = "<group>"; };
 		80DCD4582812BF3400610807 /* TextBufferView.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TextBufferView.hpp; sourceTree = "<group>"; };
 		80DCD45B2812C2C200610807 /* MacosXUtils.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MacosXUtils.mm; sourceTree = "<group>"; };
@@ -193,6 +194,7 @@
 				80C4915128122BE7009FC5E3 /* Log.cpp */,
 				80C4915228122BE7009FC5E3 /* Log.hpp */,
 				80C4915C28122E9D009FC5E3 /* PlatformDetection.h */,
+				80CA28342813462F00E53E94 /* pch.h */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -390,6 +392,8 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = ShaderEditor/Core/pch.h;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -447,6 +451,8 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = ShaderEditor/Core/pch.h;
 				GCC_PREPROCESSOR_DEFINITIONS = GL_SILENCE_DEPRECATION;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;

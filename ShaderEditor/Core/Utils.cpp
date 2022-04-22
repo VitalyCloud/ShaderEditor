@@ -4,11 +4,7 @@
 //
 //  Created by Vitaly Cloud on 21.04.2022.
 //
-
-#include "Utils.hpp"
-#include "Log.hpp"
-
-#include <fstream>
+#include "Core/pch.h"
 
 namespace Engine {
 namespace Utils {

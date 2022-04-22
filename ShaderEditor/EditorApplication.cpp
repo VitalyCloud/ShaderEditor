@@ -4,7 +4,7 @@
 //
 //  Created by Vitaly Cloud on 20.04.2022.
 //
-
+#include "Core/pch.h"
 #include "Core/Core.hpp"
 #include "OpenGL/OpenGL.hpp"
 #include "Renderer/Renderer.hpp"

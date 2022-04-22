@@ -4,12 +4,8 @@
 //
 //  Created by Vitaly Cloud on 22.04.2022.
 //
-
-#include "Core/Utils.hpp"
-#include "Core/Log.hpp"
-
+#include "Core/pch.h"
 #include <AppKit/AppKit.h>
-#include <string>
 
 std::string Engine::Utils::FileDialogs::OpenFile(const char* filter) {
     EN_CORE_WARN("Filter is not implemented!");

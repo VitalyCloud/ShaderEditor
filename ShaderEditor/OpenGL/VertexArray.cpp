@@ -4,11 +4,11 @@
 //
 //  Created by Vitaly Cloud on 21.04.2022.
 //
-
+#include "Core/pch.h"
 #include "VertexArray.hpp"
 #include "glad/glad.h"
 
-#include "Core/Assert.h"
+
 
 namespace OpenGL {
 

@@ -4,9 +4,9 @@
 //
 //  Created by Vitaly Cloud on 20.04.2022.
 //
-
+#include "Core/pch.h"
 #include "Application.hpp"
-#include "Log.hpp"
+
 
 extern Engine::Application* CreateApplication(int argc, char** argv);
 

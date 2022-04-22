@@ -4,16 +4,12 @@
 //
 //  Created by Vitaly Cloud on 21.04.2022.
 //
-
+#include "Core/pch.h"
 #include "Shader.hpp"
 #include "glad/glad.h"
 
 #include "glm/gtc/type_ptr.hpp"
 
-#include <vector>
-#include <iostream>
-
-#include "Core/Assert.h"
 
 namespace OpenGL {
 

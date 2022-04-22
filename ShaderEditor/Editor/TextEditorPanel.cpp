@@ -4,7 +4,7 @@
 //
 //  Created by Vitaly Cloud on 22.04.2022.
 //
-
+#include "Core/pch.h"
 #include "TextEditorPanel.hpp"
 #include "Core/ImGui/Menlo-Regular.embed"
 
