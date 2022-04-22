@@ -15,6 +15,7 @@
 #include <string>
 #include <memory>
 #include <vector>
+#include <functional>
 
 struct GLFWwindow;
 
@@ -41,6 +42,7 @@ public:
         static_assert(std::is_base_of<Layer, T>::value, "Pushed type is not subclass of Layer!");
         m_LayerStack.emplace_back(std::make_shared<T>())->OnAttach();
     }
+    void SetMenubarCallback(const std::function<void()>& menubarCallback) { m_MenubarCallback = menubarCallback; }
     
     void Close();
     
@@ -70,10 +72,12 @@ private:
     WindowData m_Data;
     
     GLFWwindow* m_WindowHandle = nullptr;
-    bool m_Running = false;
+    bool m_Running = true;
     
     using LayerStack = std::vector<std::shared_ptr<Layer>>;
     LayerStack m_LayerStack;
+    
+    std::function<void()> m_MenubarCallback;
 };
 
 // Implemented by CLIENT

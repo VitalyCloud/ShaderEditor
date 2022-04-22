@@ -142,7 +142,7 @@ void Application::Shutdown() {
 }
 
 void Application::Run() {
-    while(!glfwWindowShouldClose(m_WindowHandle)) {
+    while(!glfwWindowShouldClose(m_WindowHandle) && m_Running) {
         
         glfwSwapBuffers(m_WindowHandle);
         glfwPollEvents();
@@ -172,7 +172,10 @@ void Application::Run() {
 
             // We are using the ImGuiWindowFlags_NoDocking flag to make the parent window not dockable into,
             // because it would be confusing to have two docking targets within each others.
-            ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
+            ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoDocking;
+            if(m_MenubarCallback)
+                window_flags |= ImGuiWindowFlags_MenuBar;
+            
             if (opt_fullscreen)
             {
                 ImGuiViewport* viewport = ImGui::GetMainViewport();
@@ -212,6 +215,15 @@ void Application::Run() {
                 ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
             }
             style.WindowMinSize.x = minWinSizeX;
+            
+            if (m_MenubarCallback)
+            {
+                if (ImGui::BeginMenuBar())
+                {
+                    m_MenubarCallback();
+                    ImGui::EndMenuBar();
+                }
+            }
             
             // Rendering menus
             for(auto& layer: m_LayerStack) {

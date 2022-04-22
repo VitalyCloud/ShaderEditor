@@ -152,5 +152,17 @@ Engine::Application* Engine::CreateApplication(int argc, char** argv) {
     Engine::Application* app = new Engine::Application(spec);
     app->PushLayer<Editor::EditorLayer>();
  
+    app->SetMenubarCallback([app]()
+    {
+        if (ImGui::BeginMenu("File"))
+        {
+            if (ImGui::MenuItem("Exit"))
+            {
+                app->Close();
+            }
+            ImGui::EndMenu();
+        }
+    });
+    
     return app;
 }
