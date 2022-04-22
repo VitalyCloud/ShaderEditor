@@ -45,9 +45,9 @@ void TextBufferView::Draw(ImFont* font) {
     }
 }
 
-void TextBufferView::OnEvent(Engine::Event& event) {
-    Engine::EventDispatcher dispatcher(event);
-    dispatcher.Dispatch<Engine::KeyPressedEvent>(BIND_EVENT_FN(&TextBufferView::OnKeyPressed));
+void TextBufferView::OnEvent(Core::Event& event) {
+    Core::EventDispatcher dispatcher(event);
+    dispatcher.Dispatch<Core::KeyPressedEvent>(BIND_EVENT_FN(&TextBufferView::OnKeyPressed));
 }
 
 const std::string TextBufferView::GetTitle() {
@@ -59,17 +59,17 @@ const std::string TextBufferView::GetTitle() {
     }
 }
 
-bool TextBufferView::OnKeyPressed(Engine::KeyPressedEvent& event) {
+bool TextBufferView::OnKeyPressed(Core::KeyPressedEvent& event) {
     if (event.GetRepeatCount() > 0)
         return false;
-    bool control = Engine::Input::IsKeyPressed(Engine::Key::LeftControl) ||
-        Engine::Input::IsKeyPressed(Engine::Key::RightControl);
+    bool control = Core::Input::IsKeyPressed(Core::Key::LeftControl) ||
+        Core::Input::IsKeyPressed(Core::Key::RightControl);
     switch (event.GetKeyCode()) {
-    case Engine::Key::S:
+    case Core::Key::S:
         if (control)
             SaveFile();
         break;
-    case Engine::Key::O:
+    case Core::Key::O:
         if (control) {
             OpenFile();
         }
@@ -144,7 +144,7 @@ void TextBufferView::DrawMenuBar() {
 
 bool TextBufferView::OpenFile(const std::string &filepath) {
     if(!filepath.empty()) {
-        auto file = Engine::Utils::FileSystem::ReadFile(filepath);
+        auto file = Core::Utils::FileSystem::ReadFile(filepath);
         if(file.has_value()) {
             m_CurrentFilePath = filepath;
             m_Buffer.SetText(file.value());
@@ -154,7 +154,7 @@ bool TextBufferView::OpenFile(const std::string &filepath) {
             return true;
         }
     } else {
-        auto path = Engine::Utils::FileDialogs::OpenFile("");
+        auto path = Core::Utils::FileDialogs::OpenFile("");
         if(!path.empty()) {
             return OpenFile(path);
         }
@@ -165,9 +165,9 @@ bool TextBufferView::OpenFile(const std::string &filepath) {
 
 void TextBufferView::SaveFile() {
     if(m_CurrentFilePath.empty())
-        m_CurrentFilePath = Engine::Utils::FileDialogs::SaveFile("");
+        m_CurrentFilePath = Core::Utils::FileDialogs::SaveFile("");
     if(!m_CurrentFilePath.empty()) {
-        Engine::Utils::FileSystem::WriteFile(m_Buffer.GetText(), m_CurrentFilePath);
+        Core::Utils::FileSystem::WriteFile(m_Buffer.GetText(), m_CurrentFilePath);
         m_TextChanged = false;
     }
         

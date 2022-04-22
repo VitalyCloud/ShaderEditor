@@ -23,25 +23,25 @@ TextEditorPanel::~TextEditorPanel() {
     
 }
 
-void TextEditorPanel::OnEvent(Engine::Event &event) {
+void TextEditorPanel::OnEvent(Core::Event &event) {
     if (m_SelectedBuffer != nullptr)
         m_SelectedBuffer->OnEvent(event);
 }
 
 void TextEditorPanel::AddBuffer(const std::string filepath) {
-    Engine::Ref<TextBufferView> item = Engine::CreateRef<TextBufferView>();
+    Core::Ref<TextBufferView> item = Core::CreateRef<TextBufferView>();
     item->OpenFile(filepath);
     item->ShouldShow() = true;
     m_Buffers.push_back(item);
 }
 
 void TextEditorPanel::AddBuffer() {
-    Engine::Ref<TextBufferView> item = Engine::CreateRef<TextBufferView>();
+    Core::Ref<TextBufferView> item = Core::CreateRef<TextBufferView>();
     item->ShouldShow() = true;
     m_Buffers.push_back(item);
 }
 
-void TextEditorPanel::CloseBuffer(Engine::Ref<TextBufferView> buffer) {
+void TextEditorPanel::CloseBuffer(Core::Ref<TextBufferView> buffer) {
     auto it = std::find(m_Buffers.begin(), m_Buffers.end(), buffer);
     auto selected = m_Buffers.end();
     if (m_SelectedBuffer) {

@@ -6,7 +6,7 @@
 //
 #include "Core/pch.h"
 
-namespace Engine {
+namespace Core {
 namespace Utils {
 
 

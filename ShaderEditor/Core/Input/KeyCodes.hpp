@@ -2,7 +2,7 @@
 
 #include <stdint.h>
 
-namespace Engine
+namespace Core
 {
     using KeyCode = uint16_t;
     

@@ -21,7 +21,7 @@ public:
     ~TextBufferView();
     
     void Draw(ImFont* font = ImGui::GetIO().FontDefault);
-    void OnEvent(Engine::Event& event);
+    void OnEvent(Core::Event& event);
     
     bool OpenFile(const std::string& filepath = "");
     void SaveFile();
@@ -33,7 +33,7 @@ public:
     
 private:
     void DrawMenuBar();
-    bool OnKeyPressed(Engine::KeyPressedEvent& event);
+    bool OnKeyPressed(Core::KeyPressedEvent& event);
     
 private:
     TextEditor m_Buffer;

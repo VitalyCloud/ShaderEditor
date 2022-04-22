@@ -10,7 +10,7 @@
 
 #include <memory>
 
-namespace Engine {
+namespace Core {
     
     template<typename T>
     using Scope = std::unique_ptr<T>;

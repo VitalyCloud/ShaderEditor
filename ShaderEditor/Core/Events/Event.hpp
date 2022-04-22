@@ -5,7 +5,7 @@
 
 #define BIT(x) (1 << x)
 
-namespace Engine {
+namespace Core {
 
     enum class EventType {
         None = 0,

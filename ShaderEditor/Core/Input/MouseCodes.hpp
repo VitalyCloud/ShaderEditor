@@ -2,7 +2,7 @@
 
 #include <stdint.h>
 
-namespace Engine
+namespace Core
 {
 	using MouseCode = uint16_t;
 

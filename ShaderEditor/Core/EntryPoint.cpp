@@ -8,11 +8,11 @@
 #include "Application.hpp"
 
 
-extern Engine::Application* CreateApplication(int argc, char** argv);
+extern Core::Application* CreateApplication(int argc, char** argv);
 
 int main(int argc, char * argv[]) {
-    Engine::Log::Init();
-    Engine::Application* app = Engine::CreateApplication(argc, argv);
+    Core::Log::Init();
+    Core::Application* app = Core::CreateApplication(argc, argv);
     app->Run();
     delete app;
     

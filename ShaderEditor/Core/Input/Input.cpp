@@ -10,7 +10,7 @@
 
 #include "GLFW/glfw3.h"
 
-namespace Engine {
+namespace Core {
 
 bool Input::IsKeyPressed(KeyCode key)  {
     GLFWwindow* window = Application::Get().GetWindow();

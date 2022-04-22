@@ -25,7 +25,7 @@ namespace OpenGL {
 
         void EnableDepthTesting();
 
-        void DrawIndexed(const Engine::Ref<VertexArray>& vertexArray, uint32_t indexCount = 0);
+        void DrawIndexed(const Core::Ref<VertexArray>& vertexArray, uint32_t indexCount = 0);
     }
 
 }

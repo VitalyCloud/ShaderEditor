@@ -2,7 +2,7 @@
 
 #include "Event.hpp"
 
-namespace Engine {
+namespace Core {
 
 	class KeyEvent : public Event
 	{

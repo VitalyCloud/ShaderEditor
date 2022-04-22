@@ -4,7 +4,7 @@
 
 #include <sstream>
 
-namespace Engine {
+namespace Core {
 
     class WindowResizeEvent : public Event
     {

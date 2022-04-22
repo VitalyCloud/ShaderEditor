@@ -7,7 +7,7 @@
 #include "Core/pch.h"
 #include <AppKit/AppKit.h>
 
-std::string Engine::Utils::FileDialogs::OpenFile(const char* filter) {
+std::string Core::Utils::FileDialogs::OpenFile(const char* filter) {
     EN_CORE_WARN("Filter is not implemented!");
     std::string filePath;
     @autoreleasepool {
@@ -27,7 +27,7 @@ std::string Engine::Utils::FileDialogs::OpenFile(const char* filter) {
     return filePath;
 }
 
-std::string Engine::Utils::FileDialogs::SaveFile(const char* filter) {
+std::string Core::Utils::FileDialogs::SaveFile(const char* filter) {
     EN_CORE_WARN("Filter is not implemented!");
 //    EN_CORE_ERROR("SaveFile is not implemented in Macosx Platform");
     

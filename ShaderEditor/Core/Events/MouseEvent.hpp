@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Engine {
+namespace Core {
 
 	class MouseMovedEvent : public Event
 	{

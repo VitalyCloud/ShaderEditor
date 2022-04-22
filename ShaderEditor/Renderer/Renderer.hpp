@@ -22,7 +22,7 @@ namespace Renderer {
 
     void EndScene();
 
-    void Submit(const Engine::Ref<OpenGL::Shader> shader, const Engine::Ref<OpenGL::VertexArray>& vertexArray);
+    void Submit(const Core::Ref<OpenGL::Shader> shader, const Core::Ref<OpenGL::VertexArray>& vertexArray);
 
 }
 

@@ -10,7 +10,7 @@
 
 #include "Events/Event.hpp"
 
-namespace Engine {
+namespace Core {
     
 class Layer {
 public:

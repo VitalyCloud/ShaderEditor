@@ -21,20 +21,20 @@ public:
     ~TextEditorPanel();
     
     void Draw(const char* title, bool* p_open = nullptr);
-    void OnEvent(Engine::Event& event);
+    void OnEvent(Core::Event& event);
     
     void AddBuffer(const std::string filepath);
     void AddBuffer();
     
-    void CloseBuffer(Engine::Ref<TextBufferView> buffer);
+    void CloseBuffer(Core::Ref<TextBufferView> buffer);
     
 private:
     void DrawConfirmationWindow();
     
 private:
-    std::vector<Engine::Ref<TextBufferView>> m_Buffers;
-    std::vector<Engine::Ref<TextBufferView>> m_BuffersToClose;
-    Engine::Ref<TextBufferView> m_SelectedBuffer = nullptr;
+    std::vector<Core::Ref<TextBufferView>> m_Buffers;
+    std::vector<Core::Ref<TextBufferView>> m_BuffersToClose;
+    Core::Ref<TextBufferView> m_SelectedBuffer = nullptr;
     
     bool m_ConfirmationWindowDisplayed = false;
     ImFont* m_Font;

@@ -19,7 +19,7 @@
 
 struct GLFWwindow;
 
-namespace Engine {
+namespace Core {
 
 struct ApplicationSpecification {
     std::string Name = "Application";
@@ -60,7 +60,7 @@ private:
     
 private:
     static Application* s_Application;
-    using EventCallbackFn = std::function<void(Engine::Event&)>;
+    using EventCallbackFn = std::function<void(Core::Event&)>;
     struct WindowData
     {
         std::string Title;

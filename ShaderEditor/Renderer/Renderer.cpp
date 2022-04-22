@@ -13,7 +13,7 @@ namespace Renderer {
         glm::mat4 ViewProjectionMatrix;
     };
 
-    static Engine::Scope<SceneData> s_SceneData = Engine::CreateScope<SceneData>();
+    static Core::Scope<SceneData> s_SceneData = Core::CreateScope<SceneData>();
 
     void OnWindowResize(uint32_t width, uint32_t height) {
         OpenGL::RenderCommand::SetViewport(0, 0, width, height);
@@ -27,7 +27,7 @@ namespace Renderer {
         
     }
 
-    void Submit(const Engine::Ref<OpenGL::Shader> shader, const Engine::Ref<OpenGL::VertexArray>& vertexArray) {
+    void Submit(const Core::Ref<OpenGL::Shader> shader, const Core::Ref<OpenGL::VertexArray>& vertexArray) {
         
         shader->Bind();
         shader->SetMat4("u_ViewProjection", s_SceneData->ViewProjectionMatrix);

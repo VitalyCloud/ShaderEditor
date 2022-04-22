@@ -26,7 +26,7 @@ static void glfw_error_callback(int error, const char* description)
     EN_CORE_ERROR("GLFW Error {0}: {1}", error, description);
 }
 
-namespace Engine {
+namespace Core {
 
 #define BIND_EVENT_FN(x) std::bind(x, this, std::placeholders::_1)
 

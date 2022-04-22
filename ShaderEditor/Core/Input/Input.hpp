@@ -8,7 +8,7 @@
 
 #include <utility>
 
-namespace Engine {
+namespace Core {
 
     class Input
     {

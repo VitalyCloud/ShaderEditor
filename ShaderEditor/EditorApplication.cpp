@@ -25,12 +25,12 @@ namespace Editor {
 
 // TODO: [ ] Textures
 
-class EditorLayer: public Engine::Layer {
+class EditorLayer: public Core::Layer {
 public:
     
     EditorLayer() : m_Camera(-1.0f, 1.0f, -1.0f, 1.0f) {}
     
-    virtual void OnEvent(Engine::Event& event) override {
+    virtual void OnEvent(Core::Event& event) override {
         m_TextEditor.OnEvent(event);
     }
     
@@ -51,7 +51,7 @@ public:
         {
             if (ImGui::MenuItem("Exit"))
             {
-                Engine::Application::Get().Close();
+                Core::Application::Get().Close();
             }
             ImGui::EndMenu();
         }
@@ -68,9 +68,9 @@ public:
         }
         
         if (ImGui::BeginMenu("Settings")) {
-            bool VSync = Engine::Application::Get().IsVSync();
+            bool VSync = Core::Application::Get().IsVSync();
             if (ImGui::MenuItem("VSync", nullptr, VSync))
-                Engine::Application::Get().SetVSync(!VSync);
+                Core::Application::Get().SetVSync(!VSync);
             
             if(ImGui::BeginMenu("Style")) {
                 if (ImGui::MenuItem("Light"))
@@ -100,12 +100,12 @@ public:
         OpenGL::FramebufferSpecification spec;
         spec.Width = 800;
         spec.Height = 600;
-        m_Framebuffer = Engine::CreateRef<OpenGL::Framebuffer>(spec);
+        m_Framebuffer = Core::CreateRef<OpenGL::Framebuffer>(spec);
         m_Viewport.SetTexture((ImTextureID)(uintptr_t)m_Framebuffer->GetColorAttachmentRendererID());
         m_Viewport.SetResizeCallback(std::bind(&EditorLayer::OnViewportResize,
                                                this, std::placeholders::_1, std::placeholders::_2));
         
-        Engine::Application::Get().SetMenubarCallback(std::bind(&EditorLayer::OnMainMenuBar, this));
+        Core::Application::Get().SetMenubarCallback(std::bind(&EditorLayer::OnMainMenuBar, this));
         
         float a = 0.5f;
         
@@ -125,20 +125,20 @@ public:
             0, 1, 2
         };
         
-        auto postionBuffer = Engine::CreateRef<OpenGL::VertexBuffer>(positions, sizeof(positions));
+        auto postionBuffer = Core::CreateRef<OpenGL::VertexBuffer>(positions, sizeof(positions));
         postionBuffer->SetLayout({
             { OpenGL::ShaderDataType::Float2, "a_Position" },
             
         });
         
-        auto colorBuffer = Engine::CreateRef<OpenGL::VertexBuffer>(colors, sizeof(colors));
+        auto colorBuffer = Core::CreateRef<OpenGL::VertexBuffer>(colors, sizeof(colors));
         colorBuffer->SetLayout({
             { OpenGL::ShaderDataType::Float3, "a_Color" },
         });
         
-        auto indexBuffer = Engine::CreateRef<OpenGL::IndexBuffer>(indicies, sizeof(indicies) / sizeof(uint32_t));
+        auto indexBuffer = Core::CreateRef<OpenGL::IndexBuffer>(indicies, sizeof(indicies) / sizeof(uint32_t));
         
-        m_VertexArray = Engine::CreateRef<OpenGL::VertexArray>();
+        m_VertexArray = Core::CreateRef<OpenGL::VertexArray>();
         m_VertexArray->AddVertexBuffer(postionBuffer);
         m_VertexArray->AddVertexBuffer(colorBuffer);
         m_VertexArray->SetIndexBuffer(indexBuffer);
@@ -170,7 +170,7 @@ public:
             }
         )";
         
-        m_Shader = Engine::CreateRef<OpenGL::Shader>(vertexSrc, fragmentSrc);
+        m_Shader = Core::CreateRef<OpenGL::Shader>(vertexSrc, fragmentSrc);
     }
     
     
@@ -222,9 +222,9 @@ private:
     bool m_ShowImGuiDemo = false;
     bool m_ShowDebug = true;
     
-    Engine::Ref<OpenGL::Framebuffer> m_Framebuffer;
-    Engine::Ref<OpenGL::VertexArray> m_VertexArray;
-    Engine::Ref<OpenGL::Shader> m_Shader;
+    Core::Ref<OpenGL::Framebuffer> m_Framebuffer;
+    Core::Ref<OpenGL::VertexArray> m_VertexArray;
+    Core::Ref<OpenGL::Shader> m_Shader;
     Renderer::OrthographicCamera m_Camera;
     
     glm::vec3 m_CameraPostion = glm::vec3(0.0);
@@ -233,11 +233,11 @@ private:
 
 }
 
-Engine::Application* Engine::CreateApplication(int argc, char** argv) {
-    Engine::ApplicationSpecification spec;
+Core::Application* Core::CreateApplication(int argc, char** argv) {
+    Core::ApplicationSpecification spec;
     spec.Name = "ShaderEditor";
     
-    Engine::Application* app = new Engine::Application(spec);
+    Core::Application* app = new Core::Application(spec);
     app->PushLayer<Editor::EditorLayer>();
  
 //    app->SetMenubarCallback([app]()

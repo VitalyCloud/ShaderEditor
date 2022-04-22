@@ -22,17 +22,17 @@ public:
     void Bind();
     void Unbind();
     
-    void AddVertexBuffer(const Engine::Ref<VertexBuffer>& vertexBuffer);
-    void SetIndexBuffer(const Engine::Ref<IndexBuffer>& indexBuffer);
+    void AddVertexBuffer(const Core::Ref<VertexBuffer>& vertexBuffer);
+    void SetIndexBuffer(const Core::Ref<IndexBuffer>& indexBuffer);
     
-    const std::vector<Engine::Ref<VertexBuffer>>& GetVertexBuffers() const { return m_VertexBuffers; }
-    const Engine::Ref<IndexBuffer>& GetIndexBuffer() const { return m_IndexBuffer; }
+    const std::vector<Core::Ref<VertexBuffer>>& GetVertexBuffers() const { return m_VertexBuffers; }
+    const Core::Ref<IndexBuffer>& GetIndexBuffer() const { return m_IndexBuffer; }
     
 private:
     uint32_t m_RendererID;
     uint32_t m_VertexBufferIndex = 0;
-    std::vector<Engine::Ref<VertexBuffer>> m_VertexBuffers;
-    Engine::Ref<IndexBuffer> m_IndexBuffer;
+    std::vector<Core::Ref<VertexBuffer>> m_VertexBuffers;
+    Core::Ref<IndexBuffer> m_IndexBuffer;
 };
 
 }

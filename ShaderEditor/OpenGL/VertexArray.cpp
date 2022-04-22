@@ -52,7 +52,7 @@ void VertexArray::Unbind() {
     glBindVertexArray(0);
 }
 
-void VertexArray::AddVertexBuffer(const Engine::Ref<VertexBuffer> &vertexBuffer) { 
+void VertexArray::AddVertexBuffer(const Core::Ref<VertexBuffer> &vertexBuffer) { 
     
     assert(vertexBuffer->GetLayout().GetElements().size()); // "Vertex Buffer has no layout!"
     
@@ -113,7 +113,7 @@ void VertexArray::AddVertexBuffer(const Engine::Ref<VertexBuffer> &vertexBuffer)
     m_VertexBuffers.push_back(vertexBuffer);
 }
 
-void VertexArray::SetIndexBuffer(const Engine::Ref<IndexBuffer> &indexBuffer) { 
+void VertexArray::SetIndexBuffer(const Core::Ref<IndexBuffer> &indexBuffer) { 
     glBindVertexArray(m_RendererID);
     indexBuffer->Bind();
     m_IndexBuffer = indexBuffer;

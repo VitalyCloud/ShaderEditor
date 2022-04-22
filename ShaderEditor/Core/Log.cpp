@@ -9,7 +9,7 @@
 
 #include "spdlog/sinks/stdout_color_sinks.h"
 
-namespace Engine {
+namespace Core {
     Ref<spdlog::logger> Log::s_CoreLogger;
     Ref<spdlog::logger> Log::s_ClientLogger;
     
