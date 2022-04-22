@@ -37,8 +37,7 @@ namespace Engine {
 Application* Application::s_Application = nullptr;
 
 Application::Application(const ApplicationSpecification& specification){
-//    EN_ASSERT(s_Application, "Application is already created!");
-    EN_CORE_ASSERT(s_Application == nullptr);
+    EN_CORE_ASSERT(s_Application == nullptr, "Application is already created!");
     s_Application = this;
     m_Data.Title = specification.Name;
     m_Data.Width = specification.Width;
