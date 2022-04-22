@@ -1,12 +1,12 @@
 //
-//  OpenGL.h
+//  OpenGL.hpp
 //  ShaderEditor
 //
 //  Created by Vitaly Cloud on 21.04.2022.
 //
 
-#ifndef OpenGL_h
-#define OpenGL_h
+#ifndef OpenGL_hpp
+#define OpenGL_hpp
 
 #include "Framebuffer.hpp"
 #include "RenderCommand.hpp"
@@ -14,4 +14,4 @@
 #include "Buffer.hpp"
 #include "VertexArray.hpp"
 
-#endif /* OpenGL_h */
+#endif /* OpenGL_hpp */

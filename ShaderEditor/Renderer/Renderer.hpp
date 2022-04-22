@@ -11,7 +11,7 @@
 #include <stdint.h>
 
 #include "Core/Core.hpp"
-#include "OpenGL/OpenGL.h"
+#include "OpenGL/OpenGL.hpp"
 #include "OrthographicCamera.hpp"
 
 namespace Renderer {

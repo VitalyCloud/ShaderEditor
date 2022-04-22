@@ -6,9 +6,10 @@
 //
 
 #include "Core/Core.hpp"
-#include "OpenGL/OpenGL.h"
+#include "OpenGL/OpenGL.hpp"
 #include "Renderer/Renderer.hpp"
 #include "Editor/ViewportPanel.hpp"
+#include "Editor/TextEditorPanel.hpp"
 
 namespace Editor {
 
@@ -127,13 +128,14 @@ public:
         ImGui::End();
         
         m_Viewport.Draw("Viewport");
+        m_TextEditor.Draw("Text Editor");
         
         
         ImGui::ShowDemoWindow();
     }
     
     virtual void OnEvent(Engine::Event& event) override {
-        
+        m_TextEditor.OnEvent(event);
     }
     
     void OnViewportResize(uint32_t width, uint32_t height) {
@@ -151,6 +153,7 @@ public:
     
 private:
     ViewportPanel m_Viewport;
+    TextEditorPanel m_TextEditor;
     
     Engine::Ref<OpenGL::Framebuffer> m_Framebuffer;
     Engine::Ref<OpenGL::VertexArray> m_VertexArray;

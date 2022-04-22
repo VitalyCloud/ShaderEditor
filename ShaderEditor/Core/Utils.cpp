@@ -13,7 +13,8 @@
 namespace Engine {
 namespace Utils {
 
-std::optional<std::string> ReadFile(const std::string& filepath) {
+
+std::optional<std::string> FileSystem::ReadFile(const std::string& filepath) {
     
     std::string result;
     // ifstream closes itself due to RAII
@@ -37,6 +38,18 @@ std::optional<std::string> ReadFile(const std::string& filepath) {
     }
     
     return result;
+}
+
+
+void FileSystem::WriteFile(const std::string& content, const std::string& filepath) {
+    std::ofstream out(filepath);
+    if(out.good()) {
+        out << content;
+        EN_INFO("File '{0}' saved", filepath);
+    } else {
+        EN_ERROR("File '{0}' is not saved", filepath);
+    }
+    out.close();
 }
 
 

@@ -11,17 +11,25 @@
 #include <optional>
 
 namespace Engine {
-
 namespace Utils {
 
 
-std::optional<std::string> ReadFile(const std::string& filepath);
+class FileDialogs
+{
+public:
+    // To be difined by Platforms
+    static std::string OpenFile(const char* filter);
+    static std::string SaveFile(const char* filter);
+};
 
 
+class FileSystem
+{
+public:
+    static std::optional<std::string> ReadFile(const std::string& filepath);
+    static void WriteFile(const std::string& content, const std::string& filepath);
+};
 
-}
-
-
-}
+}}
 
 #endif /* Utils_hpp */
