@@ -14,7 +14,7 @@ TextBufferView::TextBufferView() {
     auto lang = TextEditor::LanguageDefinition::GLSL();
     m_Buffer.SetLanguageDefinition(lang);
     m_Buffer.SetShowWhitespaces(false);
-    m_Buffer.SetPalette(TextEditor::GetLightPalette());
+    m_Buffer.SetPalette(TextEditor::GetDarkPalette());
     m_Buffer.SetText("");
 }
 

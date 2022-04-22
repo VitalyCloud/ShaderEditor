@@ -60,7 +60,7 @@ public:
             
             if (ImGui::BeginMenu("Settings")) {
                 bool VSync = Engine::Application::Get().IsVSync();
-                if (ImGui::MenuItem("VSync", nullptr, &VSync))
+                if (ImGui::MenuItem("VSync", nullptr, VSync))
                     Engine::Application::Get().SetVSync(!VSync);
                 
                 if(ImGui::BeginMenu("Style")) {
@@ -74,6 +74,16 @@ public:
                     ImGui::EndMenu();
                 }
                 ImGui::EndMenu();
+            }
+            ImGui::Separator();
+            {
+                const float FramesPerSecond = ImGui::GetIO().Framerate;
+                const float Frametime = 1000.0f / FramesPerSecond;
+                const auto fps = fmt::format("{0:.2f} FPS ({1:.2f} ms)",
+                    FramesPerSecond, Frametime);
+                auto size = ImGui::CalcTextSize(fps.c_str());
+                ImGui::SameLine(0, ImGui::GetContentRegionAvail().x - size.x);
+                ImGui::Text("%s", fps.c_str());
             }
         });
         
@@ -160,9 +170,13 @@ public:
     }
     
     virtual void OnUIRender() override {
-        ImGui::Begin("Hello");
-        ImGui::ColorEdit4("Clear Color", &m_ClearColor.x);
-        ImGui::DragFloat3("Camera: ", &m_CameraPostion.x, 0.1, -10, 10);
+        ImGui::Begin("Debug");
+        ImGui::Text("Clear color:");
+        ImGui::SameLine();
+        ImGui::ColorEdit4("##ClearColorInput", &m_ClearColor.x);
+        ImGui::Text("Camera position:");
+        ImGui::SameLine();
+        ImGui::DragFloat3("##CameraPositionInput", &m_CameraPostion.x, 0.1, -10, 10);
         ImGui::End();
         
         if(m_ShowViewport)
