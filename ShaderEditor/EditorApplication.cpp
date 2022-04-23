@@ -11,6 +11,8 @@
 #include "Editor/ViewportPanel.hpp"
 #include "Editor/TextEditorPanel.hpp"
 
+#include "Editor/UniformView.hpp"
+
 namespace Editor {
 
 // TODO: [x] Assert
@@ -200,6 +202,7 @@ public:
             ImGui::Text("Camera position:");
             ImGui::SameLine();
             ImGui::DragFloat3("##CameraPositionInput", &m_CameraPostion.x, 0.1, -10, 10);
+            m_UniformView.Draw();
             ImGui::End();
         }
         
@@ -216,6 +219,7 @@ public:
 private:
     ViewportPanel m_Viewport;
     TextEditorPanel m_TextEditor;
+    UniformView m_UniformView;
     
     bool m_ShowViewport = true;
     bool m_ShowTextEditor = true;
@@ -239,18 +243,6 @@ Core::Application* Core::CreateApplication(int argc, char** argv) {
     
     Core::Application* app = new Core::Application(spec);
     app->PushLayer<Editor::EditorLayer>();
- 
-//    app->SetMenubarCallback([app]()
-//    {
-//        if (ImGui::BeginMenu("File"))
-//        {
-//            if (ImGui::MenuItem("Exit"))
-//            {
-//                app->Close();
-//            }
-//            ImGui::EndMenu();
-//        }
-//    });
     
     return app;
 }

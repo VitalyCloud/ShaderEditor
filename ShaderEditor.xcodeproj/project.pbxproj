@@ -26,6 +26,9 @@
 		8075225A28117F0900C0AD39 /* VertexArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8075225828117F0900C0AD39 /* VertexArray.cpp */; };
 		8075225E2811834700C0AD39 /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8075225C2811834700C0AD39 /* Renderer.cpp */; };
 		80752262281191AE00C0AD39 /* ViewportPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80752260281191AE00C0AD39 /* ViewportPanel.cpp */; };
+		808FA13E281412B6009E669E /* UniformView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 808FA13C281412B6009E669E /* UniformView.cpp */; };
+		808FA14628141B39009E669E /* UniformBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 808FA14428141B39009E669E /* UniformBuffer.cpp */; };
+		808FA14928142598009E669E /* ImGuiHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 808FA14728142598009E669E /* ImGuiHelper.cpp */; };
 		80C4915328122BE7009FC5E3 /* Log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80C4915128122BE7009FC5E3 /* Log.cpp */; };
 		80C4915F2812359E009FC5E3 /* OrthographicCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80C4915E2812359E009FC5E3 /* OrthographicCamera.cpp */; };
 		80DCD4592812BF3400610807 /* TextBufferView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80DCD4572812BF3400610807 /* TextBufferView.cpp */; };
@@ -87,6 +90,12 @@
 		8075225D2811834700C0AD39 /* Renderer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Renderer.hpp; sourceTree = "<group>"; };
 		80752260281191AE00C0AD39 /* ViewportPanel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ViewportPanel.cpp; sourceTree = "<group>"; };
 		80752261281191AE00C0AD39 /* ViewportPanel.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ViewportPanel.hpp; sourceTree = "<group>"; };
+		808FA13C281412B6009E669E /* UniformView.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UniformView.cpp; sourceTree = "<group>"; };
+		808FA13D281412B6009E669E /* UniformView.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UniformView.hpp; sourceTree = "<group>"; };
+		808FA14428141B39009E669E /* UniformBuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UniformBuffer.cpp; sourceTree = "<group>"; };
+		808FA14528141B39009E669E /* UniformBuffer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UniformBuffer.hpp; sourceTree = "<group>"; };
+		808FA14728142598009E669E /* ImGuiHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImGuiHelper.cpp; sourceTree = "<group>"; };
+		808FA14828142598009E669E /* ImGuiHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImGuiHelper.h; sourceTree = "<group>"; };
 		80C4915028122B2C009FC5E3 /* Assert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Assert.h; sourceTree = "<group>"; };
 		80C4915128122BE7009FC5E3 /* Log.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Log.cpp; sourceTree = "<group>"; };
 		80C4915228122BE7009FC5E3 /* Log.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Log.hpp; sourceTree = "<group>"; };
@@ -253,12 +262,18 @@
 		8075225F2811917100C0AD39 /* Editor */ = {
 			isa = PBXGroup;
 			children = (
+				808FA14728142598009E669E /* ImGuiHelper.cpp */,
+				808FA14828142598009E669E /* ImGuiHelper.h */,
 				80752260281191AE00C0AD39 /* ViewportPanel.cpp */,
 				80752261281191AE00C0AD39 /* ViewportPanel.hpp */,
 				80DCD4572812BF3400610807 /* TextBufferView.cpp */,
 				80DCD4582812BF3400610807 /* TextBufferView.hpp */,
 				80DCD4642812CD5400610807 /* TextEditorPanel.cpp */,
 				80DCD4652812CD5400610807 /* TextEditorPanel.hpp */,
+				808FA13C281412B6009E669E /* UniformView.cpp */,
+				808FA13D281412B6009E669E /* UniformView.hpp */,
+				808FA14428141B39009E669E /* UniformBuffer.cpp */,
+				808FA14528141B39009E669E /* UniformBuffer.hpp */,
 			);
 			path = Editor;
 			sourceTree = "<group>";
@@ -328,11 +343,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				808FA14628141B39009E669E /* UniformBuffer.cpp in Sources */,
 				8075225E2811834700C0AD39 /* Renderer.cpp in Sources */,
 				8075225A28117F0900C0AD39 /* VertexArray.cpp in Sources */,
+				808FA14928142598009E669E /* ImGuiHelper.cpp in Sources */,
 				8075220428108FCF00C0AD39 /* Application.cpp in Sources */,
 				8075225728117C6B00C0AD39 /* Buffer.cpp in Sources */,
 				80C4915328122BE7009FC5E3 /* Log.cpp in Sources */,
+				808FA13E281412B6009E669E /* UniformView.cpp in Sources */,
 				8075223E2810B52900C0AD39 /* Framebuffer.cpp in Sources */,
 				8075224E2811764D00C0AD39 /* Shader.cpp in Sources */,
 				80752208281095A400C0AD39 /* ImGuiBuild.cpp in Sources */,
