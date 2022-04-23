@@ -23,6 +23,22 @@ UniformView::~UniformView() {
     
 }
 
+static const char* const s_Types[] = {
+    "None",
+    "Float",
+    "Float2",
+    "Float3",
+    "Float4",
+    "Mat3",
+    "Mat4",
+    "Int",
+    "Int2",
+    "Int3",
+    "Int4",
+    "Bool"
+};
+
+
 void UniformView::Draw()  {
     ImGui::BeginChild("UniformView");
     ImGui::Separator();
@@ -52,7 +68,11 @@ void UniformView::Draw()  {
             // Type
             ImGui::TableSetColumnIndex(1);
             ImGui::PushItemWidth(ImGui::GetColumnWidth());
-            ImGui::Text("%s", OpenGL::ShaderDataTypeTitle(uniform.Type));
+            int selectedType = static_cast<int>(uniform.Type) - 1;
+            if(ImGui::Combo("##Type", &selectedType, s_Types+1, OpenGL::ShaderDataTypeCount() -1)) {
+                auto newType = OpenGL::ShaderDataType(selectedType + 1);
+                m_Uniforms.ChangeType(i, newType);
+            }
             ImGui::PopItemWidth();
             
             // Value

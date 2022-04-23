@@ -64,10 +64,17 @@ public:
     }
     
     void Delete(int index) {
-        int offset = GetDataOffsetForIndex(index);
-        uint32_t dataSize = OpenGL::ShaderDataTypeSize(m_Uniforms[index].Type);
-        m_Buffer.erase(m_Buffer.begin() + offset, m_Buffer.begin() + offset + dataSize);
+        DeleteDataAtIndex(index);
         m_Uniforms.erase(m_Uniforms.begin() + index);
+    }
+    
+    void ChangeType(int index, OpenGL::ShaderDataType type) {
+        if(m_Uniforms[index].Type == type) { return; }
+        DeleteDataAtIndex(index);
+        int offset = GetDataOffsetForIndex(index);
+        uint32_t newTypeSize = OpenGL::ShaderDataTypeSize(type);
+        m_Buffer.insert(m_Buffer.begin() + offset, newTypeSize, 0);
+        m_Uniforms[index].Type = type;
     }
     
 private:
@@ -79,6 +86,12 @@ private:
             offset += m_Uniforms[i].Size();
         }
         return offset;
+    }
+    
+    void DeleteDataAtIndex(int index) {
+        int offset = GetDataOffsetForIndex(index);
+        uint32_t dataSize = OpenGL::ShaderDataTypeSize(m_Uniforms[index].Type);
+        m_Buffer.erase(m_Buffer.begin() + offset, m_Buffer.begin() + offset + dataSize);
     }
     
 private:
