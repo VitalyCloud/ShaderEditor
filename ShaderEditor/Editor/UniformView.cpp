@@ -43,7 +43,7 @@ void UniformView::Draw()  {
         ImGui::TableSetupColumn("Value");
         ImGui::TableHeadersRow();
         
-        for(int i=0; i<m_Uniforms.Size(); i++) {
+        for(int i=0; i<m_Uniforms.Count(); i++) {
             ImGui::TableNextRow();
             ImGui::PushID(i);
             
@@ -85,7 +85,7 @@ void UniformView::Draw()  {
         ImGui::EndTable();
     }
     if(ImGui::Button("Add unifom")) {
-        m_Uniforms.PushUnifrom();
+        m_Uniforms.PushUniform();
     }
     if(ImGui::IsItemClicked(ImGuiMouseButton_Right)) {
         ImGui::OpenPopup("NewUniformType");
@@ -116,40 +116,50 @@ static const char* const s_WidgetType[] = {
 };
 
 void UniformView::DrawInputSettings(int i) {
+    Uniform& uniform = m_Uniforms[i];
     if(ImGui::BeginPopup("InputSettings")) {
-        int count = 3;
-        if(m_Uniforms.GetUniform(i).Type == OpenGL::ShaderDataType::Float3 ||
-           m_Uniforms.GetUniform(i).Type == OpenGL::ShaderDataType::Float4)
-            count = 4;
         
-        int current = static_cast<int>(m_Uniforms.GetUniform(i).Settings.Type);
+        int count;
+        switch(uniform.Type) {
+            case OpenGL::ShaderDataType::Float3:
+            case OpenGL::ShaderDataType::Float4:
+            case OpenGL::ShaderDataType::Mat3:
+            case OpenGL::ShaderDataType::Mat4:
+                count = 4;
+                break;
+            default:
+                count = 3;
+                break;
+        }
+        
+        int current = static_cast<int>(uniform.Settings.Type);
         ImGui::PushItemWidth(200);
         if(ImGui::ListBox("##items", &current, s_WidgetType, count)) {
             EN_INFO("Selected: {0}", s_WidgetType[current]);
-            m_Uniforms.GetUniform(i).Settings.Type = ImGuiWidgetType(current);
+            uniform.Settings.Type = ImGuiWidgetType(current);
         }
         ImGui::PopItemWidth();
         
-        if(m_Uniforms.GetUniform(i).Settings.Type == ImGuiWidgetType::Slider ||
-           (m_Uniforms.GetUniform(i).Type != OpenGL::ShaderDataType::Int &&
-           m_Uniforms.GetUniform(i).Type != OpenGL::ShaderDataType::Int2 &&
-           m_Uniforms.GetUniform(i).Type != OpenGL::ShaderDataType::Int3 &&
-           m_Uniforms.GetUniform(i).Type != OpenGL::ShaderDataType::Int4)) {
+        if(uniform.Settings.Type == ImGuiWidgetType::Slider ||
+           (uniform.Type != OpenGL::ShaderDataType::Int &&
+            uniform.Type != OpenGL::ShaderDataType::Int2 &&
+            uniform.Type != OpenGL::ShaderDataType::Int3 &&
+            uniform.Type != OpenGL::ShaderDataType::Int4)) {
             
-            if(m_Uniforms.GetUniform(i).Settings.Type == ImGuiWidgetType::Drag) {
+            if(uniform.Settings.Type == ImGuiWidgetType::Drag) {
                 ImGui::Separator();
-                ImGui::Checkbox("UseRange", &m_Uniforms.GetUniform(i).Settings.UseRange);
+                ImGui::Checkbox("UseRange", &m_Uniforms[i].Settings.UseRange);
                 if(m_Uniforms.GetUniform(i).Settings.UseRange) {
                     ImGui::PushItemWidth(100);
-                    ImGui::InputFloat("Min", &m_Uniforms.GetUniform(i).Settings.Min);
-                    ImGui::InputFloat("Max", &m_Uniforms.GetUniform(i).Settings.Max);
+                    ImGui::InputFloat("Min", &m_Uniforms[i].Settings.Min);
+                    ImGui::InputFloat("Max", &m_Uniforms[i].Settings.Max);
                     ImGui::PopItemWidth();
                 }
-            } else if (m_Uniforms.GetUniform(i).Settings.Type == ImGuiWidgetType::Slider) {
+            } else if (uniform.Settings.Type == ImGuiWidgetType::Slider) {
                 ImGui::Separator();
                 ImGui::PushItemWidth(100);
-                ImGui::InputFloat("Min", &m_Uniforms.GetUniform(i).Settings.Min);
-                ImGui::InputFloat("Max", &m_Uniforms.GetUniform(i).Settings.Max);
+                ImGui::InputFloat("Min", &m_Uniforms[i].Settings.Min);
+                ImGui::InputFloat("Max", &m_Uniforms[i].Settings.Max);
                 ImGui::PopItemWidth();
             }
         }

@@ -25,78 +25,31 @@ struct Uniform {
             OpenGL::ShaderDataType type = OpenGL::ShaderDataType::Float)
     : Title(title), Type(type) {}
     
-    uint32_t Size() {
-        return OpenGL::ShaderDataTypeSize(Type);
-    }
+    uint32_t Size() { return OpenGL::ShaderDataTypeSize(Type); }
 };
 
 class UniformBuffer {
 public:
-    UniformBuffer() {
-        auto floatSize = OpenGL::ShaderDataTypeSize(OpenGL::ShaderDataType::Float);
-        auto size = floatSize * 10;
-        m_Buffer.reserve(size);
-    }
+    UniformBuffer();
     
-    ~UniformBuffer() {}
+    ~UniformBuffer();
     
-    size_t Size() { return m_Uniforms.size(); }
+    void PushUniform(OpenGL::ShaderDataType type = OpenGL::ShaderDataType::Float);
+    void ChangeType(int index, OpenGL::ShaderDataType type);
     
-    void PushUnifrom() {
-        m_Uniforms.emplace_back();
-        auto floatSize = OpenGL::ShaderDataTypeSize(OpenGL::ShaderDataType::Float);
-        m_Buffer.resize(m_Buffer.size() + floatSize, 0);
-    }
+    size_t Count() { return m_Uniforms.size(); }
     
-    void PushUniform(OpenGL::ShaderDataType type) {
-        m_Uniforms.emplace_back("New Uniform", type);
-        auto typeSize = OpenGL::ShaderDataTypeSize(type);
-        m_Buffer.resize(m_Buffer.size() + typeSize, 0);
-    }
+    Uniform& GetUniform(int index) { return m_Uniforms[index]; }
+    char* GetUniformData(int index) { return GetData(GetDataOffsetForIndex(index)); }
     
-    Uniform& GetUniform(int index) {
-        return m_Uniforms[index];
-    }
+    void Delete(int index) { DeleteDataAtIndex(index); m_Uniforms.erase(m_Uniforms.begin() + index);}
     
-    char* GetUniformData(int index) {
-        int offset = GetDataOffsetForIndex(index);
-        return GetData(offset);
-    }
-    
-    char* GetData(int offset) {
-        return &m_Buffer[offset];
-    }
-    
-    void Delete(int index) {
-        DeleteDataAtIndex(index);
-        m_Uniforms.erase(m_Uniforms.begin() + index);
-    }
-    
-    void ChangeType(int index, OpenGL::ShaderDataType type) {
-        if(m_Uniforms[index].Type == type) { return; }
-        DeleteDataAtIndex(index);
-        int offset = GetDataOffsetForIndex(index);
-        uint32_t newTypeSize = OpenGL::ShaderDataTypeSize(type);
-        m_Buffer.insert(m_Buffer.begin() + offset, newTypeSize, 0);
-        m_Uniforms[index].Type = type;
-    }
+    Uniform& operator[](int index) { return GetUniform(index); }
     
 private:
-    uint32_t GetDataOffsetForIndex(int index) {
-        uint32_t offset = 0;
-        for(size_t i=0; i<m_Uniforms.size(); i++) {
-            if(i == index)
-                break;
-            offset += m_Uniforms[i].Size();
-        }
-        return offset;
-    }
-    
-    void DeleteDataAtIndex(int index) {
-        int offset = GetDataOffsetForIndex(index);
-        uint32_t dataSize = OpenGL::ShaderDataTypeSize(m_Uniforms[index].Type);
-        m_Buffer.erase(m_Buffer.begin() + offset, m_Buffer.begin() + offset + dataSize);
-    }
+    char* GetData(int offset) { return &m_Buffer[offset]; }
+    uint32_t GetDataOffsetForIndex(int index);
+    void DeleteDataAtIndex(int index);
     
 private:
     std::vector<Uniform> m_Uniforms;
