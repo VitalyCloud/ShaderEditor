@@ -8,6 +8,7 @@
 #include "UniformView.hpp"
 #include "Core/Core.hpp"
 #include "ImGuiHelper.h"
+#include "ImGuiInputSettings.hpp"
 
 namespace Editor {
 
@@ -84,7 +85,7 @@ void UniformView::Draw()  {
         }
         ImGui::EndTable();
     }
-    if(ImGui::Button("Add unifom")) {
+    if(ImGui::Button("Add uniform")) {
         m_Uniforms.PushUniform();
     }
     if(ImGui::IsItemClicked(ImGuiMouseButton_Right)) {
@@ -108,61 +109,13 @@ void UniformView::Draw()  {
     ImGui::EndChild();
 }
 
-static const char* const s_WidgetType[] = {
-    "Input",
-    "Drag",
-    "Slider",
-    "Color",
-};
-
 void UniformView::DrawInputSettings(int i) {
     Uniform& uniform = m_Uniforms[i];
+    OpenGL::ShaderDataType type = uniform.Type;
+    InputSettings* settings = &uniform.Settings;
+
     if(ImGui::BeginPopup("InputSettings")) {
-        
-        int count;
-        switch(uniform.Type) {
-            case OpenGL::ShaderDataType::Float3:
-            case OpenGL::ShaderDataType::Float4:
-            case OpenGL::ShaderDataType::Mat3:
-            case OpenGL::ShaderDataType::Mat4:
-                count = 4;
-                break;
-            default:
-                count = 3;
-                break;
-        }
-        
-        int current = static_cast<int>(uniform.Settings.Type);
-        ImGui::PushItemWidth(200);
-        if(ImGui::ListBox("##items", &current, s_WidgetType, count)) {
-            EN_INFO("Selected: {0}", s_WidgetType[current]);
-            uniform.Settings.Type = ImGuiWidgetType(current);
-        }
-        ImGui::PopItemWidth();
-        
-        if(uniform.Settings.Type == ImGuiWidgetType::Slider ||
-           (uniform.Type != OpenGL::ShaderDataType::Int &&
-            uniform.Type != OpenGL::ShaderDataType::Int2 &&
-            uniform.Type != OpenGL::ShaderDataType::Int3 &&
-            uniform.Type != OpenGL::ShaderDataType::Int4)) {
-            
-            if(uniform.Settings.Type == ImGuiWidgetType::Drag) {
-                ImGui::Separator();
-                ImGui::Checkbox("UseRange", &m_Uniforms[i].Settings.UseRange);
-                if(m_Uniforms.GetUniform(i).Settings.UseRange) {
-                    ImGui::PushItemWidth(100);
-                    ImGui::InputFloat("Min", &m_Uniforms[i].Settings.Min);
-                    ImGui::InputFloat("Max", &m_Uniforms[i].Settings.Max);
-                    ImGui::PopItemWidth();
-                }
-            } else if (uniform.Settings.Type == ImGuiWidgetType::Slider) {
-                ImGui::Separator();
-                ImGui::PushItemWidth(100);
-                ImGui::InputFloat("Min", &m_Uniforms[i].Settings.Min);
-                ImGui::InputFloat("Max", &m_Uniforms[i].Settings.Max);
-                ImGui::PopItemWidth();
-            }
-        }
+        DrawInputSettingsView(type, settings);
         ImGui::EndPopup();
     }
 }
@@ -173,24 +126,24 @@ void UniformView::DrawUniformInput(Uniform& uniform, void* data) {
         case OpenGL::ShaderDataType::Float2:
         case OpenGL::ShaderDataType::Float3:
         case OpenGL::ShaderDataType::Float4:
-            ImGui::DrawInputFloat((float*)data, &uniform.Settings, OpenGL::ShaderDataTypeComponentCount(uniform.Type));
+            DrawInputFloat((float*)data, &uniform.Settings, OpenGL::ShaderDataTypeComponentCount(uniform.Type));
             break;
         case OpenGL::ShaderDataType::Int:
         case OpenGL::ShaderDataType::Int2:
         case OpenGL::ShaderDataType::Int3:
         case OpenGL::ShaderDataType::Int4:
-            ImGui::DrawInputInt((int*)data, &uniform.Settings, OpenGL::ShaderDataTypeComponentCount(uniform.Type));
+            DrawInputInt((int*)data, &uniform.Settings, OpenGL::ShaderDataTypeComponentCount(uniform.Type));
             break;
         case OpenGL::ShaderDataType::Bool:
             ImGui::Checkbox("##bool", (bool*)data);
             break;
         
         case OpenGL::ShaderDataType::Mat3: {
-            ImGui::DrawInputMat((float*)data, &uniform.Settings, 3);
+            DrawInputMat((float*)data, &uniform.Settings, 3);
             break;
         }
         case OpenGL::ShaderDataType::Mat4: {
-            ImGui::DrawInputMat((float*)data, &uniform.Settings, 4);
+            DrawInputMat((float*)data, &uniform.Settings, 4);
             break;
         }
         default:

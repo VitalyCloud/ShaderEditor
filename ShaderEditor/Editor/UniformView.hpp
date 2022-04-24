@@ -23,8 +23,6 @@ private:
     void DrawUniformTypeInput(const OpenGL::ShaderDataType& type, void* data);
     void DrawInputSettings(int index);
     void DrawUniformInput(Uniform& uniform, void* data);
-    void DrawInputFloat(Uniform& uniform, void* data);
-    void DrawInputInt(Uniform& uniform, void* data);
 private:
     UniformBuffer m_Uniforms;
     

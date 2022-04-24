@@ -11,7 +11,7 @@
 #include <vector>
 #include "OpenGL/Buffer.hpp"
 
-#include "ImGuiInputSettings.h"
+#include "ImGuiInputSettings.hpp"
 
 namespace Editor {
 
