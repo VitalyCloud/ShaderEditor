@@ -13,6 +13,7 @@
 
 #include "Editor/UniformView.hpp"
 #include "Editor/VertexView.hpp"
+#include "Editor/IndexView.hpp"
 
 namespace Editor {
 
@@ -213,6 +214,9 @@ public:
         ImGui::Begin("Vertex Buffers");
         m_VertexView.Draw();
         ImGui::End();
+        ImGui::Begin("Index Buffer");
+        m_IndexView.Draw();
+        ImGui::End();
         
         if(m_ShowViewport)
             m_Viewport.Draw("Viewport", &m_ShowViewport);
@@ -229,6 +233,7 @@ private:
     TextEditorPanel m_TextEditor;
     UniformView m_UniformView;
     VertexView m_VertexView;
+    IndexView m_IndexView;
     
     bool m_ShowViewport = false;
     bool m_ShowTextEditor = false;
