@@ -25,24 +25,28 @@ VertexView::~VertexView() {
 void VertexView::Draw() {
     ImGui::BeginChild("VertexBufferTableView");
     auto layoutElements = m_VertexBuffer.GetLayoutElements();
-    if(ImGui::BeginTable("VertexBufferTable", (int)layoutElements.size())) {
+    if(ImGui::BeginTable("VertexBufferTable", (int)layoutElements.size()+1)) {
         
+        ImGui::TableSetupColumn("Index", ImGuiTableColumnFlags_WidthFixed, 50);
         for(auto& element: layoutElements) {
             ImGui::TableSetupColumn(element.Element.Name.c_str());
         }
         
         ImGui::TableNextRow(ImGuiTableRowFlags_Headers);
         
-        for(int i=0; i<layoutElements.size(); i++) {
+        ImGui::TableSetColumnIndex(0);
+        ImGui::Text("Index");
+        
+        for(int i=1; i<layoutElements.size()+1; i++) {
             ImGui::TableSetColumnIndex(i);
             ImGui::PushID(i);
             
-            ImGui::Text("%s", layoutElements[i].Element.Name.c_str());
+            ImGui::Text("%s", layoutElements[i-1].Element.Name.c_str());
             if(ImGui::IsItemClicked(ImGuiMouseButton_Right)) {
                 ImGui::OpenPopup("BufferElementPopup");
             }
             
-            DrawBufferElementPopup(i);
+            DrawBufferElementPopup(i-1);
             
             ImGui::PopID();
         }
@@ -51,14 +55,23 @@ void VertexView::Draw() {
             ImGui::PushID(i);
             ImGui::TableNextRow();
             
+            ImGui::PushID(0);
+            ImGui::TableSetColumnIndex(0);
+            if(ImGui::Button("x")) {
+                EN_INFO("Delete {0}", i);
+                m_VertexBuffer.RemoveVertex(i);
+            }
+            ImGui::SameLine();
+            ImGui::Text("%d", i);
+            ImGui::PopID();
             
-            for(int j=0; j<layoutElements.size(); j++) {
+            for(int j=1; j<layoutElements.size()+1; j++) {
                 ImGui::PushID(j);
                 ImGui::TableSetColumnIndex(j);
                 
-                char* componentData = m_VertexBuffer.GetVertexComponent(i, j);
+                char* componentData = m_VertexBuffer.GetVertexComponent(i, j-1);
                 ImGui::PushItemWidth(ImGui::GetColumnWidth());
-                DrawTableDataInput(m_VertexBuffer.GetLayoutElements()[j], componentData);
+                DrawTableDataInput(m_VertexBuffer.GetLayoutElements()[j-1], componentData);
                 ImGui::PopItemWidth();
                 
                 ImGui::PopID();
