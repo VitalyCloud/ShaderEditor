@@ -1,0 +1,282 @@
+//
+//  ImGuiInputSettings.cpp
+//  ShaderEditor
+//
+//  Created by Vitaly Cloud on 24.04.2022.
+//
+#include "Core/pch.h"
+#include "ImGuiInputSettings.hpp"
+
+#include "imgui.h"
+
+namespace Editor {
+
+void DrawInputSettingsView(OpenGL::ShaderDataType type, InputSettings* settings) {
+    assert(settings != nullptr);
+    static const char* const s_WidgetType[] = {
+        "Input",
+        "Drag",
+        "Slider",
+        "Color",
+    };
+    
+    int count;
+    switch(type) {
+        case OpenGL::ShaderDataType::Float3:
+        case OpenGL::ShaderDataType::Float4:
+        case OpenGL::ShaderDataType::Mat3:
+        case OpenGL::ShaderDataType::Mat4:
+            count = 4;
+            break;
+        default:
+            count = 3;
+            break;
+    }
+    
+    int current = static_cast<int>(settings->Type);
+    ImGui::PushItemWidth(200);
+    if(ImGui::ListBox("##items", &current, s_WidgetType, count))
+        settings->Type = ImGuiWidgetType(current);
+    ImGui::PopItemWidth();
+    
+    if(settings->Type == ImGuiWidgetType::Slider ||
+       settings->Type == ImGuiWidgetType::Drag) {
+        
+        ImGui::Separator();
+        ImGui::PushItemWidth(100);
+        ImGui::InputFloat("Speed", &settings->Speed);
+        ImGui::PopItemWidth();
+        
+        if(settings->Type == ImGuiWidgetType::Drag &&
+           (type != OpenGL::ShaderDataType::Int &&
+            type != OpenGL::ShaderDataType::Int2 &&
+            type != OpenGL::ShaderDataType::Int3 &&
+            type != OpenGL::ShaderDataType::Int4)) {
+            ImGui::Checkbox("UseRange", &settings->UseRange);
+            if(settings->UseRange) {
+                ImGui::PushItemWidth(100);
+                ImGui::InputFloat("Min", &settings->Min);
+                ImGui::InputFloat("Max", &settings->Max);
+                ImGui::PopItemWidth();
+            }
+        } else if (settings->Type == ImGuiWidgetType::Slider) {
+            ImGui::PushItemWidth(100);
+            ImGui::InputFloat("Min", &settings->Min);
+            ImGui::InputFloat("Max", &settings->Max);
+            ImGui::PopItemWidth();
+        }
+    }
+}
+
+bool DrawInputFloat(float* data, const InputSettings* settings, int count) {
+    assert(count > 0 && count < 5);
+    assert(settings != nullptr);
+    switch (count) {
+        case 1:
+            switch (settings->Type) {
+                case ImGuiWidgetType::Input:
+                    return ImGui::InputFloat("##InputFloat", data);
+                case ImGuiWidgetType::Drag:
+                    if (settings->UseRange)
+                        return ImGui::DragFloat("##DragFloat", data, settings->Speed, settings->Min, settings->Max);
+                    else
+                        return ImGui::DragFloat("##DragFloat", data, settings->Speed);
+                case ImGuiWidgetType::Slider:
+                    return ImGui::SliderFloat("##SliderFloat", data, settings->Min, settings->Max);
+                case ImGuiWidgetType::Color:
+                    return false;
+            }
+            break;
+        case 2:
+            switch (settings->Type) {
+                case ImGuiWidgetType::Input:
+                    return ImGui::InputFloat2("##InputFloat2", data);
+                case ImGuiWidgetType::Drag:
+                    if (settings->UseRange)
+                        return ImGui::DragFloat2("##DragFloat2", data, settings->Speed, settings->Min, settings->Max);
+                    else
+                        return ImGui::DragFloat2("##DragFloat2", data, settings->Speed);
+                case ImGuiWidgetType::Slider:
+                    return ImGui::SliderFloat2("##SliderFloat2", data, settings->Min, settings->Max);
+                case ImGuiWidgetType::Color:
+                    return false;
+            }
+            break;
+        case 3:
+            switch (settings->Type) {
+                case ImGuiWidgetType::Input:
+                    return ImGui::InputFloat3("##InputFloat3", data);
+                case ImGuiWidgetType::Drag:
+                    if (settings->UseRange)
+                        return ImGui::DragFloat3("##DragFloat3", data, settings->Speed, settings->Min, settings->Max);
+                    else
+                        return ImGui::DragFloat3("##DragFloat3", data, settings->Speed);
+                case ImGuiWidgetType::Slider:
+                    return ImGui::SliderFloat3("##SliderFloat3", data, settings->Min, settings->Max);
+                case ImGuiWidgetType::Color:
+                    return ImGui::ColorEdit3("##ColorFloat3", data);
+            }
+            break;
+        case 4:
+            switch (settings->Type) {
+                case ImGuiWidgetType::Input: {
+                    return ImGui::InputFloat4("##InputFloat4", data);
+                }
+                case ImGuiWidgetType::Drag:
+                    if (settings->UseRange)
+                        return ImGui::DragFloat4("##DragFloat4", data, settings->Speed, settings->Min, settings->Max);
+                    else
+                        return ImGui::DragFloat4("##DragFloat4", data, settings->Speed);
+                case ImGuiWidgetType::Slider:
+                    return ImGui::SliderFloat4("##SliderFloat4", data, settings->Min, settings->Max);
+                case ImGuiWidgetType::Color:
+                    return ImGui::ColorEdit4("##ColorFloat4", data, ImGuiColorEditFlags_NoTooltip);
+            }
+            break;
+        default:
+            return false;
+    }
+}
+
+bool DrawInputInt(int* data, const InputSettings* settings, int count) {
+    assert(count > 0 && count < 5);
+    assert(settings != nullptr);
+    switch (count) {
+        case 1:
+            switch (settings->Type) {
+                case ImGuiWidgetType::Input:
+                    return ImGui::InputInt("##InputInt", data);
+                case ImGuiWidgetType::Drag:
+                    return ImGui::DragInt("##DragInt", data);
+                case ImGuiWidgetType::Slider:
+                    return ImGui::SliderInt("##SliderInt", data, settings->Min, settings->Max);
+                case ImGuiWidgetType::Color:
+                    return false;
+            }
+            break;
+        case 2:
+            switch (settings->Type) {
+                case ImGuiWidgetType::Input:
+                    return ImGui::InputInt2("##InputInt2", data);
+                case ImGuiWidgetType::Drag:
+                    return ImGui::DragInt2("##DragInt2", data);
+                case ImGuiWidgetType::Slider:
+                    return ImGui::SliderInt2("##SliderInt2", data, settings->Min, settings->Max);
+                case ImGuiWidgetType::Color:
+                    return false;
+            }
+            break;
+        case 3:
+            switch (settings->Type) {
+                case ImGuiWidgetType::Input:
+                    return ImGui::InputInt3("##InputInt3", data);
+                case ImGuiWidgetType::Drag:
+                    return ImGui::DragInt3("##DragInt3", data);
+                case ImGuiWidgetType::Slider:
+                    return ImGui::SliderInt3("##SliderInt3", data, settings->Min, settings->Max);
+                case ImGuiWidgetType::Color:
+                    return false;
+            }
+            break;
+        case 4:
+            switch (settings->Type) {
+                case ImGuiWidgetType::Input:
+                    return ImGui::InputInt4("##InputInt4", (int*) data);
+                case ImGuiWidgetType::Drag:
+                    return ImGui::DragInt4("##DragInt4", (int*) data);
+                case ImGuiWidgetType::Slider:
+                    return ImGui::SliderInt4("##SliderInt4", (int*) data, settings->Min, settings->Max);
+                case ImGuiWidgetType::Color:
+                    return false;
+            }
+            break;
+        default:
+            return false;
+    }
+}
+
+bool DrawInputMat(float* data, const InputSettings* settings, int count) {
+    assert(count > 2 && count < 5);
+    assert(settings != nullptr);
+    switch (count) {
+        case 3:
+            switch (settings->Type) {
+                case ImGuiWidgetType::Input: {
+                    bool changed1 = ImGui::InputFloat3("##InputMat3_1", data + 0);
+                    bool changed2 = ImGui::InputFloat3("##InputMat3_2", data + 3);
+                    bool changed3 = ImGui::InputFloat3("##InputMat3_3", data + 6);
+                    return changed1 || changed2 || changed3;
+                }
+                case ImGuiWidgetType::Drag: {
+                    if (settings->UseRange) {
+                        bool changed1 = ImGui::DragFloat3("##DragMat3_1", data + 0, settings->Speed, settings->Min, settings->Max);
+                        bool changed2 = ImGui::DragFloat3("##DragMat3_2", data + 3, settings->Speed, settings->Min, settings->Max);
+                        bool changed3 = ImGui::DragFloat3("##DragMat3_3", data + 6, settings->Speed, settings->Min, settings->Max);
+                        return changed1 || changed2 || changed3;
+                    } else {
+                        bool changed1 = ImGui::DragFloat3("##DragMat3_1", data + 0, settings->Speed);
+                        bool changed2 = ImGui::DragFloat3("##DragMat3_2", data + 3, settings->Speed);
+                        bool changed3 = ImGui::DragFloat3("##DragMat3_3", data + 6, settings->Speed);
+                        return changed1 || changed2 || changed3;
+                    }
+                }
+                case ImGuiWidgetType::Slider: {
+                    bool changed1 = ImGui::SliderFloat3("##SliderMat3_1", data + 0, settings->Min, settings->Max);
+                    bool changed2 = ImGui::SliderFloat3("##SliderMat3_2", data + 3, settings->Min, settings->Max);
+                    bool changed3 = ImGui::SliderFloat3("##SliderMat3_3", data + 6, settings->Min, settings->Max);
+                    return changed1 || changed2 || changed3;
+                }
+                case ImGuiWidgetType::Color: {
+                    bool changed1 = ImGui::ColorEdit3("##ColorMat3_1", data + 0);
+                    bool changed2 = ImGui::ColorEdit3("##ColorMat3_2", data + 3);
+                    bool changed3 = ImGui::ColorEdit3("##ColorMat3_3", data + 6);
+                    return changed1 || changed2 || changed3;
+                }
+            }
+            break;
+        case 4:
+            switch (settings->Type) {
+                case ImGuiWidgetType::Input: {
+                    bool changed1 = ImGui::InputFloat4("##InputMat4_1", data + 0);
+                    bool changed2 = ImGui::InputFloat4("##InputMat4_2", data + 4);
+                    bool changed3 = ImGui::InputFloat4("##InputMat4_3", data + 8);
+                    bool changed4 = ImGui::InputFloat4("##InputMat4_4", data + 12);
+                    return changed1 || changed2 || changed3 || changed4;
+                }
+                case ImGuiWidgetType::Drag: {
+                    if (settings->UseRange) {
+                        bool changed1 = ImGui::DragFloat4("##DragMat4_1", data + 0, settings->Speed, settings->Min, settings->Max);
+                        bool changed2 = ImGui::DragFloat4("##DragMat4_2", data + 4, settings->Speed, settings->Min, settings->Max);
+                        bool changed3 = ImGui::DragFloat4("##DragMat4_3", data + 8, settings->Speed, settings->Min, settings->Max);
+                        bool changed4 = ImGui::DragFloat4("##DragMat4_4", data + 12, settings->Speed, settings->Min, settings->Max);
+                        return changed1 || changed2 || changed3 || changed4;
+                    } else {
+                        bool changed1 = ImGui::DragFloat4("##DragMat4_1", data + 0, settings->Speed);
+                        bool changed2 = ImGui::DragFloat4("##DragMat4_2", data + 4, settings->Speed);
+                        bool changed3 = ImGui::DragFloat4("##DragMat4_3", data + 8, settings->Speed);
+                        bool changed4 = ImGui::DragFloat4("##DragMat4_4", data + 12, settings->Speed);
+                        return changed1 || changed2 || changed3 || changed4;
+                    }
+                }
+                case ImGuiWidgetType::Slider: {
+                    bool changed1 = ImGui::SliderFloat4("##SliderMat4_1", data + 0, settings->Min, settings->Max);
+                    bool changed2 = ImGui::SliderFloat4("##SliderMat4_2", data + 4, settings->Min, settings->Max);
+                    bool changed3 = ImGui::SliderFloat4("##SliderMat4_3", data + 8, settings->Min, settings->Max);
+                    bool changed4 = ImGui::SliderFloat4("##SliderMat4_4", data + 12, settings->Min, settings->Max);
+                    return changed1 || changed2 || changed3 || changed4;
+                }
+                case ImGuiWidgetType::Color: {
+                    bool changed1 = ImGui::ColorEdit3("##ColorMat4_1", data + 0);
+                    bool changed2 = ImGui::ColorEdit3("##ColorMat4_2", data + 4);
+                    bool changed3 = ImGui::ColorEdit3("##ColorMat4_3", data + 8);
+                    bool changed4 = ImGui::ColorEdit3("##ColorMat4_4", data + 12);
+                    return changed1 || changed2 || changed3 || changed4;
+                }
+            }
+            break;
+        default:
+            return false;
+    }
+}
+
+}
