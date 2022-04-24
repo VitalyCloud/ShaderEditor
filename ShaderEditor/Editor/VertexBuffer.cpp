@@ -22,13 +22,13 @@ VertexBuffer::VertexBuffer(int reserve) {
 VertexBuffer::~VertexBuffer() {}
 
 void VertexBuffer::PushLayoutElement(const OpenGL::BufferElement& element) {
-    m_Layout.push_back(element);
+    m_Layout.push_back(VertexBufferElement(element));
     m_VertexSize = GetVertexSize();
     
     int elementIndex = (int)m_Layout.size() - 1;
     
     auto elementOffset = GetLayoutElementOffsetForIndex(elementIndex);
-    auto elementSize = m_Layout[elementIndex].Size;
+    auto elementSize = m_Layout[elementIndex].Element.Size;
     
     m_Buffer.reserve(m_VertexSize * m_VertexCount);
     auto iterator = m_Buffer.begin();
@@ -42,7 +42,7 @@ void VertexBuffer::InsertLayoutElement(int position, OpenGL::BufferElement& elem
     m_VertexSize = GetVertexSize();
     
     auto elementOffset = GetLayoutElementOffsetForIndex(position);
-    auto elementSize = m_Layout[position].Size;
+    auto elementSize = m_Layout[position].Element.Size;
     
     m_Buffer.reserve(m_VertexSize * m_VertexCount);
     auto iterator = m_Buffer.begin();
@@ -53,7 +53,7 @@ void VertexBuffer::InsertLayoutElement(int position, OpenGL::BufferElement& elem
 
 void VertexBuffer::RemoveLayoutElement(int position) {
     auto elementOffset = GetLayoutElementOffsetForIndex(position);
-    auto elementSize = m_Layout[position].Size;
+    auto elementSize = m_Layout[position].Element.Size;
     
     auto iterator = m_Buffer.begin();
     for(int i=0; i<m_VertexCount; i++, iterator += m_VertexSize - elementSize) {
@@ -77,7 +77,7 @@ void VertexBuffer::RemoveVertex(int position) {
 }
 
 void VertexBuffer::ChangeElementType(int position, OpenGL::ShaderDataType type) {
-    OpenGL::BufferElement oldElement = m_Layout[position];
+    OpenGL::BufferElement oldElement = m_Layout[position].Element;
     OpenGL::BufferElement newElement = OpenGL::BufferElement(type, oldElement.Name, oldElement.Normalized);
     
     RemoveLayoutElement(position);
@@ -91,7 +91,7 @@ char* VertexBuffer::GetVertexComponent(int vertexIndex, int componentIndex) {
 uint32_t VertexBuffer::GetVertexSize() {
     uint32_t size = 0;
     for(auto& element: m_Layout) {
-        size += element.Size;
+        size += element.Element.Size;
     }
     return size;
 }
@@ -103,7 +103,7 @@ uint32_t VertexBuffer::GetVertexOffsetForIndex(int index) {
 uint32_t VertexBuffer::GetLayoutElementOffsetForIndex(int index) {
     uint32_t offset = 0;
     for(int i=0; i<index; i++) {
-        offset += m_Layout[i].Size;
+        offset += m_Layout[i].Element.Size;
     }
     return offset;
 }

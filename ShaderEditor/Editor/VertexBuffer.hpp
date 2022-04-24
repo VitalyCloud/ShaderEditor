@@ -9,9 +9,15 @@
 #define VertexBuffer_hpp
 
 #include "OpenGL/Buffer.hpp"
-
+#include "ImGuiInputSettings.hpp"
 
 namespace Editor {
+
+struct VertexBufferElement {
+    InputSettings Settings;
+    OpenGL::BufferElement Element;
+    VertexBufferElement(const OpenGL::BufferElement& element) : Element(element) {}
+};
 
 class VertexBuffer
 {
@@ -30,14 +36,14 @@ public:
 
     uint32_t VertexCount() { return m_VertexCount; }
     
-    std::vector<OpenGL::BufferElement>& GetLayoutElements() { return m_Layout; }
+    std::vector<VertexBufferElement>& GetLayoutElements() { return m_Layout; }
 private:
     uint32_t GetVertexSize();
     uint32_t GetVertexOffsetForIndex(int index);
     uint32_t GetLayoutElementOffsetForIndex(int index);
     
 private:
-    std::vector<OpenGL::BufferElement> m_Layout;
+    std::vector<VertexBufferElement> m_Layout;
     std::vector<char> m_Buffer;
     
     uint32_t m_VertexCount = 0;
