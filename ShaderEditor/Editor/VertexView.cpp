@@ -7,6 +7,7 @@
 
 #include "Core/pch.h"
 #include "VertexView.hpp"
+#include "ImGuiHelper.h"
 
 #include "imgui.h"
 
@@ -149,6 +150,8 @@ void VertexView::DrawTableDataInput(const OpenGL::ShaderDataType& type, void* da
 
 void VertexView::DrawBufferElementPopup(int index) {
     if(ImGui::BeginPopup("BufferElementPopup")) {
+        
+        ImGui::InputText("##elementName", &m_VertexBuffer.GetLayoutElements()[index].Name);
         
         if(ImGui::Selectable("Delete")) {
             if(m_VertexBuffer.GetLayoutElements().size() > 1)

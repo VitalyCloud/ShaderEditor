@@ -36,7 +36,6 @@ static const char* const s_Types[] = {
 
 void UniformView::Draw()  {
     ImGui::BeginChild("UniformView");
-    ImGui::Separator();
     
     if(ImGui::BeginTable("Uniforms", 3, ImGuiTableFlags_Resizable)) {
         ImGui::TableSetupColumn("Titile");
@@ -85,7 +84,7 @@ void UniformView::Draw()  {
         }
         ImGui::EndTable();
     }
-    if(ImGui::Button("+")) {
+    if(ImGui::Button("Add unifom")) {
         m_Uniforms.PushUnifrom();
     }
     if(ImGui::IsItemClicked(ImGuiMouseButton_Right)) {

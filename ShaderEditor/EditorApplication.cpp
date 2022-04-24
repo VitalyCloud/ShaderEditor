@@ -203,9 +203,16 @@ public:
             ImGui::Text("Camera position:");
             ImGui::SameLine();
             ImGui::DragFloat3("##CameraPositionInput", &m_CameraPostion.x, 0.1, -10, 10);
-            m_UniformView.Draw();
+            
             ImGui::End();
         }
+        
+        ImGui::Begin("Uniforms");
+        m_UniformView.Draw();
+        ImGui::End();
+        ImGui::Begin("Vertex Buffers");
+        m_VertexView.Draw();
+        ImGui::End();
         
         if(m_ShowViewport)
             m_Viewport.Draw("Viewport", &m_ShowViewport);
@@ -223,10 +230,10 @@ private:
     UniformView m_UniformView;
     VertexView m_VertexView;
     
-    bool m_ShowViewport = true;
-    bool m_ShowTextEditor = true;
+    bool m_ShowViewport = false;
+    bool m_ShowTextEditor = false;
     bool m_ShowImGuiDemo = false;
-    bool m_ShowDebug = true;
+    bool m_ShowDebug = false;
     
     Core::Ref<OpenGL::Framebuffer> m_Framebuffer;
     Core::Ref<OpenGL::VertexArray> m_VertexArray;
