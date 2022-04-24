@@ -26,6 +26,8 @@
 		8075225A28117F0900C0AD39 /* VertexArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8075225828117F0900C0AD39 /* VertexArray.cpp */; };
 		8075225E2811834700C0AD39 /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8075225C2811834700C0AD39 /* Renderer.cpp */; };
 		80752262281191AE00C0AD39 /* ViewportPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80752260281191AE00C0AD39 /* ViewportPanel.cpp */; };
+		807E4B5728156B76004918CF /* VertexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 807E4B5528156B76004918CF /* VertexBuffer.cpp */; };
+		807E4B5A28157EC4004918CF /* VertexView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 807E4B5828157EC4004918CF /* VertexView.cpp */; };
 		808FA13E281412B6009E669E /* UniformView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 808FA13C281412B6009E669E /* UniformView.cpp */; };
 		808FA14628141B39009E669E /* UniformBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 808FA14428141B39009E669E /* UniformBuffer.cpp */; };
 		808FA14928142598009E669E /* ImGuiHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 808FA14728142598009E669E /* ImGuiHelper.cpp */; };
@@ -90,6 +92,10 @@
 		8075225D2811834700C0AD39 /* Renderer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Renderer.hpp; sourceTree = "<group>"; };
 		80752260281191AE00C0AD39 /* ViewportPanel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ViewportPanel.cpp; sourceTree = "<group>"; };
 		80752261281191AE00C0AD39 /* ViewportPanel.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ViewportPanel.hpp; sourceTree = "<group>"; };
+		807E4B5528156B76004918CF /* VertexBuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VertexBuffer.cpp; sourceTree = "<group>"; };
+		807E4B5628156B76004918CF /* VertexBuffer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VertexBuffer.hpp; sourceTree = "<group>"; };
+		807E4B5828157EC4004918CF /* VertexView.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VertexView.cpp; sourceTree = "<group>"; };
+		807E4B5928157EC4004918CF /* VertexView.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VertexView.hpp; sourceTree = "<group>"; };
 		808FA13C281412B6009E669E /* UniformView.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UniformView.cpp; sourceTree = "<group>"; };
 		808FA13D281412B6009E669E /* UniformView.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UniformView.hpp; sourceTree = "<group>"; };
 		808FA14428141B39009E669E /* UniformBuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UniformBuffer.cpp; sourceTree = "<group>"; };
@@ -274,6 +280,10 @@
 				808FA13D281412B6009E669E /* UniformView.hpp */,
 				808FA14428141B39009E669E /* UniformBuffer.cpp */,
 				808FA14528141B39009E669E /* UniformBuffer.hpp */,
+				807E4B5528156B76004918CF /* VertexBuffer.cpp */,
+				807E4B5628156B76004918CF /* VertexBuffer.hpp */,
+				807E4B5828157EC4004918CF /* VertexView.cpp */,
+				807E4B5928157EC4004918CF /* VertexView.hpp */,
 			);
 			path = Editor;
 			sourceTree = "<group>";
@@ -347,6 +357,7 @@
 				8075225E2811834700C0AD39 /* Renderer.cpp in Sources */,
 				8075225A28117F0900C0AD39 /* VertexArray.cpp in Sources */,
 				808FA14928142598009E669E /* ImGuiHelper.cpp in Sources */,
+				807E4B5A28157EC4004918CF /* VertexView.cpp in Sources */,
 				8075220428108FCF00C0AD39 /* Application.cpp in Sources */,
 				8075225728117C6B00C0AD39 /* Buffer.cpp in Sources */,
 				80C4915328122BE7009FC5E3 /* Log.cpp in Sources */,
@@ -358,6 +369,7 @@
 				8075225428117AA500C0AD39 /* Utils.cpp in Sources */,
 				80752262281191AE00C0AD39 /* ViewportPanel.cpp in Sources */,
 				80DCD4592812BF3400610807 /* TextBufferView.cpp in Sources */,
+				807E4B5728156B76004918CF /* VertexBuffer.cpp in Sources */,
 				8075224A2811730B00C0AD39 /* RenderCommand.cpp in Sources */,
 				80C4915F2812359E009FC5E3 /* OrthographicCamera.cpp in Sources */,
 				8075220A28109CA700C0AD39 /* EditorApplication.cpp in Sources */,

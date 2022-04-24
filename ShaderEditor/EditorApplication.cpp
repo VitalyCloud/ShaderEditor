@@ -12,6 +12,7 @@
 #include "Editor/TextEditorPanel.hpp"
 
 #include "Editor/UniformView.hpp"
+#include "Editor/VertexView.hpp"
 
 namespace Editor {
 
@@ -202,7 +203,8 @@ public:
             ImGui::Text("Camera position:");
             ImGui::SameLine();
             ImGui::DragFloat3("##CameraPositionInput", &m_CameraPostion.x, 0.1, -10, 10);
-            m_UniformView.Draw();
+//            m_UniformView.Draw();
+            m_VertexView.Draw();
             ImGui::End();
         }
         
@@ -220,6 +222,7 @@ private:
     ViewportPanel m_Viewport;
     TextEditorPanel m_TextEditor;
     UniformView m_UniformView;
+    VertexView m_VertexView;
     
     bool m_ShowViewport = true;
     bool m_ShowTextEditor = true;
