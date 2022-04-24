@@ -21,18 +21,29 @@ VertexView::~VertexView() {
 }
 
 void VertexView::Draw() {
-    
     ImGui::BeginChild("VertexBufferTableView");
-    
     auto layoutElements = m_VertexBuffer.GetLayoutElements();
-    
     if(ImGui::BeginTable("VertexBufferTable", (int)layoutElements.size())) {
         
         for(auto& element: layoutElements) {
             ImGui::TableSetupColumn(element.Name.c_str());
         }
         
-        ImGui::TableHeadersRow();
+        ImGui::TableNextRow(ImGuiTableRowFlags_Headers);
+        
+        for(int i=0; i<layoutElements.size(); i++) {
+            ImGui::TableSetColumnIndex(i);
+            ImGui::PushID(i);
+            
+            ImGui::Text("%s", layoutElements[i].Name.c_str());
+            if(ImGui::IsItemClicked(ImGuiMouseButton_Right)) {
+                ImGui::OpenPopup("BufferElementPopup");
+            }
+            
+            DrawBufferElementPopup(i);
+            
+            ImGui::PopID();
+        }
         
         for(int i=0; i<m_VertexBuffer.VertexCount(); i++) {
             ImGui::PushID(i);
@@ -78,8 +89,6 @@ void VertexView::Draw() {
         }
         ImGui::EndPopup();
     }
-    
-    
     ImGui::EndChild();
 }
 
@@ -135,6 +144,47 @@ void VertexView::DrawTableDataInput(const OpenGL::ShaderDataType& type, void* da
     default:
         ImGui::Text("Error");
         break;
+    }
+}
+
+void VertexView::DrawBufferElementPopup(int index) {
+    if(ImGui::BeginPopup("BufferElementPopup")) {
+        
+        if(ImGui::Selectable("Delete")) {
+            if(m_VertexBuffer.GetLayoutElements().size() > 1)
+                m_VertexBuffer.RemoveLayoutElement(index);
+        }
+        if(ImGui::BeginMenu("Change Type")) {
+            for(int i=1; i<OpenGL::ShaderDataTypeCount(); i++) {
+                OpenGL::ShaderDataType type = static_cast<OpenGL::ShaderDataType>(i);
+                if(ImGui::Selectable(OpenGL::ShaderDataTypeTitle(type))) {
+                    m_VertexBuffer.ChangeElementType(index, type);
+                }
+            }
+            ImGui::EndMenu();
+        }
+        ImGui::Separator();
+        if(ImGui::BeginMenu("Insert Left")) {
+            for(int i=1; i<OpenGL::ShaderDataTypeCount(); i++) {
+                OpenGL::ShaderDataType type = static_cast<OpenGL::ShaderDataType>(i);
+                if(ImGui::Selectable(OpenGL::ShaderDataTypeTitle(type))) {
+                    OpenGL::BufferElement element = OpenGL::BufferElement(type, "New Element");
+                    m_VertexBuffer.InsertLayoutElement(index, element);
+                }
+            }
+            ImGui::EndMenu();
+        }
+        if(ImGui::BeginMenu("Insert Right")) {
+            for(int i=1; i<OpenGL::ShaderDataTypeCount(); i++) {
+                OpenGL::ShaderDataType type = static_cast<OpenGL::ShaderDataType>(i);
+                if(ImGui::Selectable(OpenGL::ShaderDataTypeTitle(type))) {
+                    OpenGL::BufferElement element = OpenGL::BufferElement(type, "New Element");
+                    m_VertexBuffer.InsertLayoutElement(index+1, element);
+                }
+            }
+            ImGui::EndMenu();
+        }
+        ImGui::EndPopup();
     }
 }
 

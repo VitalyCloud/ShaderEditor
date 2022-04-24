@@ -22,6 +22,7 @@ public:
     
 private:
     void DrawTableDataInput(const OpenGL::ShaderDataType& type, void* data);
+    void DrawBufferElementPopup(int index);
 
 private:
     VertexBuffer m_VertexBuffer;

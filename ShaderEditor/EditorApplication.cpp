@@ -203,7 +203,6 @@ public:
             ImGui::Text("Camera position:");
             ImGui::SameLine();
             ImGui::DragFloat3("##CameraPositionInput", &m_CameraPostion.x, 0.1, -10, 10);
-//            m_UniformView.Draw();
             m_VertexView.Draw();
             ImGui::End();
         }

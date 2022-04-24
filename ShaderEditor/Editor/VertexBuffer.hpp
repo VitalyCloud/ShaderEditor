@@ -63,7 +63,7 @@ public:
         auto elementSize = m_Layout[position].Size;
         
         auto iterator = m_Buffer.begin();
-        for(int i=0; i<m_VertexCount; i++, iterator += m_VertexSize) {
+        for(int i=0; i<m_VertexCount; i++, iterator += m_VertexSize - elementSize) {
             m_Buffer.erase(iterator + elementOffset, iterator + elementOffset + elementSize);
         }
         
