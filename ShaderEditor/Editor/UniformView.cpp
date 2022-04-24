@@ -164,236 +164,26 @@ void UniformView::DrawUniformInput(Uniform& uniform, void* data) {
         case OpenGL::ShaderDataType::Float2:
         case OpenGL::ShaderDataType::Float3:
         case OpenGL::ShaderDataType::Float4:
-            DrawInputFloat(uniform, data);
+            ImGui::DrawInputFloat((float*)data, &uniform.Settings, OpenGL::ShaderDataTypeComponentCount(uniform.Type));
             break;
         case OpenGL::ShaderDataType::Int:
         case OpenGL::ShaderDataType::Int2:
         case OpenGL::ShaderDataType::Int3:
         case OpenGL::ShaderDataType::Int4:
-            DrawInputInt(uniform, data);
+            ImGui::DrawInputInt((int*)data, &uniform.Settings, OpenGL::ShaderDataTypeComponentCount(uniform.Type));
             break;
         case OpenGL::ShaderDataType::Bool:
             ImGui::Checkbox("##bool", (bool*)data);
             break;
         
         case OpenGL::ShaderDataType::Mat3: {
-            float* dataPtr = (float*)data;
-            ImGui::PushID(0);
-            DrawInputFloat(uniform, dataPtr);
-            ImGui::PopID();
-            ImGui::PushID(1);
-            DrawInputFloat(uniform, dataPtr + 3);
-            ImGui::PopID();
-            ImGui::PushID(2);
-            DrawInputFloat(uniform, dataPtr + 6);
-            ImGui::PopID();
+            ImGui::DrawInputMat((float*)data, &uniform.Settings, 3);
             break;
         }
         case OpenGL::ShaderDataType::Mat4: {
-            float* dataPtr = (float*)data;
-            ImGui::PushID(0);
-            DrawInputFloat(uniform, dataPtr);
-            ImGui::PopID();
-            ImGui::PushID(1);
-            DrawInputFloat(uniform, dataPtr + 4);
-            ImGui::PopID();
-            ImGui::PushID(2);
-            DrawInputFloat(uniform, dataPtr + 8);
-            ImGui::PopID();
-            ImGui::PushID(3);
-            DrawInputFloat(uniform, dataPtr + 12);
-            ImGui::PopID();
+            ImGui::DrawInputMat((float*)data, &uniform.Settings, 4);
             break;
         }
-        default:
-            return;
-    }
-}
-
-
-
-void UniformView::DrawInputFloat(Uniform& uniform, void* data) {
-    switch (uniform.Type) {
-        case OpenGL::ShaderDataType::Float:
-            switch (uniform.Settings.Type) {
-                case ImGuiWidgetType::Input:
-                    ImGui::InputFloat("##InputFloat", (float*) data);
-                    break;
-                case ImGuiWidgetType::Drag:
-                    if (uniform.Settings.UseRange)
-                        ImGui::DragFloat("##DragFloat", (float*) data, uniform.Settings.Speed, uniform.Settings.Min, uniform.Settings.Max);
-                    else
-                        ImGui::DragFloat("##DragFloat", (float*) data, uniform.Settings.Speed);
-                    break;
-                case ImGuiWidgetType::Slider:
-                    ImGui::SliderFloat("##SliderFloat", (float*) data, uniform.Settings.Min, uniform.Settings.Max);
-                    break;
-                case ImGuiWidgetType::Color:
-                    break;
-            }
-            break;
-        case OpenGL::ShaderDataType::Float2:
-            switch (uniform.Settings.Type) {
-                case ImGuiWidgetType::Input:
-                    ImGui::InputFloat2("##InputFloat2", (float*) data);
-                    break;
-                case ImGuiWidgetType::Drag:
-                    if (uniform.Settings.UseRange)
-                        ImGui::DragFloat2("##DragFloat2", (float*) data, uniform.Settings.Speed, uniform.Settings.Min, uniform.Settings.Max);
-                    else
-                        ImGui::DragFloat2("##DragFloat2", (float*) data, uniform.Settings.Speed);
-                    break;
-                case ImGuiWidgetType::Slider:
-                    ImGui::SliderFloat2("##SliderFloat2", (float*) data, uniform.Settings.Min, uniform.Settings.Max);
-                    break;
-                case ImGuiWidgetType::Color:
-                    break;
-            }
-            break;
-        case OpenGL::ShaderDataType::Float3:
-            switch (uniform.Settings.Type) {
-                case ImGuiWidgetType::Input:
-                    ImGui::InputFloat3("##InputFloat3", (float*) data);
-                    break;
-                case ImGuiWidgetType::Drag:
-                    if (uniform.Settings.UseRange)
-                        ImGui::DragFloat3("##DragFloat3", (float*) data, uniform.Settings.Speed, uniform.Settings.Min, uniform.Settings.Max);
-                    else
-                        ImGui::DragFloat3("##DragFloat3", (float*) data, uniform.Settings.Speed);
-                    break;
-                case ImGuiWidgetType::Slider:
-                    ImGui::SliderFloat3("##SliderFloat3", (float*) data, uniform.Settings.Min, uniform.Settings.Max);
-                    break;
-                case ImGuiWidgetType::Color:
-                    ImGui::ColorEdit3("##ColorFloat3", (float*) data);
-                    break;
-            }
-            break;
-        case OpenGL::ShaderDataType::Float4:
-            switch (uniform.Settings.Type) {
-                case ImGuiWidgetType::Input: {
-                    ImGui::InputFloat4("##InputFloat4", (float*) data);
-                    break;
-                }
-                case ImGuiWidgetType::Drag:
-                    if (uniform.Settings.UseRange)
-                        ImGui::DragFloat4("##DragFloat4", (float*) data, uniform.Settings.Speed, uniform.Settings.Min, uniform.Settings.Max);
-                    else
-                        ImGui::DragFloat4("##DragFloat4", (float*) data, uniform.Settings.Speed);
-                    break;
-                case ImGuiWidgetType::Slider:
-                    ImGui::SliderFloat4("##SliderFloat4", (float*) data, uniform.Settings.Min, uniform.Settings.Max);
-                    break;
-                case ImGuiWidgetType::Color:
-                    ImGui::ColorEdit4("##ColorFloat4", (float*) data, ImGuiColorEditFlags_NoTooltip);
-                    break;
-            }
-            break;
-        case OpenGL::ShaderDataType::Mat3:
-            switch (uniform.Settings.Type) {
-                case ImGuiWidgetType::Input:
-                    ImGui::InputFloat3("##InputFloat3", (float*) data);
-                    break;
-                case ImGuiWidgetType::Drag:
-                    if (uniform.Settings.UseRange)
-                        ImGui::DragFloat3("##DragFloat3", (float*) data, uniform.Settings.Speed, uniform.Settings.Min, uniform.Settings.Max);
-                    else
-                        ImGui::DragFloat3("##DragFloat3", (float*) data, uniform.Settings.Speed);
-                    break;
-                case ImGuiWidgetType::Slider:
-                    ImGui::SliderFloat3("##SliderFloat3", (float*) data, uniform.Settings.Min, uniform.Settings.Max);
-                    break;
-                case ImGuiWidgetType::Color:
-                    ImGui::ColorEdit3("##ColorFloat3", (float*) data);
-                    break;
-            }
-            break;
-        case OpenGL::ShaderDataType::Mat4:
-            switch (uniform.Settings.Type) {
-                case ImGuiWidgetType::Input:
-                    ImGui::InputFloat4("##InputFloat4", (float*) data);
-                    break;
-                case ImGuiWidgetType::Drag:
-                    if (uniform.Settings.UseRange)
-                        ImGui::DragFloat4("##DragFloat4", (float*) data, uniform.Settings.Speed, uniform.Settings.Min, uniform.Settings.Max);
-                    else
-                        ImGui::DragFloat4("##DragFloat4", (float*) data, uniform.Settings.Speed);
-                    break;
-                case ImGuiWidgetType::Slider:
-                    ImGui::SliderFloat4("##SliderFloat4", (float*) data, uniform.Settings.Min, uniform.Settings.Max);
-                    break;
-                case ImGuiWidgetType::Color:
-                    ImGui::ColorEdit4("##ColorFloat4", (float*) data);
-                    break;
-            }
-            break;
-        default:
-            return;
-    }
-}
-
-void UniformView::DrawInputInt(Uniform& uniform, void* data) {
-    switch (uniform.Type) {
-        case OpenGL::ShaderDataType::Int:
-            switch (uniform.Settings.Type) {
-                case ImGuiWidgetType::Input:
-                    ImGui::InputInt("##InputInt", (int*) data);
-                    break;
-                case ImGuiWidgetType::Drag:
-                    ImGui::DragInt("##DragInt", (int*) data);
-                    break;
-                case ImGuiWidgetType::Slider:
-                    ImGui::SliderInt("##SliderInt", (int*) data, uniform.Settings.Min, uniform.Settings.Max);
-                    break;
-                case ImGuiWidgetType::Color:
-                    break;
-            }
-            break;
-        case OpenGL::ShaderDataType::Int2:
-            switch (uniform.Settings.Type) {
-                case ImGuiWidgetType::Input:
-                    ImGui::InputInt2("##InputInt2", (int*) data);
-                    break;
-                case ImGuiWidgetType::Drag:
-                    ImGui::DragInt2("##DragInt2", (int*) data);
-                    break;
-                case ImGuiWidgetType::Slider:
-                    ImGui::SliderInt2("##SliderInt2", (int*) data, uniform.Settings.Min, uniform.Settings.Max);
-                    break;
-                case ImGuiWidgetType::Color:
-                    break;
-            }
-            break;
-        case OpenGL::ShaderDataType::Int3:
-            switch (uniform.Settings.Type) {
-                case ImGuiWidgetType::Input:
-                    ImGui::InputInt3("##InputInt3", (int*) data);
-                    break;
-                case ImGuiWidgetType::Drag:
-                    ImGui::DragInt3("##DragInt3", (int*) data);
-                    break;
-                case ImGuiWidgetType::Slider:
-                    ImGui::SliderInt3("##SliderInt3", (int*) data, uniform.Settings.Min, uniform.Settings.Max);
-                    break;
-                case ImGuiWidgetType::Color:
-                    break;
-            }
-            break;
-        case OpenGL::ShaderDataType::Int4:
-            switch (uniform.Settings.Type) {
-                case ImGuiWidgetType::Input:
-                    ImGui::InputInt4("##InputInt4", (int*) data);
-                    break;
-                case ImGuiWidgetType::Drag:
-                    ImGui::DragInt4("##DragInt4", (int*) data);
-                    break;
-                case ImGuiWidgetType::Slider:
-                    ImGui::SliderInt4("##SliderInt4", (int*) data, uniform.Settings.Min, uniform.Settings.Max);
-                    break;
-                case ImGuiWidgetType::Color:
-                    break;
-            }
-            break;
         default:
             return;
     }

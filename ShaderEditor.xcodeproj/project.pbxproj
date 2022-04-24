@@ -51,6 +51,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8034BB562815BF8E00FB48D3 /* ImGuiInputSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImGuiInputSettings.h; sourceTree = "<group>"; };
 		803AFF3B281068F7005C6FA6 /* ShaderEditor */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ShaderEditor; sourceTree = BUILT_PRODUCTS_DIR; };
 		803AFF3E281068F7005C6FA6 /* EntryPoint.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = EntryPoint.cpp; sourceTree = "<group>"; };
 		807521F428106CEB00C0AD39 /* ShaderEditor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShaderEditor.entitlements; sourceTree = "<group>"; };
@@ -268,6 +269,7 @@
 		8075225F2811917100C0AD39 /* Editor */ = {
 			isa = PBXGroup;
 			children = (
+				8034BB562815BF8E00FB48D3 /* ImGuiInputSettings.h */,
 				808FA14728142598009E669E /* ImGuiHelper.cpp */,
 				808FA14828142598009E669E /* ImGuiHelper.h */,
 				80752260281191AE00C0AD39 /* ViewportPanel.cpp */,

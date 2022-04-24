@@ -11,25 +11,16 @@
 #include <vector>
 #include "OpenGL/Buffer.hpp"
 
+#include "ImGuiInputSettings.h"
+
 namespace Editor {
-
-enum class ImGuiWidgetType {
-    Input = 0, Drag, Slider, Color
-};
-
-struct ImGuiSettings {
-    bool UseRange = false;
-    float Min = -10.0f;
-    float Max = +10.f;
-    float Speed = 0.1;
-    ImGuiWidgetType Type = ImGuiWidgetType::Input;
-};
 
 struct Uniform {
     std::string Title;
     OpenGL::ShaderDataType Type;
-    ImGuiSettings Settings;
     
+    InputSettings Settings;
+
     Uniform(const std::string& title = "New Uniform",
             OpenGL::ShaderDataType type = OpenGL::ShaderDataType::Float)
     : Title(title), Type(type) {}

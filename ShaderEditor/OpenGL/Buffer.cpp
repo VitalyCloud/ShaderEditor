@@ -57,6 +57,27 @@ const uint32_t ShaderDataTypeCount() {
     return 12;
 }
 
+uint32_t ShaderDataTypeComponentCount(ShaderDataType type) {
+    switch(type)
+    {
+        case ShaderDataType::None:      break;
+        case ShaderDataType::Float:     return 1;
+        case ShaderDataType::Float2:    return 2;
+        case ShaderDataType::Float3:    return 3;
+        case ShaderDataType::Float4:    return 4;
+        case ShaderDataType::Mat3:      return 3 * 3;
+        case ShaderDataType::Mat4:      return 4 * 4;
+        case ShaderDataType::Int:       return 1;
+        case ShaderDataType::Int2:      return 2;
+        case ShaderDataType::Int3:      return 3;
+        case ShaderDataType::Int4:      return 4;
+        case ShaderDataType::Bool:      return 1;
+    }
+    
+    EN_CORE_ASSERT(false, "Unknown ShaderDataType!");
+    return 0;
+}
+
 
 VertexBuffer::VertexBuffer(float *vertices, uint32_t size) { 
     glGenBuffers(1, &m_RendererID);
