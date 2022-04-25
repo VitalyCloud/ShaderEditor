@@ -11,8 +11,8 @@
 #include "Editor/ViewportPanel.hpp"
 #include "Editor/TextEditorPanel.hpp"
 
-#include "Editor/UniformView.hpp"
-#include "Editor/Pipeline.hpp"
+#include "Editor/UniformPanel.hpp"
+#include "Editor/PipelinePanel.hpp"
 
 namespace Editor {
 
@@ -61,8 +61,15 @@ public:
         if (ImGui::BeginMenu("Window")) {
             if (ImGui::MenuItem("Viewport", nullptr, m_ShowViewport))
                 m_ShowViewport = !m_ShowViewport;
+            if (ImGui::MenuItem("Pipeline", nullptr, m_ShowPipeline))
+                m_ShowPipeline = !m_ShowPipeline;
+            if (ImGui::MenuItem("Inspector", nullptr, m_ShowInspector))
+                m_ShowInspector = !m_ShowInspector;
+            if (ImGui::MenuItem("Uniforms", nullptr, m_ShowUniform))
+                m_ShowUniform = !m_ShowUniform;
             if (ImGui::MenuItem("Text Editor", nullptr, m_ShowTextEditor))
                 m_ShowTextEditor = !m_ShowTextEditor;
+            
             if (ImGui::MenuItem("ImGui Demo", nullptr, m_ShowImGuiDemo))
                 m_ShowImGuiDemo = !m_ShowImGuiDemo;
             if (ImGui::MenuItem("Debug", nullptr, m_ShowDebug))
@@ -110,70 +117,6 @@ public:
         
         Core::Application::Get().SetMenubarCallback(std::bind(&EditorLayer::OnMainMenuBar, this));
         
-//        float a = 0.5f;
-//
-//        float positions[3*2] = {
-//            -a, a,
-//            a, a,
-//            0.0f, -a
-//        };
-//
-//        float colors[3*3] = {
-//            1.0f, 0.0f, 0.0f,
-//            0.0f, 1.0f, 0.0f,
-//            0.0f, 0.0f, 1.0f
-//        };
-//
-//        uint32_t indicies[3] = {
-//            0, 1, 2
-//        };
-//
-//        auto postionBuffer = Core::CreateRef<OpenGL::VertexBuffer>(positions, sizeof(positions));
-//        postionBuffer->SetLayout({
-//            { OpenGL::ShaderDataType::Float2, "a_Position" },
-//
-//        });
-//
-//        auto colorBuffer = Core::CreateRef<OpenGL::VertexBuffer>(colors, sizeof(colors));
-//        colorBuffer->SetLayout({
-//            { OpenGL::ShaderDataType::Float3, "a_Color" },
-//        });
-//
-//        auto indexBuffer = Core::CreateRef<OpenGL::IndexBuffer>(indicies, sizeof(indicies) / sizeof(uint32_t));
-//
-//        m_VertexArray = Core::CreateRef<OpenGL::VertexArray>();
-//        m_VertexArray->AddVertexBuffer(postionBuffer);
-//        m_VertexArray->AddVertexBuffer(colorBuffer);
-//        m_VertexArray->SetIndexBuffer(indexBuffer);
-//
-//
-//        std::string vertexSrc = R"(
-//            #version 330 core
-//
-//            layout(location = 0) in vec2 a_Position;
-//            layout(location = 1) in vec3 a_Color;
-//
-//            uniform mat4 u_ViewProjection;
-//
-//            out vec3 v_Color;
-//            void main()
-//            {
-//                v_Color = a_Color;
-//                gl_Position = u_ViewProjection * vec4(a_Position, 1.0f, 1.0f);
-//            }
-//        )";
-//
-//        std::string fragmentSrc = R"(
-//            #version 330 core
-//            layout(location = 0) out vec4 color;
-//            in vec3 v_Color;
-//            void main()
-//            {
-//                color = vec4(v_Color, 1.0f);
-//            }
-//        )";
-//
-//        m_Shader = Core::CreateRef<OpenGL::Shader>(vertexSrc, fragmentSrc);
     }
     
     
@@ -186,16 +129,24 @@ public:
         OpenGL::RenderCommand::SetClearColor(m_ClearColor);
         OpenGL::RenderCommand::Clear();
         
-//        Renderer::BeginScene(m_Camera);
-//        Renderer::Submit(m_Shader, m_VertexArray);
-//        Renderer::EndScene();
-        
         m_Pipeline.OnUpdate();
         
         m_Framebuffer->Unbind();
     }
     
     virtual void OnUIRender() override {
+        if(m_ShowViewport)
+            m_Viewport.Draw("Viewport", &m_ShowViewport);
+        if(m_ShowPipeline)
+            m_Pipeline.Draw("Pipeline", &m_ShowPipeline);
+        if(m_ShowInspector)
+            m_Pipeline.DrawInspector("Inspector", &m_ShowInspector);
+        if(m_ShowUniform)
+            m_Uniform.Draw("Uniforms", &m_ShowUniform);
+        if(m_ShowTextEditor)
+            m_TextEditor.Draw("Text Editor", &m_ShowTextEditor);
+        
+        
         if(m_ShowDebug) {
             ImGui::Begin("Debug", &m_ShowDebug);
             ImGui::Text("Clear color:");
@@ -204,22 +155,8 @@ public:
             ImGui::Text("Camera position:");
             ImGui::SameLine();
             ImGui::DragFloat3("##CameraPositionInput", &m_CameraPostion.x, 0.1, -10, 10);
-            
             ImGui::End();
         }
-        
-        ImGui::Begin("Uniforms");
-        m_UniformView.Draw();
-        ImGui::End();
-        
-        m_Pipeline.Draw("Pipeline");
-        
-        if(m_ShowViewport)
-            m_Viewport.Draw("Viewport", &m_ShowViewport);
-        
-        if(m_ShowTextEditor)
-            m_TextEditor.Draw("Text Editor", &m_ShowTextEditor);
-        
         if(m_ShowImGuiDemo)
             ImGui::ShowDemoWindow(&m_ShowImGuiDemo);
     }
@@ -227,11 +164,15 @@ public:
 private:
     ViewportPanel m_Viewport;
     TextEditorPanel m_TextEditor;
-    UniformView m_UniformView;
-    Pipeline m_Pipeline;
+    UniformPanel m_Uniform;
+    PipelinePanel m_Pipeline;
     
     bool m_ShowViewport = true;
-    bool m_ShowTextEditor = false;
+    bool m_ShowPipeline = true;
+    bool m_ShowInspector = true;
+    bool m_ShowUniform = true;
+    bool m_ShowTextEditor = true;
+    
     bool m_ShowImGuiDemo = false;
     bool m_ShowDebug = false;
     

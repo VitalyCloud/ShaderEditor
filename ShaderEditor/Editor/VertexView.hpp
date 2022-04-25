@@ -9,7 +9,7 @@
 #define VertexView_hpp
 
 #include "OpenGL/Buffer.hpp"
-#include "VertexBuffer.hpp"
+#include "VertexBufferConteiner.hpp"
 #include "Core/Core.hpp"
 
 namespace Editor {
@@ -21,14 +21,14 @@ public:
     
     void Draw();
     
-    void SetContext(const Core::Ref<VertexBuffer> context) { m_VertexBufferContext = context; }
+    void SetContext(const Core::Ref<VertexBufferConteiner> context) { m_VertexBufferContext = context; }
     
 private:
     bool DrawTableDataInput(const VertexBufferElement& element, void* data);
     void DrawBufferElementPopup(int index);
 
 private:
-    Core::Ref<VertexBuffer> m_VertexBufferContext = nullptr;
+    Core::Ref<VertexBufferConteiner> m_VertexBufferContext = nullptr;
     
     bool m_AutoChange = false;
 };

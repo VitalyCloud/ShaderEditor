@@ -19,11 +19,11 @@ struct VertexBufferElement {
     VertexBufferElement(const OpenGL::BufferElement& element) : Element(element) {}
 };
 
-class VertexBuffer
+class VertexBufferConteiner
 {
 public:
-    VertexBuffer(int reserve = 10);
-    ~VertexBuffer();
+    VertexBufferConteiner(int reserve = 10);
+    ~VertexBufferConteiner();
     void PushLayoutElement(const OpenGL::BufferElement& element);
     void InsertLayoutElement(int position, OpenGL::BufferElement& element);
     void RemoveLayoutElement(int position);

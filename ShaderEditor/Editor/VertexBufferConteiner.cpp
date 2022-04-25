@@ -5,11 +5,11 @@
 //  Created by Vitaly Cloud on 24.04.2022.
 //
 #include "pch.h"
-#include "VertexBuffer.hpp"
+#include "VertexBufferConteiner.hpp"
 
 namespace Editor {
 
-VertexBuffer::VertexBuffer(int reserve) {
+VertexBufferConteiner::VertexBufferConteiner(int reserve) {
     PushLayoutElement(OpenGL::BufferElement(OpenGL::ShaderDataType::Float, "Pos"));
     
     // Reserve buffer
@@ -19,9 +19,9 @@ VertexBuffer::VertexBuffer(int reserve) {
     PushVertex();
 }
 
-VertexBuffer::~VertexBuffer() {}
+VertexBufferConteiner::~VertexBufferConteiner() {}
 
-void VertexBuffer::PushLayoutElement(const OpenGL::BufferElement& element) {
+void VertexBufferConteiner::PushLayoutElement(const OpenGL::BufferElement& element) {
     m_Layout.push_back(VertexBufferElement(element));
     m_VertexSize = GetVertexSize();
     
@@ -37,7 +37,7 @@ void VertexBuffer::PushLayoutElement(const OpenGL::BufferElement& element) {
     }
 }
 
-void VertexBuffer::InsertLayoutElement(int position, OpenGL::BufferElement& element) {
+void VertexBufferConteiner::InsertLayoutElement(int position, OpenGL::BufferElement& element) {
     m_Layout.insert(m_Layout.begin() + position, element);
     m_VertexSize = GetVertexSize();
     
@@ -51,7 +51,7 @@ void VertexBuffer::InsertLayoutElement(int position, OpenGL::BufferElement& elem
     }
 }
 
-void VertexBuffer::RemoveLayoutElement(int position) {
+void VertexBufferConteiner::RemoveLayoutElement(int position) {
     auto elementOffset = GetLayoutElementOffsetForIndex(position);
     auto elementSize = m_Layout[position].Element.Size;
     
@@ -64,19 +64,19 @@ void VertexBuffer::RemoveLayoutElement(int position) {
     m_VertexSize = GetVertexSize();
 }
 
-void VertexBuffer::PushVertex() {
+void VertexBufferConteiner::PushVertex() {
     m_Buffer.resize(m_Buffer.size() + GetVertexSize(), 0);
     m_VertexCount += 1;
 }
 
-void VertexBuffer::RemoveVertex(int position) {
+void VertexBufferConteiner::RemoveVertex(int position) {
     auto vertexOffset = m_VertexSize * position;
     auto begin = m_Buffer.begin();
     m_Buffer.erase(begin + vertexOffset, begin + vertexOffset + m_VertexSize);
     m_VertexCount -= 1;
 }
 
-void VertexBuffer::ChangeElementType(int position, OpenGL::ShaderDataType type) {
+void VertexBufferConteiner::ChangeElementType(int position, OpenGL::ShaderDataType type) {
     OpenGL::BufferElement oldElement = m_Layout[position].Element;
     OpenGL::BufferElement newElement = OpenGL::BufferElement(type, oldElement.Name, oldElement.Normalized);
     
@@ -84,11 +84,11 @@ void VertexBuffer::ChangeElementType(int position, OpenGL::ShaderDataType type) 
     InsertLayoutElement(position, newElement);
 }
 
-char* VertexBuffer::GetVertexComponent(int vertexIndex, int componentIndex) {
+char* VertexBufferConteiner::GetVertexComponent(int vertexIndex, int componentIndex) {
     return m_Buffer.data() + GetVertexOffsetForIndex(vertexIndex) + GetLayoutElementOffsetForIndex(componentIndex);
 }
 
-uint32_t VertexBuffer::GetVertexSize() {
+uint32_t VertexBufferConteiner::GetVertexSize() {
     uint32_t size = 0;
     for(auto& element: m_Layout) {
         size += element.Element.Size;
@@ -96,11 +96,11 @@ uint32_t VertexBuffer::GetVertexSize() {
     return size;
 }
 
-uint32_t VertexBuffer::GetVertexOffsetForIndex(int index) {
+uint32_t VertexBufferConteiner::GetVertexOffsetForIndex(int index) {
     return GetVertexSize() * index;
 }
 
-uint32_t VertexBuffer::GetLayoutElementOffsetForIndex(int index) {
+uint32_t VertexBufferConteiner::GetLayoutElementOffsetForIndex(int index) {
     uint32_t offset = 0;
     for(int i=0; i<index; i++) {
         offset += m_Layout[i].Element.Size;
@@ -108,7 +108,7 @@ uint32_t VertexBuffer::GetLayoutElementOffsetForIndex(int index) {
     return offset;
 }
 
-Core::Ref<OpenGL::VertexBuffer> VertexBuffer::CreateOpenGLVertexBuffer() {
+Core::Ref<OpenGL::VertexBuffer> VertexBufferConteiner::CreateOpenGLVertexBuffer() {
     auto buffer = Core::CreateRef<OpenGL::VertexBuffer>(m_Buffer.size());
     buffer->SetData(m_Buffer.data(), (uint32_t)m_Buffer.size());
     std::vector<OpenGL::BufferElement> m_Elements;

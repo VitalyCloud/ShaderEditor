@@ -28,11 +28,11 @@ struct Uniform {
     uint32_t Size() { return OpenGL::ShaderDataTypeSize(Type); }
 };
 
-class UniformBuffer {
+class UniformBufferConteiner {
 public:
-    UniformBuffer();
+    UniformBufferConteiner();
     
-    ~UniformBuffer();
+    ~UniformBufferConteiner();
     
     void PushUniform(OpenGL::ShaderDataType type = OpenGL::ShaderDataType::Float);
     void ChangeType(int index, OpenGL::ShaderDataType type);

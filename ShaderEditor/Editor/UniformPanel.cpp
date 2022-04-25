@@ -5,18 +5,18 @@
 //  Created by Vitaly Cloud on 23.04.2022.
 //
 #include "Core/pch.h"
-#include "UniformView.hpp"
+#include "UniformPanel.hpp"
 #include "Core/Core.hpp"
 #include "ImGuiHelper.h"
 #include "ImGuiInputSettings.hpp"
 
 namespace Editor {
 
-UniformView::UniformView() {
+UniformPanel::UniformPanel() {
     m_UniformsToDelete.reserve(5);
 }
 
-UniformView::~UniformView() {
+UniformPanel::~UniformPanel() {
     
 }
 
@@ -35,8 +35,11 @@ static const char* const s_Types[] = {
     "Bool"
 };
 
-void UniformView::Draw()  {
-    ImGui::BeginChild("UniformView");
+void UniformPanel::Draw(const char* title, bool* p_open)  {
+    if (!ImGui::Begin(title, p_open)) {
+        ImGui::End();
+        return;
+    }
     
     if(ImGui::BeginTable("Uniforms", 3, ImGuiTableFlags_Resizable)) {
         ImGui::TableSetupColumn("Titile");
@@ -106,10 +109,10 @@ void UniformView::Draw()  {
         m_Uniforms.Delete(m_UniformsToDelete[i]);
     m_UniformsToDelete.clear();
     
-    ImGui::EndChild();
+    ImGui::End();
 }
 
-void UniformView::DrawInputSettings(int i) {
+void UniformPanel::DrawInputSettings(int i) {
     Uniform& uniform = m_Uniforms[i];
     OpenGL::ShaderDataType type = uniform.Type;
     InputSettings* settings = &uniform.Settings;
@@ -120,7 +123,7 @@ void UniformView::DrawInputSettings(int i) {
     }
 }
 
-void UniformView::DrawUniformInput(Uniform& uniform, void* data) {
+void UniformPanel::DrawUniformInput(Uniform& uniform, void* data) {
     switch (uniform.Type) {
         case OpenGL::ShaderDataType::Float:
         case OpenGL::ShaderDataType::Float2:
