@@ -21,12 +21,15 @@ IndexView::~IndexView() {
 
 void IndexView::Draw(std::vector<uint32_t>& context) {
     
-    static int columnCount = 5;
+    const static int columnWidth = 50;
+    float avalWidth = ImGui::GetWindowWidth();
+    int columnCount = (int)(avalWidth / columnWidth) - 2;
+    columnCount = columnCount > 1 ? columnCount : 1;
     m_Changed = false;
     if(ImGui::BeginTable("IndexBufferTable", columnCount)) {
         for(int i=0; i<columnCount; i++) {
             auto title = fmt::format("{0}", i);
-            ImGui::TableSetupColumn(title.c_str(), ImGuiTableColumnFlags_WidthFixed, 50);
+            ImGui::TableSetupColumn(title.c_str(), ImGuiTableColumnFlags_WidthFixed, columnWidth);
         }
         ImGui::TableHeadersRow();
         
@@ -79,6 +82,7 @@ void IndexView::Draw(std::vector<uint32_t>& context) {
     ImGui::SameLine();
     ImGui::Checkbox("Auto change", &m_AutoChange);
     if(!m_AutoChange) {
+        ImGui::SameLine();
         if(ImGui::Button("Apply")) {
             m_Changed = true;
         }
