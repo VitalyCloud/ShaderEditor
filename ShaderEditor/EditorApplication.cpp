@@ -12,7 +12,7 @@
 #include "Editor/TextEditorPanel.hpp"
 
 #include "Editor/UniformView.hpp"
-#include "VertexArrayView.hpp"
+#include "Editor/Pipeline.hpp"
 
 namespace Editor {
 
@@ -210,11 +210,8 @@ public:
         ImGui::Begin("Uniforms");
         m_UniformView.Draw();
         ImGui::End();
-
         
-        ImGui::Begin("Vertex Array");
-        m_VertexArrayView.Draw();
-        ImGui::End();
+        m_Pipeline.Draw("Pipeline");
         
         if(m_ShowViewport)
             m_Viewport.Draw("Viewport", &m_ShowViewport);
@@ -230,7 +227,7 @@ private:
     ViewportPanel m_Viewport;
     TextEditorPanel m_TextEditor;
     UniformView m_UniformView;
-    VertexArrayView m_VertexArrayView;
+    Pipeline m_Pipeline;
     
     bool m_ShowViewport = false;
     bool m_ShowTextEditor = false;

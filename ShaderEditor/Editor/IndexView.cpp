@@ -29,6 +29,7 @@ void IndexView::Draw(std::vector<uint32_t>& context) {
         }
         ImGui::TableHeadersRow();
         
+        static int needFocusIndex = -1;
         for(int i=0; i<context.size(); i++) {
             if(i % columnCount == 0 || i == 0)
                 ImGui::TableNextRow();
@@ -36,11 +37,19 @@ void IndexView::Draw(std::vector<uint32_t>& context) {
             ImGui::PushID(i);
             
             ImGui::PushItemWidth(ImGui::GetColumnWidth());
+            if(needFocusIndex == i) {
+                ImGui::SetKeyboardFocusHere();
+                needFocusIndex = -1;
+            }
             ImGui::InputScalar("##indexInput", ImGuiDataType_U32, &context[i]);
             ImGui::PopItemWidth();
             if(ImGui::IsItemActive()) {
-                if(ImGui::IsKeyPressed(ImGuiKey_Tab) && i == context.size()-1) {
+                if(!ImGui::IsKeyDown(ImGuiKey_LeftShift) && ImGui::IsKeyPressed(ImGuiKey_Tab) && i == context.size()-1) {
                     context.emplace_back(0);
+                }
+                if(ImGui::IsKeyDown(ImGuiKey_LeftShift) && ImGui::IsKeyPressed(ImGuiKey_Backspace) && context.size() > 1) {
+                    context.erase(context.begin() + i);
+                    needFocusIndex = i-1;
                 }
             }
             if(ImGui::IsMouseClicked(ImGuiMouseButton_Right) && ImGui::IsItemHovered())

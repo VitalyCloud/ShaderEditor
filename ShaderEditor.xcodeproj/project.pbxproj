@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8034BB592815E87900FB48D3 /* ImGuiInputSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8034BB572815E87900FB48D3 /* ImGuiInputSettings.cpp */; };
 		803AFF3F281068F7005C6FA6 /* EntryPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 803AFF3E281068F7005C6FA6 /* EntryPoint.cpp */; };
+		803B40BC2816F417006B89EA /* Pipeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 803B40BA2816F417006B89EA /* Pipeline.cpp */; };
 		807521F728106D6800C0AD39 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 807521F628106D6800C0AD39 /* OpenGL.framework */; };
 		807521F928106D8600C0AD39 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 807521F828106D8600C0AD39 /* Cocoa.framework */; };
 		807521FB28106D8D00C0AD39 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 807521FA28106D8D00C0AD39 /* IOKit.framework */; };
@@ -30,7 +31,6 @@
 		807E4B5728156B76004918CF /* VertexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 807E4B5528156B76004918CF /* VertexBuffer.cpp */; };
 		807E4B5A28157EC4004918CF /* VertexView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 807E4B5828157EC4004918CF /* VertexView.cpp */; };
 		80819A7C2816045D00E803B1 /* IndexView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80819A7A2816045D00E803B1 /* IndexView.cpp */; };
-		80819A7F281611A100E803B1 /* VertexArrayView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80819A7D281611A100E803B1 /* VertexArrayView.cpp */; };
 		808FA13E281412B6009E669E /* UniformView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 808FA13C281412B6009E669E /* UniformView.cpp */; };
 		808FA14628141B39009E669E /* UniformBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 808FA14428141B39009E669E /* UniformBuffer.cpp */; };
 		808FA14928142598009E669E /* ImGuiHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 808FA14728142598009E669E /* ImGuiHelper.cpp */; };
@@ -58,6 +58,8 @@
 		8034BB582815E87900FB48D3 /* ImGuiInputSettings.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ImGuiInputSettings.hpp; sourceTree = "<group>"; };
 		803AFF3B281068F7005C6FA6 /* ShaderEditor */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ShaderEditor; sourceTree = BUILT_PRODUCTS_DIR; };
 		803AFF3E281068F7005C6FA6 /* EntryPoint.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = EntryPoint.cpp; sourceTree = "<group>"; };
+		803B40BA2816F417006B89EA /* Pipeline.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Pipeline.cpp; sourceTree = "<group>"; };
+		803B40BB2816F417006B89EA /* Pipeline.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Pipeline.hpp; sourceTree = "<group>"; };
 		807521F428106CEB00C0AD39 /* ShaderEditor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShaderEditor.entitlements; sourceTree = "<group>"; };
 		807521F628106D6800C0AD39 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		807521F828106D8600C0AD39 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -103,8 +105,6 @@
 		807E4B5928157EC4004918CF /* VertexView.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VertexView.hpp; sourceTree = "<group>"; };
 		80819A7A2816045D00E803B1 /* IndexView.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IndexView.cpp; sourceTree = "<group>"; };
 		80819A7B2816045D00E803B1 /* IndexView.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IndexView.hpp; sourceTree = "<group>"; };
-		80819A7D281611A100E803B1 /* VertexArrayView.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VertexArrayView.cpp; sourceTree = "<group>"; };
-		80819A7E281611A100E803B1 /* VertexArrayView.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VertexArrayView.hpp; sourceTree = "<group>"; };
 		808FA13C281412B6009E669E /* UniformView.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UniformView.cpp; sourceTree = "<group>"; };
 		808FA13D281412B6009E669E /* UniformView.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UniformView.hpp; sourceTree = "<group>"; };
 		808FA14428141B39009E669E /* UniformBuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UniformBuffer.cpp; sourceTree = "<group>"; };
@@ -173,6 +173,54 @@
 				8075220928109CA700C0AD39 /* EditorApplication.cpp */,
 			);
 			path = ShaderEditor;
+			sourceTree = "<group>";
+		};
+		803B40BE2816F47E006B89EA /* Buffers */ = {
+			isa = PBXGroup;
+			children = (
+				808FA13C281412B6009E669E /* UniformView.cpp */,
+				808FA13D281412B6009E669E /* UniformView.hpp */,
+				808FA14428141B39009E669E /* UniformBuffer.cpp */,
+				808FA14528141B39009E669E /* UniformBuffer.hpp */,
+				807E4B5528156B76004918CF /* VertexBuffer.cpp */,
+				807E4B5628156B76004918CF /* VertexBuffer.hpp */,
+				807E4B5828157EC4004918CF /* VertexView.cpp */,
+				807E4B5928157EC4004918CF /* VertexView.hpp */,
+				80819A7A2816045D00E803B1 /* IndexView.cpp */,
+				80819A7B2816045D00E803B1 /* IndexView.hpp */,
+			);
+			name = Buffers;
+			sourceTree = "<group>";
+		};
+		803B40BF2816F4B9006B89EA /* ImGui */ = {
+			isa = PBXGroup;
+			children = (
+				8034BB572815E87900FB48D3 /* ImGuiInputSettings.cpp */,
+				8034BB582815E87900FB48D3 /* ImGuiInputSettings.hpp */,
+				808FA14728142598009E669E /* ImGuiHelper.cpp */,
+				808FA14828142598009E669E /* ImGuiHelper.h */,
+			);
+			name = ImGui;
+			sourceTree = "<group>";
+		};
+		803B40C02816F4D0006B89EA /* Viewport */ = {
+			isa = PBXGroup;
+			children = (
+				80752260281191AE00C0AD39 /* ViewportPanel.cpp */,
+				80752261281191AE00C0AD39 /* ViewportPanel.hpp */,
+			);
+			name = Viewport;
+			sourceTree = "<group>";
+		};
+		803B40C12816F4DB006B89EA /* TextBuffer */ = {
+			isa = PBXGroup;
+			children = (
+				80DCD4572812BF3400610807 /* TextBufferView.cpp */,
+				80DCD4582812BF3400610807 /* TextBufferView.hpp */,
+				80DCD4642812CD5400610807 /* TextEditorPanel.cpp */,
+				80DCD4652812CD5400610807 /* TextEditorPanel.hpp */,
+			);
+			name = TextBuffer;
 			sourceTree = "<group>";
 		};
 		807521F528106D6800C0AD39 /* Frameworks */ = {
@@ -277,28 +325,12 @@
 		8075225F2811917100C0AD39 /* Editor */ = {
 			isa = PBXGroup;
 			children = (
-				8034BB572815E87900FB48D3 /* ImGuiInputSettings.cpp */,
-				8034BB582815E87900FB48D3 /* ImGuiInputSettings.hpp */,
-				808FA14728142598009E669E /* ImGuiHelper.cpp */,
-				808FA14828142598009E669E /* ImGuiHelper.h */,
-				80752260281191AE00C0AD39 /* ViewportPanel.cpp */,
-				80752261281191AE00C0AD39 /* ViewportPanel.hpp */,
-				80DCD4572812BF3400610807 /* TextBufferView.cpp */,
-				80DCD4582812BF3400610807 /* TextBufferView.hpp */,
-				80DCD4642812CD5400610807 /* TextEditorPanel.cpp */,
-				80DCD4652812CD5400610807 /* TextEditorPanel.hpp */,
-				808FA13C281412B6009E669E /* UniformView.cpp */,
-				808FA13D281412B6009E669E /* UniformView.hpp */,
-				808FA14428141B39009E669E /* UniformBuffer.cpp */,
-				808FA14528141B39009E669E /* UniformBuffer.hpp */,
-				807E4B5528156B76004918CF /* VertexBuffer.cpp */,
-				807E4B5628156B76004918CF /* VertexBuffer.hpp */,
-				807E4B5828157EC4004918CF /* VertexView.cpp */,
-				807E4B5928157EC4004918CF /* VertexView.hpp */,
-				80819A7A2816045D00E803B1 /* IndexView.cpp */,
-				80819A7B2816045D00E803B1 /* IndexView.hpp */,
-				80819A7D281611A100E803B1 /* VertexArrayView.cpp */,
-				80819A7E281611A100E803B1 /* VertexArrayView.hpp */,
+				803B40BE2816F47E006B89EA /* Buffers */,
+				803B40BF2816F4B9006B89EA /* ImGui */,
+				803B40C02816F4D0006B89EA /* Viewport */,
+				803B40C12816F4DB006B89EA /* TextBuffer */,
+				803B40BA2816F417006B89EA /* Pipeline.cpp */,
+				803B40BB2816F417006B89EA /* Pipeline.hpp */,
 			);
 			path = Editor;
 			sourceTree = "<group>";
@@ -370,7 +402,6 @@
 			files = (
 				808FA14628141B39009E669E /* UniformBuffer.cpp in Sources */,
 				8075225E2811834700C0AD39 /* Renderer.cpp in Sources */,
-				80819A7F281611A100E803B1 /* VertexArrayView.cpp in Sources */,
 				8075225A28117F0900C0AD39 /* VertexArray.cpp in Sources */,
 				8034BB592815E87900FB48D3 /* ImGuiInputSettings.cpp in Sources */,
 				808FA14928142598009E669E /* ImGuiHelper.cpp in Sources */,
@@ -389,6 +420,7 @@
 				80DCD4592812BF3400610807 /* TextBufferView.cpp in Sources */,
 				807E4B5728156B76004918CF /* VertexBuffer.cpp in Sources */,
 				8075224A2811730B00C0AD39 /* RenderCommand.cpp in Sources */,
+				803B40BC2816F417006B89EA /* Pipeline.cpp in Sources */,
 				80C4915F2812359E009FC5E3 /* OrthographicCamera.cpp in Sources */,
 				8075220A28109CA700C0AD39 /* EditorApplication.cpp in Sources */,
 				80DCD45C2812C2C200610807 /* MacosXUtils.mm in Sources */,
