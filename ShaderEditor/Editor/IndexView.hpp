@@ -8,6 +8,8 @@
 #ifndef IndexView_hpp
 #define IndexView_hpp
 
+#include "Core/Core.hpp"
+
 namespace Editor {
 
 class IndexView {
@@ -15,10 +17,7 @@ public:
     IndexView();
     ~IndexView();
     
-    void Draw();
-
-private:
-    std::vector<uint32_t> m_Indicies;
+    void Draw(std::vector<uint32_t>& context);
 };
 
 }

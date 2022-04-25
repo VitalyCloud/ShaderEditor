@@ -10,6 +10,7 @@
 
 #include "OpenGL/Buffer.hpp"
 #include "VertexBuffer.hpp"
+#include "Core/Core.hpp"
 
 namespace Editor {
 
@@ -20,12 +21,14 @@ public:
     
     void Draw();
     
+    void SetContext(const Core::Ref<VertexBuffer> context) { m_VertexBufferContext = context; }
+    
 private:
     void DrawTableDataInput(const VertexBufferElement& element, void* data);
     void DrawBufferElementPopup(int index);
 
 private:
-    VertexBuffer m_VertexBuffer;
+    Core::Ref<VertexBuffer> m_VertexBufferContext = nullptr;
 };
 
 }

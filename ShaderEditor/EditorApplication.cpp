@@ -12,8 +12,7 @@
 #include "Editor/TextEditorPanel.hpp"
 
 #include "Editor/UniformView.hpp"
-#include "Editor/VertexView.hpp"
-#include "Editor/IndexView.hpp"
+#include "VertexArrayView.hpp"
 
 namespace Editor {
 
@@ -211,11 +210,10 @@ public:
         ImGui::Begin("Uniforms");
         m_UniformView.Draw();
         ImGui::End();
-        ImGui::Begin("Vertex Buffers");
-        m_VertexView.Draw();
-        ImGui::End();
-        ImGui::Begin("Index Buffer");
-        m_IndexView.Draw();
+
+        
+        ImGui::Begin("Vertex Array");
+        m_VertexArrayView.Draw();
         ImGui::End();
         
         if(m_ShowViewport)
@@ -232,8 +230,7 @@ private:
     ViewportPanel m_Viewport;
     TextEditorPanel m_TextEditor;
     UniformView m_UniformView;
-    VertexView m_VertexView;
-    IndexView m_IndexView;
+    VertexArrayView m_VertexArrayView;
     
     bool m_ShowViewport = false;
     bool m_ShowTextEditor = false;

@@ -30,6 +30,7 @@
 		807E4B5728156B76004918CF /* VertexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 807E4B5528156B76004918CF /* VertexBuffer.cpp */; };
 		807E4B5A28157EC4004918CF /* VertexView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 807E4B5828157EC4004918CF /* VertexView.cpp */; };
 		80819A7C2816045D00E803B1 /* IndexView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80819A7A2816045D00E803B1 /* IndexView.cpp */; };
+		80819A7F281611A100E803B1 /* VertexArrayView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80819A7D281611A100E803B1 /* VertexArrayView.cpp */; };
 		808FA13E281412B6009E669E /* UniformView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 808FA13C281412B6009E669E /* UniformView.cpp */; };
 		808FA14628141B39009E669E /* UniformBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 808FA14428141B39009E669E /* UniformBuffer.cpp */; };
 		808FA14928142598009E669E /* ImGuiHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 808FA14728142598009E669E /* ImGuiHelper.cpp */; };
@@ -102,6 +103,8 @@
 		807E4B5928157EC4004918CF /* VertexView.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VertexView.hpp; sourceTree = "<group>"; };
 		80819A7A2816045D00E803B1 /* IndexView.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IndexView.cpp; sourceTree = "<group>"; };
 		80819A7B2816045D00E803B1 /* IndexView.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IndexView.hpp; sourceTree = "<group>"; };
+		80819A7D281611A100E803B1 /* VertexArrayView.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VertexArrayView.cpp; sourceTree = "<group>"; };
+		80819A7E281611A100E803B1 /* VertexArrayView.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VertexArrayView.hpp; sourceTree = "<group>"; };
 		808FA13C281412B6009E669E /* UniformView.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UniformView.cpp; sourceTree = "<group>"; };
 		808FA13D281412B6009E669E /* UniformView.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UniformView.hpp; sourceTree = "<group>"; };
 		808FA14428141B39009E669E /* UniformBuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UniformBuffer.cpp; sourceTree = "<group>"; };
@@ -294,6 +297,8 @@
 				807E4B5928157EC4004918CF /* VertexView.hpp */,
 				80819A7A2816045D00E803B1 /* IndexView.cpp */,
 				80819A7B2816045D00E803B1 /* IndexView.hpp */,
+				80819A7D281611A100E803B1 /* VertexArrayView.cpp */,
+				80819A7E281611A100E803B1 /* VertexArrayView.hpp */,
 			);
 			path = Editor;
 			sourceTree = "<group>";
@@ -365,6 +370,7 @@
 			files = (
 				808FA14628141B39009E669E /* UniformBuffer.cpp in Sources */,
 				8075225E2811834700C0AD39 /* Renderer.cpp in Sources */,
+				80819A7F281611A100E803B1 /* VertexArrayView.cpp in Sources */,
 				8075225A28117F0900C0AD39 /* VertexArray.cpp in Sources */,
 				8034BB592815E87900FB48D3 /* ImGuiInputSettings.cpp in Sources */,
 				808FA14928142598009E669E /* ImGuiHelper.cpp in Sources */,
