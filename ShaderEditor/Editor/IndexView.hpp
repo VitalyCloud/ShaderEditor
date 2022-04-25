@@ -18,6 +18,11 @@ public:
     ~IndexView();
     
     void Draw(std::vector<uint32_t>& context);
+    
+    bool IsChanged() { return m_Changed; }
+private:
+    bool m_AutoChange = false;
+    bool m_Changed = false;
 };
 
 }

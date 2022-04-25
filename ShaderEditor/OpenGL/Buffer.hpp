@@ -93,9 +93,11 @@ private:
 
 class VertexBuffer {
 public:
+    VertexBuffer(uint32_t size);
     VertexBuffer(float* vertices, uint32_t size);
     ~VertexBuffer();
     
+    void SetData(const void* data, uint32_t size);
     void SetLayout(const BufferLayout& layout) { m_Layout = layout; }
     const BufferLayout& GetLayout() const { return m_Layout; }
     

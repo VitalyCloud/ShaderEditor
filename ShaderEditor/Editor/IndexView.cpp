@@ -22,6 +22,7 @@ IndexView::~IndexView() {
 void IndexView::Draw(std::vector<uint32_t>& context) {
     
     static int columnCount = 5;
+    m_Changed = false;
     if(ImGui::BeginTable("IndexBufferTable", columnCount)) {
         for(int i=0; i<columnCount; i++) {
             auto title = fmt::format("{0}", i);
@@ -41,15 +42,19 @@ void IndexView::Draw(std::vector<uint32_t>& context) {
                 ImGui::SetKeyboardFocusHere();
                 needFocusIndex = -1;
             }
-            ImGui::InputScalar("##indexInput", ImGuiDataType_U32, &context[i]);
+            bool changed = ImGui::InputScalar("##indexInput", ImGuiDataType_U32, &context[i]);
+            if(changed && m_AutoChange)
+                m_Changed = changed;
             ImGui::PopItemWidth();
             if(ImGui::IsItemActive()) {
                 if(!ImGui::IsKeyDown(ImGuiKey_LeftShift) && ImGui::IsKeyPressed(ImGuiKey_Tab) && i == context.size()-1) {
                     context.emplace_back(0);
+                    if(m_AutoChange) m_Changed = true;
                 }
                 if(ImGui::IsKeyDown(ImGuiKey_LeftShift) && ImGui::IsKeyPressed(ImGuiKey_Backspace) && context.size() > 1) {
                     context.erase(context.begin() + i);
                     needFocusIndex = i-1;
+                    if(m_AutoChange) m_Changed = true;
                 }
             }
             if(ImGui::IsMouseClicked(ImGuiMouseButton_Right) && ImGui::IsItemHovered())
@@ -57,6 +62,7 @@ void IndexView::Draw(std::vector<uint32_t>& context) {
             if(ImGui::BeginPopup("IndexContext")) {
                 if(ImGui::Selectable("Delete")) {
                     context.erase(context.begin() + i);
+                    if(m_AutoChange) m_Changed = true;
                 }
                 ImGui::EndPopup();
             }
@@ -67,7 +73,17 @@ void IndexView::Draw(std::vector<uint32_t>& context) {
     if(ImGui::Button("Clear")) {
         context.clear();
         context.emplace_back(0);
+        if(m_AutoChange) m_Changed = true;
     }
+    
+    ImGui::SameLine();
+    ImGui::Checkbox("Auto change", &m_AutoChange);
+    if(!m_AutoChange) {
+        if(ImGui::Button("Apply")) {
+            m_Changed = true;
+        }
+    }
+        
 }
 
 }

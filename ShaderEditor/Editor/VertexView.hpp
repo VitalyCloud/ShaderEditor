@@ -24,11 +24,13 @@ public:
     void SetContext(const Core::Ref<VertexBuffer> context) { m_VertexBufferContext = context; }
     
 private:
-    void DrawTableDataInput(const VertexBufferElement& element, void* data);
+    bool DrawTableDataInput(const VertexBufferElement& element, void* data);
     void DrawBufferElementPopup(int index);
 
 private:
     Core::Ref<VertexBuffer> m_VertexBufferContext = nullptr;
+    
+    bool m_AutoChange = false;
 };
 
 }

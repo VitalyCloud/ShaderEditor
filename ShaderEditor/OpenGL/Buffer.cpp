@@ -83,10 +83,24 @@ VertexBuffer::VertexBuffer(float *vertices, uint32_t size) {
     glGenBuffers(1, &m_RendererID);
     glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
     glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
+    EN_INFO("Vertex Buffer Created {0}", (uint64_t)this);
+}
+
+VertexBuffer::VertexBuffer(uint32_t size) {
+    glGenBuffers(1, &m_RendererID);
+    glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
+    glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_STATIC_DRAW);
+    EN_INFO("Vertex Buffer Created {0}", (uint64_t)this);
+}
+
+void VertexBuffer::SetData(const void* data, uint32_t size) {
+    glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
+    glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
 }
 
 VertexBuffer::~VertexBuffer() { 
     glDeleteBuffers(1, &m_RendererID);
+    EN_WARN("Vertex Buffer Deleted {0}", (uint64_t)this);
 }
 
 void VertexBuffer::Bind() { 

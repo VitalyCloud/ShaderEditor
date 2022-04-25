@@ -38,10 +38,12 @@ static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type) {
 
 VertexArray::VertexArray() { 
     glGenVertexArrays(1, &m_RendererID);
+    EN_INFO("Vertex Array created: {0}", (u_int64_t)this);
 }
 
 VertexArray::~VertexArray() { 
     glDeleteVertexArrays(1, &m_RendererID);
+    EN_WARN("Vertex Array deleted: {0}", (u_int64_t)this);
 }
 
 void VertexArray::Bind() { 

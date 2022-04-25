@@ -28,6 +28,10 @@ namespace OpenGL {
             uint32_t count = indexCount ? indexCount : vertexArray->GetIndexBuffer()->GetCount();
             glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
         }
+    
+        void Draw(uint32_t count) {
+            glDrawArrays(GL_TRIANGLES, 0, count);
+        }
     }
 
 }

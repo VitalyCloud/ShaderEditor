@@ -74,7 +74,10 @@ void VertexView::Draw() {
                 
                 char* componentData = m_VertexBufferContext->GetVertexComponent(i, j-1);
                 ImGui::PushItemWidth(ImGui::GetColumnWidth());
-                DrawTableDataInput(m_VertexBufferContext->GetLayoutElements()[j-1], componentData);
+                bool changed = DrawTableDataInput(m_VertexBufferContext->GetLayoutElements()[j-1], componentData);
+                
+                if(changed && m_AutoChange)
+                    m_VertexBufferContext->SetChanged(changed);
                 ImGui::PopItemWidth();
                 
                 ImGui::PopID();
@@ -90,10 +93,19 @@ void VertexView::Draw() {
     
     if(ImGui::Button("+##AddVertex")) {
         m_VertexBufferContext->PushVertex();
+        if(m_AutoChange) m_VertexBufferContext->SetChanged(true);
     }
     
     if(ImGui::IsItemClicked(ImGuiMouseButton_Right)) {
         ImGui::OpenPopup("NewVertexComponent");
+    }
+    
+    ImGui::SameLine();
+    ImGui::Checkbox("Auto change", &m_AutoChange);
+    if(!m_AutoChange) {
+        ImGui::SameLine();
+        if(ImGui::Button("Apply"))
+            m_VertexBufferContext->SetChanged(true);
     }
     
     if(ImGui::BeginPopup("NewVertexComponent")) {
@@ -102,6 +114,7 @@ void VertexView::Draw() {
             if(ImGui::Selectable(OpenGL::ShaderDataTypeTitle(type))) {
                 OpenGL::BufferElement element = OpenGL::BufferElement(type, "Test");
                 m_VertexBufferContext->PushLayoutElement(element);
+                if(m_AutoChange) m_VertexBufferContext->SetChanged(true);
             }
         }
         ImGui::EndPopup();
@@ -109,37 +122,49 @@ void VertexView::Draw() {
 //    ImGui::EndChild();
 }
 
-void VertexView::DrawTableDataInput(const VertexBufferElement& element, void* data)
+bool VertexView::DrawTableDataInput(const VertexBufferElement& element, void* data)
 {
+    bool changed = false;
     switch (element.Element.Type)
     {
         case OpenGL::ShaderDataType::Float:
         case OpenGL::ShaderDataType::Float2:
         case OpenGL::ShaderDataType::Float3:
         case OpenGL::ShaderDataType::Float4:
-            DrawInputFloat((float*)data, &element.Settings, OpenGL::ShaderDataTypeComponentCount(element.Element.Type));
+            if(DrawInputFloat((float*)data, &element.Settings, OpenGL::ShaderDataTypeComponentCount(element.Element.Type))) {
+                changed = true;
+            }
             break;
         case OpenGL::ShaderDataType::Int:
         case OpenGL::ShaderDataType::Int2:
         case OpenGL::ShaderDataType::Int3:
         case OpenGL::ShaderDataType::Int4:
-            DrawInputInt((int*)data, &element.Settings, OpenGL::ShaderDataTypeComponentCount(element.Element.Type));
+            if(DrawInputInt((int*)data, &element.Settings, OpenGL::ShaderDataTypeComponentCount(element.Element.Type))) {
+                changed = true;
+            }
             break;
         case OpenGL::ShaderDataType::Bool:
-            ImGui::Checkbox("##bool", (bool*)data);
+            if(ImGui::Checkbox("##bool", (bool*)data)) {
+                changed = true;
+            }
             break;
         
         case OpenGL::ShaderDataType::Mat3: {
-            DrawInputMat((float*)data, &element.Settings, 3);
+            if(DrawInputMat((float*)data, &element.Settings, 3)) {
+                changed = true;
+            }
             break;
         }
         case OpenGL::ShaderDataType::Mat4: {
-            DrawInputMat((float*)data, &element.Settings, 4);
+            if(DrawInputMat((float*)data, &element.Settings, 4)) {
+                changed = true;
+            }
             break;
         }
         default:
-            return;
+            return false;
     }
+    return changed;
 }
 
 void VertexView::DrawBufferElementPopup(int index) {
@@ -148,14 +173,18 @@ void VertexView::DrawBufferElementPopup(int index) {
         ImGui::InputText("##elementName", &m_VertexBufferContext->GetLayoutElements()[index].Element.Name);
         
         if(ImGui::Selectable("Delete")) {
-            if(m_VertexBufferContext->GetLayoutElements().size() > 1)
+            if(m_VertexBufferContext->GetLayoutElements().size() > 1) {
                 m_VertexBufferContext->RemoveLayoutElement(index);
+                if(m_AutoChange) m_VertexBufferContext->SetChanged(true);
+            }
+                
         }
         if(ImGui::BeginMenu("Change Type")) {
             for(int i=1; i<OpenGL::ShaderDataTypeCount(); i++) {
                 OpenGL::ShaderDataType type = static_cast<OpenGL::ShaderDataType>(i);
                 if(ImGui::Selectable(OpenGL::ShaderDataTypeTitle(type))) {
                     m_VertexBufferContext->ChangeElementType(index, type);
+                    if(m_AutoChange) m_VertexBufferContext->SetChanged(true);
                 }
             }
             ImGui::EndMenu();
@@ -174,6 +203,7 @@ void VertexView::DrawBufferElementPopup(int index) {
                 if(ImGui::Selectable(OpenGL::ShaderDataTypeTitle(type))) {
                     OpenGL::BufferElement element = OpenGL::BufferElement(type, "New Element");
                     m_VertexBufferContext->InsertLayoutElement(index, element);
+                    if(m_AutoChange) m_VertexBufferContext->SetChanged(true);
                 }
             }
             ImGui::EndMenu();
@@ -184,6 +214,7 @@ void VertexView::DrawBufferElementPopup(int index) {
                 if(ImGui::Selectable(OpenGL::ShaderDataTypeTitle(type))) {
                     OpenGL::BufferElement element = OpenGL::BufferElement(type, "New Element");
                     m_VertexBufferContext->InsertLayoutElement(index+1, element);
+                    if(m_AutoChange) m_VertexBufferContext->SetChanged(true);
                 }
             }
             ImGui::EndMenu();

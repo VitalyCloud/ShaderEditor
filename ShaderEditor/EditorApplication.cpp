@@ -110,70 +110,70 @@ public:
         
         Core::Application::Get().SetMenubarCallback(std::bind(&EditorLayer::OnMainMenuBar, this));
         
-        float a = 0.5f;
-        
-        float positions[3*2] = {
-            -a, a,
-            a, a,
-            0.0f, -a
-        };
-        
-        float colors[3*3] = {
-            1.0f, 0.0f, 0.0f,
-            0.0f, 1.0f, 0.0f,
-            0.0f, 0.0f, 1.0f
-        };
-        
-        uint32_t indicies[3] = {
-            0, 1, 2
-        };
-        
-        auto postionBuffer = Core::CreateRef<OpenGL::VertexBuffer>(positions, sizeof(positions));
-        postionBuffer->SetLayout({
-            { OpenGL::ShaderDataType::Float2, "a_Position" },
-            
-        });
-        
-        auto colorBuffer = Core::CreateRef<OpenGL::VertexBuffer>(colors, sizeof(colors));
-        colorBuffer->SetLayout({
-            { OpenGL::ShaderDataType::Float3, "a_Color" },
-        });
-        
-        auto indexBuffer = Core::CreateRef<OpenGL::IndexBuffer>(indicies, sizeof(indicies) / sizeof(uint32_t));
-        
-        m_VertexArray = Core::CreateRef<OpenGL::VertexArray>();
-        m_VertexArray->AddVertexBuffer(postionBuffer);
-        m_VertexArray->AddVertexBuffer(colorBuffer);
-        m_VertexArray->SetIndexBuffer(indexBuffer);
-        
-        
-        std::string vertexSrc = R"(
-            #version 330 core
-            
-            layout(location = 0) in vec2 a_Position;
-            layout(location = 1) in vec3 a_Color;
-        
-            uniform mat4 u_ViewProjection;
-        
-            out vec3 v_Color;
-            void main()
-            {
-                v_Color = a_Color;
-                gl_Position = u_ViewProjection * vec4(a_Position, 1.0f, 1.0f);
-            }
-        )";
-        
-        std::string fragmentSrc = R"(
-            #version 330 core
-            layout(location = 0) out vec4 color;
-            in vec3 v_Color;
-            void main()
-            {
-                color = vec4(v_Color, 1.0f);
-            }
-        )";
-        
-        m_Shader = Core::CreateRef<OpenGL::Shader>(vertexSrc, fragmentSrc);
+//        float a = 0.5f;
+//
+//        float positions[3*2] = {
+//            -a, a,
+//            a, a,
+//            0.0f, -a
+//        };
+//
+//        float colors[3*3] = {
+//            1.0f, 0.0f, 0.0f,
+//            0.0f, 1.0f, 0.0f,
+//            0.0f, 0.0f, 1.0f
+//        };
+//
+//        uint32_t indicies[3] = {
+//            0, 1, 2
+//        };
+//
+//        auto postionBuffer = Core::CreateRef<OpenGL::VertexBuffer>(positions, sizeof(positions));
+//        postionBuffer->SetLayout({
+//            { OpenGL::ShaderDataType::Float2, "a_Position" },
+//
+//        });
+//
+//        auto colorBuffer = Core::CreateRef<OpenGL::VertexBuffer>(colors, sizeof(colors));
+//        colorBuffer->SetLayout({
+//            { OpenGL::ShaderDataType::Float3, "a_Color" },
+//        });
+//
+//        auto indexBuffer = Core::CreateRef<OpenGL::IndexBuffer>(indicies, sizeof(indicies) / sizeof(uint32_t));
+//
+//        m_VertexArray = Core::CreateRef<OpenGL::VertexArray>();
+//        m_VertexArray->AddVertexBuffer(postionBuffer);
+//        m_VertexArray->AddVertexBuffer(colorBuffer);
+//        m_VertexArray->SetIndexBuffer(indexBuffer);
+//
+//
+//        std::string vertexSrc = R"(
+//            #version 330 core
+//
+//            layout(location = 0) in vec2 a_Position;
+//            layout(location = 1) in vec3 a_Color;
+//
+//            uniform mat4 u_ViewProjection;
+//
+//            out vec3 v_Color;
+//            void main()
+//            {
+//                v_Color = a_Color;
+//                gl_Position = u_ViewProjection * vec4(a_Position, 1.0f, 1.0f);
+//            }
+//        )";
+//
+//        std::string fragmentSrc = R"(
+//            #version 330 core
+//            layout(location = 0) out vec4 color;
+//            in vec3 v_Color;
+//            void main()
+//            {
+//                color = vec4(v_Color, 1.0f);
+//            }
+//        )";
+//
+//        m_Shader = Core::CreateRef<OpenGL::Shader>(vertexSrc, fragmentSrc);
     }
     
     
@@ -186,10 +186,11 @@ public:
         OpenGL::RenderCommand::SetClearColor(m_ClearColor);
         OpenGL::RenderCommand::Clear();
         
-        Renderer::BeginScene(m_Camera);
-        Renderer::Submit(m_Shader, m_VertexArray);
-        Renderer::EndScene();
+//        Renderer::BeginScene(m_Camera);
+//        Renderer::Submit(m_Shader, m_VertexArray);
+//        Renderer::EndScene();
         
+        m_Pipeline.OnUpdate();
         
         m_Framebuffer->Unbind();
     }
@@ -229,7 +230,7 @@ private:
     UniformView m_UniformView;
     Pipeline m_Pipeline;
     
-    bool m_ShowViewport = false;
+    bool m_ShowViewport = true;
     bool m_ShowTextEditor = false;
     bool m_ShowImGuiDemo = false;
     bool m_ShowDebug = false;

@@ -37,6 +37,11 @@ public:
     uint32_t VertexCount() { return m_VertexCount; }
     
     std::vector<VertexBufferElement>& GetLayoutElements() { return m_Layout; }
+    
+    void SetChanged(bool status) { m_Changed = status; }
+    bool IsChanged() { return m_Changed; }
+    
+    Core::Ref<OpenGL::VertexBuffer> CreateOpenGLVertexBuffer();
 private:
     uint32_t GetVertexSize();
     uint32_t GetVertexOffsetForIndex(int index);
@@ -48,6 +53,8 @@ private:
     
     uint32_t m_VertexCount = 0;
     uint32_t m_VertexSize = 0;
+    
+    bool m_Changed = false;
 };
 
 }

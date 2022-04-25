@@ -108,4 +108,15 @@ uint32_t VertexBuffer::GetLayoutElementOffsetForIndex(int index) {
     return offset;
 }
 
+Core::Ref<OpenGL::VertexBuffer> VertexBuffer::CreateOpenGLVertexBuffer() {
+    auto buffer = Core::CreateRef<OpenGL::VertexBuffer>(m_Buffer.size());
+    buffer->SetData(m_Buffer.data(), (uint32_t)m_Buffer.size());
+    std::vector<OpenGL::BufferElement> m_Elements;
+    for(auto& element: m_Layout) {
+        m_Elements.push_back(element.Element);
+    }
+    buffer->SetLayout(OpenGL::BufferLayout(m_Elements));
+    return buffer;
+}
+
 }
