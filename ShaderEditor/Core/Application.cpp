@@ -146,11 +146,11 @@ void Application::Shutdown() {
 
 void Application::Run() {
     while(!glfwWindowShouldClose(m_WindowHandle) && m_Running) {
-        
         glfwSwapBuffers(m_WindowHandle);
         glfwPollEvents();
         // MARK: - Rendering
         
+        m_FileWatcher.Begin();
         for(auto& layer: m_LayerStack) {
             layer->OnUpdate();
         }
@@ -232,7 +232,7 @@ void Application::Run() {
             for(auto& layer: m_LayerStack) {
                 layer->OnUIRender();
             }
-            
+            m_FileWatcher.End();
             ImGui::End();
         }
         
@@ -250,6 +250,7 @@ void Application::Run() {
             glfwMakeContextCurrent(backup_current_context);
         }
         ImGui::EndFrame();
+       
     }
 }
 

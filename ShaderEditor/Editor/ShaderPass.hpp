@@ -21,9 +21,10 @@ public:
     
     std::string& GetTitle() { return m_Title; }
     
+    void SetShader(const Core::Ref<OpenGL::Shader>& shader) { m_Shader = shader; }
+    
     VertexArrayView& GetVA() { return m_VertexArray; }
     const Core::Ref<OpenGL::Shader> GetShader() { return m_Shader; }
-    
 private:
     std::string m_Title;
     VertexArrayView m_VertexArray;

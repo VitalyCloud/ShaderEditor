@@ -11,6 +11,7 @@
 #include "Layer.hpp"
 #include "Events/Event.hpp"
 #include "Events/ApplicationEvent.hpp"
+#include "Utils.hpp"
 
 #include <string>
 #include <memory>
@@ -78,6 +79,8 @@ private:
     LayerStack m_LayerStack;
     
     std::function<void()> m_MenubarCallback;
+    
+    Utils::FileWatcher m_FileWatcher;
 };
 
 // Implemented by CLIENT

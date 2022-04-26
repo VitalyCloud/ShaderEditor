@@ -23,10 +23,12 @@ public:
     void Draw(const char* title, bool* p_open = nullptr);
     void OnEvent(Core::Event& event);
     
-    void AddBuffer(const std::string filepath);
     void AddBuffer();
+    void AddBufer(const Core::Ref<Core::Utils::File>& file);
     
     void CloseBuffer(Core::Ref<TextBufferView> buffer);
+    
+    bool IsFileOpened(const Core::Ref<Core::Utils::File>& file);
     
 private:
     void DrawConfirmationWindow();

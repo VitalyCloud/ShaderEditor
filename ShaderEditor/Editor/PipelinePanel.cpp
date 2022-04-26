@@ -71,6 +71,14 @@ void PipelinePanel::DrawInspector(const char* title, bool* p_open) {
         
         ImGui::Separator();
         
+        if(ImGui::Button("Open Vertex")) {
+            
+        }
+        
+        if(ImGui::Button("Open Fragment")) {
+            
+        }
+        
         m_SelectedShaderPasss->GetVA().Draw();
     }
     

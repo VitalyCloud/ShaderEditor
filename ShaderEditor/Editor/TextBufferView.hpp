@@ -23,10 +23,11 @@ public:
     void Draw(ImFont* font = ImGui::GetIO().FontDefault);
     void OnEvent(Core::Event& event);
     
-    bool OpenFile(const std::string& filepath = "");
+    bool OpenFile(const Core::Ref<Core::Utils::File>& file = nullptr);
     void SaveFile();
     
     const std::string GetTitle();
+    const Core::Ref<Core::Utils::File>& GetFile() { return m_File; }
     bool IsTextChanged() { return m_TextChanged; }
     bool& ShouldShow() { return m_ShouldShow; }
     bool& ShouldClose() { return m_ShouldClose; }
@@ -37,7 +38,8 @@ private:
     
 private:
     TextEditor m_Buffer;
-    std::string m_CurrentFilePath;
+    Core::Ref<Core::Utils::File> m_File = nullptr;
+ 
     bool m_TextChanged = false;
     bool m_ShouldShow = false;
     bool m_ShouldClose = false;

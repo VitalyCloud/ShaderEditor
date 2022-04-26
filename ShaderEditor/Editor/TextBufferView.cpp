@@ -23,13 +23,23 @@ TextBufferView::~TextBufferView() {
 }
 
 void TextBufferView::Draw(ImFont* font) {
+    
+    if(m_File!=nullptr) {
+        if(m_File->GetStatus() == Core::Utils::FileStatus::FileChanged) {
+            auto fileSrc = m_File->Read();
+            if(fileSrc.has_value())
+                m_Buffer.SetText(fileSrc.value());
+        }
+    }
+    
+    
     auto cpos = m_Buffer.GetCursorPosition();
     ImGui::SetWindowSize(ImVec2(800, 600), ImGuiCond_FirstUseEver);
     
     ImGui::Text("%6d/%-6d %6d lines  | %s | %s | %s | %s", cpos.mLine + 1, cpos.mColumn + 1, m_Buffer.GetTotalLines(),
         m_Buffer.IsOverwrite() ? "Ovr" : "Ins",
         m_Buffer.CanUndo() ? "*" : " ",
-        m_Buffer.GetLanguageDefinition().mName.c_str(), m_CurrentFilePath.c_str());
+        m_Buffer.GetLanguageDefinition().mName.c_str(), GetTitle().c_str());
     
     DrawMenuBar();
 
@@ -51,12 +61,7 @@ void TextBufferView::OnEvent(Core::Event& event) {
 }
 
 const std::string TextBufferView::GetTitle() {
-    if(m_CurrentFilePath.empty()) {
-        return "New File";
-    } else {
-        std::filesystem::path path(m_CurrentFilePath);
-        return path.filename();
-    }
+    return m_File == nullptr ? "New File" : m_File->GetPath().filename();
 }
 
 bool TextBufferView::OnKeyPressed(Core::KeyPressedEvent& event) {
@@ -142,21 +147,22 @@ void TextBufferView::DrawMenuBar() {
     }
 }
 
-bool TextBufferView::OpenFile(const std::string &filepath) {
-    if(!filepath.empty()) {
-        auto file = Core::Utils::FileSystem::ReadFile(filepath);
-        if(file.has_value()) {
-            m_CurrentFilePath = filepath;
-            m_Buffer.SetText(file.value());
+bool TextBufferView::OpenFile(const Core::Ref<Core::Utils::File>& file) {
+    if(file != nullptr) {
+        auto fileSrc = file->Read();
+        if(fileSrc.has_value()) {
+            m_Buffer.SetText(fileSrc.value());
             auto lang = TextEditor::LanguageDefinition::GLSL();
             m_Buffer.SetLanguageDefinition(lang);
             m_ShouldShow = true;
+            m_File = file;
             return true;
         }
     } else {
         auto path = Core::Utils::FileDialogs::OpenFile("");
         if(!path.empty()) {
-            return OpenFile(path);
+            auto file = Core::Utils::FileWatcher::Get().LoadFile(path);
+            return OpenFile(file);
         }
     }
     
@@ -164,13 +170,18 @@ bool TextBufferView::OpenFile(const std::string &filepath) {
 }
 
 void TextBufferView::SaveFile() {
-    if(m_CurrentFilePath.empty())
-        m_CurrentFilePath = Core::Utils::FileDialogs::SaveFile("");
-    if(!m_CurrentFilePath.empty()) {
-        Core::Utils::FileSystem::WriteFile(m_Buffer.GetText(), m_CurrentFilePath);
+    if(m_File == nullptr) {
+        std::string savePath = Core::Utils::FileDialogs::SaveFile("");
+        if(!savePath.empty()) {
+            m_File = Core::Utils::FileWatcher::Get().LoadFile(savePath);
+            m_File->Write(m_Buffer.GetText());
+            m_TextChanged = false;
+        }
+        return;
+    } else {
+        m_File->Write(m_Buffer.GetText());
         m_TextChanged = false;
     }
-        
 }
 
 

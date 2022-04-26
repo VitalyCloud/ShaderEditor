@@ -28,11 +28,23 @@ void TextEditorPanel::OnEvent(Core::Event &event) {
         m_SelectedBuffer->OnEvent(event);
 }
 
-void TextEditorPanel::AddBuffer(const std::string filepath) {
+
+void TextEditorPanel::AddBufer(const Core::Ref<Core::Utils::File>& file) {
+    if(IsFileOpened(file))
+        return;
     Core::Ref<TextBufferView> item = Core::CreateRef<TextBufferView>();
-    item->OpenFile(filepath);
+    item->OpenFile(file);
     item->ShouldShow() = true;
     m_Buffers.push_back(item);
+}
+
+bool TextEditorPanel::IsFileOpened(const Core::Ref<Core::Utils::File>& file) {
+    for(int i=0; i<m_Buffers.size(); i++) {
+        if(m_Buffers[i]->GetFile()->GetPath() == file->GetPath()) {
+            return true;
+        }
+    }
+    return false;
 }
 
 void TextEditorPanel::AddBuffer() {
@@ -40,6 +52,7 @@ void TextEditorPanel::AddBuffer() {
     item->ShouldShow() = true;
     m_Buffers.push_back(item);
 }
+
 
 void TextEditorPanel::CloseBuffer(Core::Ref<TextBufferView> buffer) {
     auto it = std::find(m_Buffers.begin(), m_Buffers.end(), buffer);
