@@ -9,7 +9,7 @@
 #define UniformBuffer_hpp
 
 #include <vector>
-#include "OpenGL/Buffer.hpp"
+#include "OpenGL/OpenGL.hpp"
 
 #include "ImGuiInputSettings.hpp"
 
@@ -34,13 +34,16 @@ public:
     
     ~UniformBufferConteiner();
     
-    void PushUniform(OpenGL::ShaderDataType type = OpenGL::ShaderDataType::Float);
+    void PushUniform(OpenGL::ShaderDataType type = OpenGL::ShaderDataType::Float, const std::string& title = "New Uniform");
     void ChangeType(int index, OpenGL::ShaderDataType type);
     
     size_t Count() { return m_Uniforms.size(); }
     
     Uniform& GetUniform(int index) { return m_Uniforms[index]; }
     char* GetUniformData(int index) { return GetData(GetDataOffsetForIndex(index)); }
+    void SetUniformData(int index, const void* data);
+    void SetUniformData(const std::string& title, const void* data);
+    void UploadUniforms(const Core::Ref<OpenGL::Shader>& shader);
     
     void Delete(int index) { DeleteDataAtIndex(index); m_Uniforms.erase(m_Uniforms.begin() + index);}
     

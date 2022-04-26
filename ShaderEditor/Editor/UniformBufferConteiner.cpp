@@ -17,10 +17,32 @@ UniformBufferConteiner::UniformBufferConteiner() {
 
 UniformBufferConteiner::~UniformBufferConteiner() {}
 
-void UniformBufferConteiner::PushUniform(OpenGL::ShaderDataType type) {
-    m_Uniforms.emplace_back("New Uniform", type);
+void UniformBufferConteiner::PushUniform(OpenGL::ShaderDataType type, const std::string& title) {
+    m_Uniforms.emplace_back(title, type);
     auto typeSize = OpenGL::ShaderDataTypeSize(type);
     m_Buffer.resize(m_Buffer.size() + typeSize, 0);
+}
+
+void UniformBufferConteiner::SetUniformData(int index, const void* data) {
+    uint32_t size = m_Uniforms[index].Size();
+    uint32_t begin = GetDataOffsetForIndex(index);
+    char* dataPtr = (char*)data;
+    for(int i=0; i<size; i++) {
+        m_Buffer[begin+i] = *(dataPtr + i);
+    }
+}
+
+void UniformBufferConteiner::SetUniformData(const std::string& title, const void* data) {
+    int index = -1;
+    for(int i=0; i<m_Uniforms.size(); i++) {
+        if(m_Uniforms[i].Title == title) {
+            index = i;
+            break;
+        }
+    }
+    
+    if(index >= 0)
+        SetUniformData(index, data);
 }
 
 void UniformBufferConteiner::ChangeType(int index, OpenGL::ShaderDataType type) {
@@ -46,6 +68,43 @@ void UniformBufferConteiner::DeleteDataAtIndex(int index) {
     int offset = GetDataOffsetForIndex(index);
     uint32_t dataSize = OpenGL::ShaderDataTypeSize(m_Uniforms[index].Type);
     m_Buffer.erase(m_Buffer.begin() + offset, m_Buffer.begin() + offset + dataSize);
+}
+
+void UniformBufferConteiner::UploadUniforms(const Core::Ref<OpenGL::Shader>& shader) {
+    uint32_t offset = 0;
+    shader->Bind();
+    for(auto& uniform: m_Uniforms) {
+        auto value = m_Buffer.data() + offset;
+        float* floatValue = (float*)value;
+        int* intValue = (int*)value;
+        uint32_t count = OpenGL::ShaderDataTypeComponentCount(uniform.Type);
+        
+        switch (uniform.Type)
+        {
+            case OpenGL::ShaderDataType::Float:
+            case OpenGL::ShaderDataType::Float2:
+            case OpenGL::ShaderDataType::Float3:
+            case OpenGL::ShaderDataType::Float4:
+                shader->SetFloatArray(uniform.Title, floatValue, count);
+                break;
+            case OpenGL::ShaderDataType::Mat3:
+                shader->SetMat3v(uniform.Title, floatValue);
+                break;
+            case OpenGL::ShaderDataType::Mat4:
+                shader->SetMat4v(uniform.Title, floatValue);
+                break;
+            case OpenGL::ShaderDataType::Int:
+            case OpenGL::ShaderDataType::Int2:
+            case OpenGL::ShaderDataType::Int3:
+            case OpenGL::ShaderDataType::Int4:
+                shader->SetIntArray(uniform.Title, intValue, count);
+                break;
+            case OpenGL::ShaderDataType::Bool:      break;
+            default: break;
+        }
+        offset+=uniform.Size();
+    }
+    shader->Unbind();
 }
 
 

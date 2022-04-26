@@ -32,8 +32,11 @@ public:
     void SetFloat2(const std::string& name, const glm::vec2& value);
     void SetFloat3(const std::string& name, const glm::vec3& value);
     void SetFloat4(const std::string& name, const glm::vec4& value);
+    void SetFloatArray(const std::string& name, float* values, uint32_t count);
     void SetMat3(const std::string& name, const glm::mat3& value);
+    void SetMat3v(const std::string& name, const float* values);
     void SetMat4(const std::string& name, const glm::mat4& value);
+    void SetMat4v(const std::string& name, const float* values);
     
 private:
     unsigned int m_RendererID;

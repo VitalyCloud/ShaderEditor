@@ -11,6 +11,9 @@
 #include <stdio.h>
 
 #include "ShaderPass.hpp"
+#include "UniformBufferConteiner.hpp"
+
+#include "Renderer/OrthographicCamera.hpp"
 
 namespace Editor {
 
@@ -26,6 +29,12 @@ public:
 private:
     std::vector<Core::Ref<ShaderPass>> m_ShaderPassses;
     Core::Ref<ShaderPass> m_SelectedShaderPasss;
+    
+    Core::Ref<UniformBufferConteiner> m_UniformBuffer;
+    
+    Core::Ref<Renderer::OrthographicCamera> m_Camera;
+    glm::vec3 m_CameraPostion = glm::vec3(0.0);
+    
 };
 
 }

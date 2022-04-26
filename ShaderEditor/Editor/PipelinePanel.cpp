@@ -11,10 +11,15 @@
 #include "imgui.h"
 #include "ImGuiHelper.h"
 
+#include "glm/gtc/type_ptr.hpp"
+
 namespace Editor {
 
 PipelinePanel::PipelinePanel() {
     m_ShaderPassses.push_back(Core::CreateRef<ShaderPass>("Triangle"));
+    m_Camera = Core::CreateRef<Renderer::OrthographicCamera>();
+    m_UniformBuffer = Core::CreateRef<UniformBufferConteiner>();
+    m_UniformBuffer->PushUniform(OpenGL::ShaderDataType::Mat4, "u_ViewProjection");
 }
 
 PipelinePanel::~PipelinePanel() {
@@ -22,8 +27,14 @@ PipelinePanel::~PipelinePanel() {
 }
 
 void PipelinePanel::OnUpdate() {
-    for(auto& shaderPass: m_ShaderPassses)
+    
+    // Camera Update
+    m_Camera->SetPostion(m_CameraPostion);
+    m_UniformBuffer->SetUniformData("u_ViewProjection", glm::value_ptr(m_Camera->GetViewProjectionMatrix()));
+    for(auto& shaderPass: m_ShaderPassses) {
+        m_UniformBuffer->UploadUniforms(shaderPass->GetShader());
         shaderPass->OnUpdate();
+    }
 }
 
 void PipelinePanel::Draw(const char* title, bool* p_open) {
@@ -54,6 +65,11 @@ void PipelinePanel::DrawInspector(const char* title, bool* p_open) {
         ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x);
         ImGui::InputText("##inputTitle", &m_SelectedShaderPasss->GetTitle());
         ImGui::PopItemWidth();
+        
+        
+        ImGui::DragFloat3("##CameraPositionInput", &m_CameraPostion.x, 0.1, -10, 10);
+        
+        ImGui::Separator();
         
         m_SelectedShaderPasss->GetVA().Draw();
     }
