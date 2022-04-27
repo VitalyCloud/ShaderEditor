@@ -8,7 +8,6 @@
 #ifndef ShaderPass_hpp
 #define ShaderPass_hpp
 
-#include "VertexArrayView.hpp"
 #include "InspectorPanel.hpp"
 #include "Mesh.hpp"
 

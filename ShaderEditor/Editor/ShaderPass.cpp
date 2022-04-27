@@ -33,9 +33,11 @@ void ShaderPass::OnUpdate() {
     
     if(m_Shader != nullptr) {
         m_Shader->Bind();
-//        m_VertexArray.GetOpenGLVA()->Bind();
-    //    OpenGL::RenderCommand::Draw(m_VertexArray.GetVertexCount());
-//        OpenGL::RenderCommand::DrawIndexed(m_VertexArray.GetOpenGLVA());
+        for(auto& mesh : m_Meshes) {
+            auto va = mesh->GetVertexArray();
+            va->Bind();
+            OpenGL::RenderCommand::DrawIndexed(va);
+        }
     }
 }
 

@@ -17,9 +17,8 @@ namespace Editor {
 
 PipelinePanel::PipelinePanel() {
     m_Camera = Core::CreateRef<Renderer::OrthographicCamera>();
-    auto triangle = Core::CreateRef<ShaderPass>("Triangle");
-    triangle->GetMeshes().push_back(Core::CreateRef<Mesh>("Triangle #1"));
-    triangle->GetMeshes().push_back(Core::CreateRef<Mesh>("Triangle #2"));
+    auto triangle = Core::CreateRef<ShaderPass>("TriangleShaderPass");
+    triangle->GetMeshes().push_back(Core::CreateRef<Mesh>("Triangle"));
     
     m_ShaderPasses.push_back(triangle);
 }
