@@ -9,8 +9,12 @@
 #define ShaderPass_hpp
 
 #include "VertexArrayView.hpp"
+#include "InspectorPanel.hpp"
+#include "Mesh.hpp"
 
 namespace Editor {
+
+class ShaderPassInspector;
 
 class ShaderPass {
 public:
@@ -19,16 +23,42 @@ public:
     
     void OnUpdate();
     
-    std::string& GetTitle() { return m_Title; }
-    
     void SetShader(const Core::Ref<OpenGL::Shader>& shader) { m_Shader = shader; }
+    void SetShaderPath(const Core::Ref<Core::Utils::File>& vertexPath,
+                       const Core::Ref<Core::Utils::File>& fragmentPath);
+    void SetVertexPath(const Core::Ref<Core::Utils::File>& vertexPath);
+    void SetFragmnetPath(const Core::Ref<Core::Utils::File>& fragmentPath);
     
-    VertexArrayView& GetVA() { return m_VertexArray; }
+    std::vector<Core::Ref<Mesh>>& GetMeshes() { return m_Meshes; }
+    std::string& GetTitle() { return m_Title; }
     const Core::Ref<OpenGL::Shader> GetShader() { return m_Shader; }
+    
 private:
+    void UpdateShader();
+    
+private:
+    friend class ShaderPassInspector;
     std::string m_Title;
-    VertexArrayView m_VertexArray;
+    std::vector<Core::Ref<Mesh>> m_Meshes;
+    
     Core::Ref<OpenGL::Shader> m_Shader;
+    Core::Ref<Core::Utils::File> m_VertexPath;
+    Core::Ref<Core::Utils::File> m_FragmnetPath;
+};
+
+class ShaderPassInspector: public InspectorItem {
+public:
+    void Draw() override;
+    void SetContext(const Core::Ref<ShaderPass>& context) { m_Context = context; }
+    const Core::Ref<ShaderPass>& GetContext() { return m_Context; }
+private:
+    Core::Ref<ShaderPass> m_Context = nullptr;
+    
+    enum class ActionPopupSelector {
+        Vertex, Fragment
+    };
+    
+    ActionPopupSelector m_ActionPopupSelector = ActionPopupSelector::Vertex;
 };
 
 

@@ -17,10 +17,14 @@ public:
     IndexView();
     ~IndexView();
     
-    void Draw(std::vector<uint32_t>& context);
+    void Draw();
     
     bool IsChanged() { return m_Changed; }
+    void SetContext(const Core::Ref<std::vector<uint32_t>>& context) { m_Context = context; }
+    
 private:
+    Core::Ref<std::vector<uint32_t>> m_Context = nullptr;
+    
     bool m_AutoChange = false;
     bool m_Changed = false;
 };

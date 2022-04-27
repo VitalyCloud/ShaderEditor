@@ -19,7 +19,10 @@ IndexView::~IndexView() {
     
 }
 
-void IndexView::Draw(std::vector<uint32_t>& context) {
+void IndexView::Draw() {
+    
+    if(m_Context == nullptr) return;
+    std::vector<uint32_t>& context = *m_Context;
     
     const static int columnWidth = 50;
     float avalWidth = ImGui::GetWindowWidth();

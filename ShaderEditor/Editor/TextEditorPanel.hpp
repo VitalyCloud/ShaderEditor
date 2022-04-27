@@ -24,16 +24,19 @@ public:
     void OnEvent(Core::Event& event);
     
     void AddBuffer();
-    void AddBufer(const Core::Ref<Core::Utils::File>& file);
+    void AddBuffer(const Core::Ref<Core::Utils::File>& file);
     
     void CloseBuffer(Core::Ref<TextBufferView> buffer);
     
-    bool IsFileOpened(const Core::Ref<Core::Utils::File>& file);
+    int GetIndexForFile(const Core::Ref<Core::Utils::File>& file);
     
+    static TextEditorPanel& Get() { return *s_TextEditorPanel; }
 private:
     void DrawConfirmationWindow();
     
 private:
+    static TextEditorPanel* s_TextEditorPanel;
+    
     std::vector<Core::Ref<TextBufferView>> m_Buffers;
     std::vector<Core::Ref<TextBufferView>> m_BuffersToClose;
     Core::Ref<TextBufferView> m_SelectedBuffer = nullptr;

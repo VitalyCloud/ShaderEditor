@@ -7,37 +7,17 @@
 
 #include "Core/pch.h"
 #include "ShaderPass.hpp"
+#include "TextEditorPanel.hpp"
+
+#include "ImGuiHelper.h"
 
 namespace Editor {
 
 ShaderPass::ShaderPass(const std::string& title) : m_Title(title) {
-    std::string vertexSrc = R"(
-        #version 330 core
-
-        layout(location = 0) in vec2 a_Position;
-        layout(location = 1) in vec3 a_Color;
-
-        uniform mat4 u_ViewProjection;
+    auto vertPath = Core::Utils::FileWatcher::Get().LoadFile("/Users/vitalycloud/Desktop/ShaderEditor/Resources/BasicShader/Basic.vert");
+    auto fragPath = Core::Utils::FileWatcher::Get().LoadFile("/Users/vitalycloud/Desktop/ShaderEditor/Resources/BasicShader/Basic.frag");
     
-        out vec3 v_Color;
-        void main()
-        {
-            v_Color = a_Color;
-            gl_Position = u_ViewProjection * vec4(a_Position, 1.0f, 1.0f);
-        }
-    )";
-
-    std::string fragmentSrc = R"(
-        #version 330 core
-        layout(location = 0) out vec4 color;
-        in vec3 v_Color;
-        void main()
-        {
-            color = vec4(v_Color, 1.0f);
-        }
-    )";
-
-    m_Shader = Core::CreateRef<OpenGL::Shader>(vertexSrc, fragmentSrc);
+    SetShaderPath(vertPath, fragPath);
 }
 
 ShaderPass::~ShaderPass() {
@@ -46,12 +26,131 @@ ShaderPass::~ShaderPass() {
 
 void ShaderPass::OnUpdate() {
     
+    if(m_VertexPath->GetStatus() == Core::Utils::FileStatus::FileChanged ||
+       m_FragmnetPath->GetStatus() == Core::Utils::FileStatus::FileChanged)
+        UpdateShader();
+    
+    
     if(m_Shader != nullptr) {
         m_Shader->Bind();
-        m_VertexArray.GetOpenGLVA()->Bind();
+//        m_VertexArray.GetOpenGLVA()->Bind();
     //    OpenGL::RenderCommand::Draw(m_VertexArray.GetVertexCount());
-        OpenGL::RenderCommand::DrawIndexed(m_VertexArray.GetOpenGLVA());
+//        OpenGL::RenderCommand::DrawIndexed(m_VertexArray.GetOpenGLVA());
     }
+}
+
+void ShaderPass::UpdateShader() {
+    EN_INFO("Updating shader");
+    auto vertexContent = m_VertexPath->Read();
+    auto fragmentContent = m_FragmnetPath->Read();
+    if(vertexContent.has_value() && fragmentContent.has_value()) {
+        m_Shader = Core::CreateRef<OpenGL::Shader>(vertexContent.value(), fragmentContent.value());
+    }
+}
+
+void ShaderPass::SetVertexPath(const Core::Ref<Core::Utils::File>& vertexPath) {
+    m_VertexPath = vertexPath;
+    UpdateShader();
+    TextEditorPanel::Get().AddBuffer(vertexPath);
+}
+
+void ShaderPass::SetFragmnetPath(const Core::Ref<Core::Utils::File>& fragmentPath) {
+    m_FragmnetPath = fragmentPath;
+    UpdateShader();
+    TextEditorPanel::Get().AddBuffer(fragmentPath);
+}
+
+void ShaderPass::SetShaderPath(const Core::Ref<Core::Utils::File>& vertexPath,
+                               const Core::Ref<Core::Utils::File>& fragmentPath) {
+    m_VertexPath = vertexPath;
+    m_FragmnetPath = fragmentPath;
+    UpdateShader();
+    TextEditorPanel::Get().AddBuffer(vertexPath);
+    TextEditorPanel::Get().AddBuffer(fragmentPath);
+}
+
+void ShaderPassInspector::Draw() {
+    if(m_Context == nullptr)
+        return;
+    
+    std::string vertexPath = "";
+    std::string fragmentPath = "";
+    if(m_Context->m_VertexPath != nullptr)
+        vertexPath = m_Context->m_VertexPath->GetPath();
+    if(m_Context->m_VertexPath != nullptr)
+        fragmentPath = m_Context->m_FragmnetPath->GetPath();
+    
+    if(ImGui::BeginTable("##ShaderPassProperties", 3)) {
+        ImGui::TableSetupColumn("Property", ImGuiTableColumnFlags_WidthFixed, 100);
+        ImGui::TableSetupColumn("Value");
+        ImGui::TableSetupColumn("Action", ImGuiTableColumnFlags_WidthFixed, 10);
+        
+        ImGui::TableNextRow();
+        ImGui::TableSetColumnIndex(0);
+        ImGui::PushItemWidth(ImGui::GetColumnWidth());
+        ImGui::Text("Title");
+        ImGui::PopItemWidth();
+        ImGui::TableSetColumnIndex(1);
+        ImGui::PushItemWidth(ImGui::GetColumnWidth());
+        ImGui::InputText("##ShaderPassTitle", &m_Context->m_Title);
+        ImGui::PopItemWidth();
+        
+        ImGui::TableNextRow();
+        ImGui::TableSetColumnIndex(0);
+        ImGui::PushItemWidth(ImGui::GetColumnWidth());
+        ImGui::Text("Vertex Path");
+        ImGui::PopItemWidth();
+        ImGui::TableSetColumnIndex(1);
+        ImGui::PushItemWidth(ImGui::GetColumnWidth());
+        ImGui::InputText("##ShaderPassVertexPath", &vertexPath, ImGuiInputTextFlags_ReadOnly);
+        ImGui::PopItemWidth();
+        ImGui::TableSetColumnIndex(2);
+        if(ImGui::Button(":##VertexAtctionButton")) {
+            m_ActionPopupSelector = ActionPopupSelector::Vertex;
+            ImGui::OpenPopup("ShaderActionPopup");
+        }
+            
+        
+        ImGui::TableNextRow();
+        ImGui::TableSetColumnIndex(0);
+        ImGui::PushItemWidth(ImGui::GetColumnWidth());
+        ImGui::Text("Fragment Path");
+        ImGui::PopItemWidth();
+        ImGui::TableSetColumnIndex(1);
+        ImGui::PushItemWidth(ImGui::GetColumnWidth());
+        ImGui::InputText("##ShaderPassFragmentPath", &fragmentPath, ImGuiInputTextFlags_ReadOnly);
+        ImGui::PopItemWidth();
+        ImGui::TableSetColumnIndex(2);
+        if(ImGui::Button(":##FragmentAtctionButton")) {
+            m_ActionPopupSelector = ActionPopupSelector::Fragment;
+            ImGui::OpenPopup("ShaderActionPopup");
+        }
+        
+        if(ImGui::BeginPopup("ShaderActionPopup")) {
+            if(ImGui::Selectable("Open")) {
+                auto path = Core::Utils::FileDialogs::OpenFile("");
+                if(!path.empty()) {
+                    auto file = Core::Utils::FileWatcher::Get().LoadFile(path);
+                    if(m_ActionPopupSelector == ActionPopupSelector::Vertex)
+                        m_Context->SetVertexPath(file);
+                    if(m_ActionPopupSelector == ActionPopupSelector::Fragment)
+                        m_Context->SetFragmnetPath(file);
+                }
+            }
+            
+            if(ImGui::Selectable("Show")) {
+                if(m_ActionPopupSelector == ActionPopupSelector::Vertex)
+                    TextEditorPanel::Get().AddBuffer(m_Context->m_VertexPath);
+                if(m_ActionPopupSelector == ActionPopupSelector::Fragment)
+                    TextEditorPanel::Get().AddBuffer(m_Context->m_FragmnetPath);
+            }
+            
+            ImGui::EndPopup();
+        }
+        
+        ImGui::EndTable();
+    }
+    
     
 }
 

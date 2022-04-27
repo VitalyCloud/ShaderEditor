@@ -16,10 +16,12 @@
 namespace Editor {
 
 PipelinePanel::PipelinePanel() {
-    m_ShaderPassses.push_back(Core::CreateRef<ShaderPass>("Triangle"));
     m_Camera = Core::CreateRef<Renderer::OrthographicCamera>();
-    m_UniformBuffer = Core::CreateRef<UniformBufferConteiner>();
-    m_UniformBuffer->PushUniform(OpenGL::ShaderDataType::Mat4, "u_ViewProjection");
+    auto triangle = Core::CreateRef<ShaderPass>("Triangle");
+    triangle->GetMeshes().push_back(Core::CreateRef<Mesh>("Triangle #1"));
+    triangle->GetMeshes().push_back(Core::CreateRef<Mesh>("Triangle #2"));
+    
+    m_ShaderPasses.push_back(triangle);
 }
 
 PipelinePanel::~PipelinePanel() {
@@ -27,14 +29,8 @@ PipelinePanel::~PipelinePanel() {
 }
 
 void PipelinePanel::OnUpdate() {
-    
-    // Camera Update
-    m_Camera->SetPostion(m_CameraPostion);
-    m_UniformBuffer->SetUniformData("u_ViewProjection", glm::value_ptr(m_Camera->GetViewProjectionMatrix()));
-    for(auto& shaderPass: m_ShaderPassses) {
-        m_UniformBuffer->UploadUniforms(shaderPass->GetShader());
+    for(auto& shaderPass: m_ShaderPasses)
         shaderPass->OnUpdate();
-    }
 }
 
 void PipelinePanel::Draw(const char* title, bool* p_open) {
@@ -43,47 +39,53 @@ void PipelinePanel::Draw(const char* title, bool* p_open) {
         return;
     }
     
-    for(int i=0; i<m_ShaderPassses.size(); i++) {
-        auto& shaderPass = m_ShaderPassses[i];
-        auto title = fmt::format("{0}##{1}", shaderPass->GetTitle(), i);
-        ImGui::Selectable(title.c_str(), m_SelectedShaderPasss == shaderPass);
-        if (ImGui::IsItemClicked()) {
-            m_SelectedShaderPasss = shaderPass;
-        }
+    // Draw Camera
+    bool isCameraSelected = InspectorPanel::Get().IsActive(&m_CameraInpector);
+    if(ImGui::Selectable("Camera", isCameraSelected)) {
+        m_CameraInpector.SetContext(m_Camera);
+        InspectorPanel::Get().SetContext(&m_CameraInpector);
     }
+    
+    for(int i=0; i<m_ShaderPasses.size(); i++) {
+        const char* title = m_ShaderPasses[i]->GetTitle().c_str();
+        auto id = fmt::format("{0}##{1}", title, i);
+        auto shaderPass = m_ShaderPasses[i];
+        
+        bool isShaderPassSelected = InspectorPanel::Get().IsActive(&m_ShaderPassInspector) && m_ShaderPassInspector.GetContext() == shaderPass;
+        ImGuiTreeNodeFlags flags = (isShaderPassSelected) ? ImGuiTreeNodeFlags_Selected : 0;
+        flags |= ImGuiTreeNodeFlags_OpenOnArrow;
+        bool opened = ImGui::TreeNodeEx(id.c_str(), flags, "%s", title);
+        if(ImGui::IsItemClicked()) {
+            m_ShaderPassInspector.SetContext(shaderPass);
+            InspectorPanel::Get().SetContext(&m_ShaderPassInspector);
+        }
+        
+        if(opened) {
+            for(auto& mesh: shaderPass->GetMeshes()) {
+                bool isMeshSelected = InspectorPanel::Get().IsActive(&m_MeshInspector) && m_MeshInspector.GetContext() == mesh;
+                if(ImGui::Selectable(mesh->GetTitle().c_str(), isMeshSelected)) {
+                    m_MeshInspector.SetContext(mesh);
+                    InspectorPanel::Get().SetContext(&m_MeshInspector);
+                }
+            }
+            
+            ImGui::TreePop();
+        }
+        
+    }
+    
     ImGui::End();
 }
 
-void PipelinePanel::DrawInspector(const char* title, bool* p_open) {
-    if (!ImGui::Begin(title, p_open)) {
-        ImGui::End();
+
+void CameraInspector::Draw() {
+    if(m_Context == nullptr)
         return;
-    }
     
-    if(m_SelectedShaderPasss != nullptr) {
-        ImGui::Text("Title"); ImGui::SameLine();
-        ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x);
-        ImGui::InputText("##inputTitle", &m_SelectedShaderPasss->GetTitle());
-        ImGui::PopItemWidth();
-        
-        
-        ImGui::DragFloat3("##CameraPositionInput", &m_CameraPostion.x, 0.1, -10, 10);
-        
-        ImGui::Separator();
-        
-        if(ImGui::Button("Open Vertex")) {
-            
-        }
-        
-        if(ImGui::Button("Open Fragment")) {
-            
-        }
-        
-        m_SelectedShaderPasss->GetVA().Draw();
-    }
-    
-    ImGui::End();
-}
-
+    if(ImGui::DragFloat3("Position##CameraPosition", &m_CameraPostion.x))
+        m_Context->SetPostion(m_CameraPostion);
+    if(ImGui::DragFloat("Rotation##CameraRotation", &rotation))
+        m_Context->SetRotation(rotation);
+};
 
 }

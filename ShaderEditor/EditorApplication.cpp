@@ -13,6 +13,7 @@
 
 #include "Editor/UniformPanel.hpp"
 #include "Editor/PipelinePanel.hpp"
+#include "Editor/InspectorPanel.hpp"
 
 namespace Editor {
 
@@ -140,7 +141,7 @@ public:
         if(m_ShowPipeline)
             m_Pipeline.Draw("Pipeline", &m_ShowPipeline);
         if(m_ShowInspector)
-            m_Pipeline.DrawInspector("Inspector", &m_ShowInspector);
+            m_InspectorPanel.Draw("Inspector", &m_ShowInspector);
         if(m_ShowUniform)
             m_Uniform.Draw("Uniforms", &m_ShowUniform);
         if(m_ShowTextEditor)
@@ -166,11 +167,12 @@ private:
     TextEditorPanel m_TextEditor;
     UniformPanel m_Uniform;
     PipelinePanel m_Pipeline;
+    InspectorPanel m_InspectorPanel;
     
     bool m_ShowViewport = true;
     bool m_ShowPipeline = true;
     bool m_ShowInspector = true;
-    bool m_ShowUniform = true;
+    bool m_ShowUniform = false;
     bool m_ShowTextEditor = true;
     
     bool m_ShowImGuiDemo = false;

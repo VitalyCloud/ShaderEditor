@@ -26,6 +26,7 @@ void TextBufferView::Draw(ImFont* font) {
     
     if(m_File!=nullptr) {
         if(m_File->GetStatus() == Core::Utils::FileStatus::FileChanged) {
+            EN_INFO("TextBuffer: File {0} changed", m_File->GetPath().string());
             auto fileSrc = m_File->Read();
             if(fileSrc.has_value())
                 m_Buffer.SetText(fileSrc.value());
@@ -172,18 +173,17 @@ bool TextBufferView::OpenFile(const Core::Ref<Core::Utils::File>& file) {
 void TextBufferView::SaveFile() {
     if(m_File == nullptr) {
         std::string savePath = Core::Utils::FileDialogs::SaveFile("");
-        if(!savePath.empty()) {
+        if(!savePath.empty())
             m_File = Core::Utils::FileWatcher::Get().LoadFile(savePath);
-            m_File->Write(m_Buffer.GetText());
-            m_TextChanged = false;
-        }
-        return;
-    } else {
-        m_File->Write(m_Buffer.GetText());
-        m_TextChanged = false;
+        else
+            return;
     }
+    std::string stringToSave = m_Buffer.GetText();
+    stringToSave.pop_back();
+    
+    m_File->Write(stringToSave);
+    m_TextChanged = false;
 }
-
 
 }
 

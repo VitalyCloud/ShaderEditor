@@ -12,6 +12,7 @@
 
 namespace Editor {
 VertexArrayView::VertexArrayView() {
+    m_Indicies = Core::CreateRef<std::vector<uint32_t>>();
     AddVertexBuffer();
     
     auto vb = m_VertexBuffers[0];
@@ -48,7 +49,7 @@ VertexArrayView::VertexArrayView() {
     *(color2+1) = 0.0;
     *(color2+2) = 1.0;
 
-    m_Indicies = {0, 1, 2};
+    *m_Indicies = {0, 1, 2};
     InvalidateVertexArray();
 }
 
@@ -63,7 +64,7 @@ void VertexArrayView::InvalidateVertexArray() {
         auto vb = buffer->CreateOpenGLVertexBuffer();
         m_OpenGLVA->AddVertexBuffer(vb);
     }
-    auto indexBuffer = Core::CreateRef<OpenGL::IndexBuffer>(m_Indicies.data(), m_Indicies.size());
+    auto indexBuffer = Core::CreateRef<OpenGL::IndexBuffer>(m_Indicies->data(), m_Indicies->size());
     m_OpenGLVA->SetIndexBuffer(indexBuffer);
 }
 
@@ -123,7 +124,8 @@ void VertexArrayView::Draw() {
     }
     
     if(ImGui::CollapsingHeader("Index Buffer")) {
-        m_IndexView.Draw(m_Indicies);
+        m_IndexView.SetContext(m_Indicies);
+        m_IndexView.Draw();
         if(m_IndexView.IsChanged()) {
             InvalidateVertexArray();
         }

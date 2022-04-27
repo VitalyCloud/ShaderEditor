@@ -38,7 +38,7 @@ private:
     std::vector<Core::Ref<VertexBufferConteiner>> m_VertexBuffers;
     
     IndexView m_IndexView;
-    std::vector<uint32_t> m_Indicies;
+    Core::Ref<std::vector<uint32_t>> m_Indicies;
     
     Core::Ref<OpenGL::VertexArray> m_OpenGLVA;
 };

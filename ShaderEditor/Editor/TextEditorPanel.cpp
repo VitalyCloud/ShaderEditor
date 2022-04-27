@@ -10,7 +10,11 @@
 
 namespace Editor {
 
-TextEditorPanel::TextEditorPanel() { 
+TextEditorPanel* TextEditorPanel::s_TextEditorPanel = nullptr;
+
+TextEditorPanel::TextEditorPanel() {
+    EN_ASSERT(s_TextEditorPanel == nullptr, "TextEditorPanel is already created");
+    s_TextEditorPanel = this;
     AddBuffer();
     
     ImGuiIO& io = ImGui::GetIO(); (void)io;
@@ -29,22 +33,25 @@ void TextEditorPanel::OnEvent(Core::Event &event) {
 }
 
 
-void TextEditorPanel::AddBufer(const Core::Ref<Core::Utils::File>& file) {
-    if(IsFileOpened(file))
-        return;
-    Core::Ref<TextBufferView> item = Core::CreateRef<TextBufferView>();
-    item->OpenFile(file);
-    item->ShouldShow() = true;
-    m_Buffers.push_back(item);
+void TextEditorPanel::AddBuffer(const Core::Ref<Core::Utils::File>& file) {
+    int index = GetIndexForFile(file);
+    if(index == -1) {
+        Core::Ref<TextBufferView> item = Core::CreateRef<TextBufferView>();
+        item->OpenFile(file);
+        item->ShouldShow() = true;
+        m_Buffers.push_back(item);
+    } else {
+        m_Buffers[index]->ShouldShow() = true;
+    }
 }
 
-bool TextEditorPanel::IsFileOpened(const Core::Ref<Core::Utils::File>& file) {
+int TextEditorPanel::GetIndexForFile(const Core::Ref<Core::Utils::File>& file) {
     for(int i=0; i<m_Buffers.size(); i++) {
-        if(m_Buffers[i]->GetFile()->GetPath() == file->GetPath()) {
-            return true;
-        }
+        auto bufferFile = m_Buffers[i]->GetFile();
+        if(bufferFile != nullptr && bufferFile->GetPath() == file->GetPath())
+            return i;
     }
-    return false;
+    return -1;
 }
 
 void TextEditorPanel::AddBuffer() {
