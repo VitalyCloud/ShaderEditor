@@ -11,7 +11,7 @@
 #include "imgui.h"
 #include "ImGuiHelper.h"
 
-#include "glm/gtc/type_ptr.hpp"
+#include "EditorUniforms.hpp"
 
 namespace Editor {
 
@@ -28,8 +28,11 @@ PipelinePanel::~PipelinePanel() {
 }
 
 void PipelinePanel::OnUpdate() {
-    for(auto& shaderPass: m_ShaderPasses)
+    for(auto& shaderPass: m_ShaderPasses) {
+        EditorUniforms::Get().Upload(shaderPass->GetShader());
         shaderPass->OnUpdate();
+    }
+        
 }
 
 void PipelinePanel::Draw(const char* title, bool* p_open) {

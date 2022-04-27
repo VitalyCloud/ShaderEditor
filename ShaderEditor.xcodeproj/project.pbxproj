@@ -37,6 +37,7 @@
 		808FA14928142598009E669E /* ImGuiHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 808FA14728142598009E669E /* ImGuiHelper.cpp */; };
 		80BDCBFE2819997400212D14 /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80BDCBFC2819997400212D14 /* Mesh.cpp */; };
 		80BDCC0128199B5A00212D14 /* InspectorPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80BDCBFF28199B5A00212D14 /* InspectorPanel.cpp */; };
+		80BDCC05281A033D00212D14 /* EditorUniforms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80BDCC03281A033D00212D14 /* EditorUniforms.cpp */; };
 		80C4915328122BE7009FC5E3 /* Log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80C4915128122BE7009FC5E3 /* Log.cpp */; };
 		80C4915F2812359E009FC5E3 /* OrthographicCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80C4915E2812359E009FC5E3 /* OrthographicCamera.cpp */; };
 		80DCD4592812BF3400610807 /* TextBufferView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80DCD4572812BF3400610807 /* TextBufferView.cpp */; };
@@ -120,6 +121,8 @@
 		80BDCBFD2819997400212D14 /* Mesh.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Mesh.hpp; sourceTree = "<group>"; };
 		80BDCBFF28199B5A00212D14 /* InspectorPanel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = InspectorPanel.cpp; sourceTree = "<group>"; };
 		80BDCC0028199B5A00212D14 /* InspectorPanel.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = InspectorPanel.hpp; sourceTree = "<group>"; };
+		80BDCC03281A033D00212D14 /* EditorUniforms.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = EditorUniforms.cpp; sourceTree = "<group>"; };
+		80BDCC04281A033D00212D14 /* EditorUniforms.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EditorUniforms.hpp; sourceTree = "<group>"; };
 		80C4915028122B2C009FC5E3 /* Assert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Assert.h; sourceTree = "<group>"; };
 		80C4915128122BE7009FC5E3 /* Log.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Log.cpp; sourceTree = "<group>"; };
 		80C4915228122BE7009FC5E3 /* Log.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Log.hpp; sourceTree = "<group>"; };
@@ -350,6 +353,8 @@
 				803B40BB2816F417006B89EA /* PipelinePanel.hpp */,
 				80BDCBFC2819997400212D14 /* Mesh.cpp */,
 				80BDCBFD2819997400212D14 /* Mesh.hpp */,
+				80BDCC03281A033D00212D14 /* EditorUniforms.cpp */,
+				80BDCC04281A033D00212D14 /* EditorUniforms.hpp */,
 			);
 			path = Editor;
 			sourceTree = "<group>";
@@ -452,6 +457,7 @@
 				808FA13E281412B6009E669E /* UniformView.cpp in Sources */,
 				8075223E2810B52900C0AD39 /* Framebuffer.cpp in Sources */,
 				8075224E2811764D00C0AD39 /* Shader.cpp in Sources */,
+				80BDCC05281A033D00212D14 /* EditorUniforms.cpp in Sources */,
 				80752208281095A400C0AD39 /* ImGuiBuild.cpp in Sources */,
 				80DCD4662812CD5500610807 /* TextEditorPanel.cpp in Sources */,
 				8075225428117AA500C0AD39 /* Utils.cpp in Sources */,

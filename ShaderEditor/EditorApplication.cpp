@@ -13,6 +13,7 @@
 
 #include "Editor/PipelinePanel.hpp"
 #include "Editor/InspectorPanel.hpp"
+#include "Editor/EditorUniforms.hpp"
 
 namespace Editor {
 
@@ -47,6 +48,9 @@ public:
         x *= A;
     
         m_Camera.SetCamera(-x, x, -y, y);
+        
+        m_Framebuffer->Resize(width > 0 ? width : 1, height > 0 ? height : 1);
+        m_EditorUniforms.SetResolution(glm::vec2(width, height));
     }
     
     void OnMainMenuBar() {
@@ -121,6 +125,7 @@ public:
     
     virtual void OnUpdate() override {
         m_Camera.SetPostion(m_CameraPostion);
+        m_EditorUniforms.SetTime(Core::Input::GetTime());
         
         m_Framebuffer->Bind();
         
@@ -172,9 +177,9 @@ private:
     bool m_ShowDebug = false;
     
     Core::Ref<OpenGL::Framebuffer> m_Framebuffer;
-    Core::Ref<OpenGL::VertexArray> m_VertexArray;
-    Core::Ref<OpenGL::Shader> m_Shader;
     Renderer::OrthographicCamera m_Camera;
+    EditorUniforms m_EditorUniforms;
+    
     
     glm::vec3 m_CameraPostion = glm::vec3(0.0);
     glm::vec4 m_ClearColor = glm::vec4(0.3f);
