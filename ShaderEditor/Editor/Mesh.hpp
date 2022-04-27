@@ -13,6 +13,8 @@
 #include "OpenGL/OpenGL.hpp"
 
 #include "InspectorPanel.hpp"
+#include "VertexView.hpp"
+#include "IndexView.hpp"
 
 namespace Editor {
 
@@ -20,18 +22,23 @@ class MeshInspector;
 
 class Mesh {
 public:
-    using VertexBufferContainer = std::vector<uint32_t>;
-    Mesh(const std::string& title = "New Mesh") : m_Title(title) {}
-    ~Mesh() {}
+    using IndexBufferContainer = std::vector<uint32_t>;
+    Mesh(const std::string& title = "New Mesh");
+    ~Mesh();
     
     const Core::Ref<OpenGL::VertexArray>& GetVertexArray() { return m_VertexArray; }
     uint32_t GetVertexCount() { return m_VertexBuffers[0]->VertexCount(); }
     const std::string& GetTitle() { return m_Title; }
     
 private:
+    void InvalidateVertexArray();
+    void AddVertexBuffer();
+    void RemoveVertexBuffer(int index);
+
+private:
     friend class MeshInspector;
     std::vector<Core::Ref<VertexBufferConteiner>> m_VertexBuffers;
-    Core::Ref<VertexBufferContainer> m_Indicies;
+    Core::Ref<IndexBufferContainer> m_Indicies;
     Core::Ref<OpenGL::VertexArray> m_VertexArray;
     
     std::string m_Title;
@@ -44,6 +51,9 @@ public:
     const Core::Ref<Mesh>& GetContext() { return m_Context; }
 private:
     Core::Ref<Mesh> m_Context;
+    
+    VertexView m_VertexView;
+    IndexView m_IndexView;
 };
 
 
