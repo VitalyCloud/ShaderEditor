@@ -121,8 +121,6 @@ public:
         
     }
     
-    
-    
     virtual void OnUpdate() override {
         m_Camera.SetPostion(m_CameraPostion);
         m_EditorUniforms.SetTime(Core::Input::GetTime());
