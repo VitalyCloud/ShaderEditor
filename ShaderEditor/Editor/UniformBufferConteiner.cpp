@@ -77,27 +77,38 @@ void UniformBufferConteiner::UploadUniforms(const Core::Ref<OpenGL::Shader>& sha
         auto value = m_Buffer.data() + offset;
         float* floatValue = (float*)value;
         int* intValue = (int*)value;
-        uint32_t count = OpenGL::ShaderDataTypeComponentCount(uniform.Type);
         
         switch (uniform.Type)
         {
             case OpenGL::ShaderDataType::Float:
+                uniform.Connected = shader->SetFloat(uniform.Title, *floatValue);
+                break;
             case OpenGL::ShaderDataType::Float2:
+                uniform.Connected = shader->SetFloat2(uniform.Title, floatValue);
+                break;
             case OpenGL::ShaderDataType::Float3:
+                uniform.Connected = shader->SetFloat3(uniform.Title, floatValue);
+                break;
             case OpenGL::ShaderDataType::Float4:
-                shader->SetFloatArray(uniform.Title, floatValue, count);
+                uniform.Connected = shader->SetFloat4(uniform.Title, floatValue);
                 break;
             case OpenGL::ShaderDataType::Mat3:
-                shader->SetMat3v(uniform.Title, floatValue);
+                uniform.Connected = shader->SetMat3v(uniform.Title, floatValue);
                 break;
             case OpenGL::ShaderDataType::Mat4:
-                shader->SetMat4v(uniform.Title, floatValue);
+                uniform.Connected = shader->SetMat4v(uniform.Title, floatValue);
                 break;
             case OpenGL::ShaderDataType::Int:
+                uniform.Connected = shader->SetInt(uniform.Title, *intValue);
+                break;
             case OpenGL::ShaderDataType::Int2:
+                uniform.Connected = shader->SetInt2(uniform.Title, intValue);
+                break;
             case OpenGL::ShaderDataType::Int3:
+                uniform.Connected = shader->SetInt3(uniform.Title, intValue);
+                break;
             case OpenGL::ShaderDataType::Int4:
-                shader->SetIntArray(uniform.Title, intValue, count);
+                uniform.Connected = shader->SetInt4(uniform.Title, intValue);
                 break;
             case OpenGL::ShaderDataType::Bool:      break;
             default: break;

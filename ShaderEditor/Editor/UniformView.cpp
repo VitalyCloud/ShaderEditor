@@ -5,18 +5,18 @@
 //  Created by Vitaly Cloud on 23.04.2022.
 //
 #include "Core/pch.h"
-#include "UniformPanel.hpp"
+#include "UniformView.hpp"
 #include "Core/Core.hpp"
 #include "ImGuiHelper.h"
 #include "ImGuiInputSettings.hpp"
 
 namespace Editor {
 
-UniformPanel::UniformPanel() {
+UniformView::UniformView() {
     m_UniformsToDelete.reserve(5);
 }
 
-UniformPanel::~UniformPanel() {
+UniformView::~UniformView() {
     
 }
 
@@ -35,11 +35,9 @@ static const char* const s_Types[] = {
     "Bool"
 };
 
-void UniformPanel::Draw(const char* title, bool* p_open)  {
-    if (!ImGui::Begin(title, p_open)) {
-        ImGui::End();
+void UniformView::Draw() {
+    if(m_Uniforms == nullptr)
         return;
-    }
     
     if(ImGui::BeginTable("Uniforms", 3, ImGuiTableFlags_Resizable)) {
         ImGui::TableSetupColumn("Titile");
@@ -47,7 +45,7 @@ void UniformPanel::Draw(const char* title, bool* p_open)  {
         ImGui::TableSetupColumn("Value");
         ImGui::TableHeadersRow();
         
-        for(int i=0; i<m_Uniforms.Count(); i++) {
+        for(int i=0; i<m_Uniforms->Count(); i++) {
             ImGui::TableNextRow();
             ImGui::PushID(i);
             
@@ -58,24 +56,30 @@ void UniformPanel::Draw(const char* title, bool* p_open)  {
                 m_UniformsToDelete.push_back(i);
             }
             ImGui::SameLine();
-            ImGui::InputText("##UniformName", &m_Uniforms.GetUniform(i).Title);
+            ImGui::InputText("##UniformName", &m_Uniforms->GetUniform(i).Title);
             ImGui::PopItemWidth();
             
-            auto uniform = m_Uniforms.GetUniform(i);
+            auto uniform = m_Uniforms->GetUniform(i);
+            // Color
+            ImU32 cell_bg_color = ImGui::GetColorU32(ImVec4(0.0f, 0.0f, 0.0f, 0.0f));
+            if(uniform.Connected)
+                cell_bg_color = ImGui::GetColorU32(ImVec4(0.084f, 0.510f, 0.094f, 0.35f));
+            ImGui::TableSetBgColor(ImGuiTableBgTarget_RowBg0, cell_bg_color);
+            
             // Type
             ImGui::TableSetColumnIndex(1);
             ImGui::PushItemWidth(ImGui::GetColumnWidth());
             int selectedType = static_cast<int>(uniform.Type) - 1;
             if(ImGui::Combo("##Type", &selectedType, s_Types+1, OpenGL::ShaderDataTypeCount() -1)) {
                 auto newType = OpenGL::ShaderDataType(selectedType + 1);
-                m_Uniforms.ChangeType(i, newType);
+                m_Uniforms->ChangeType(i, newType);
             }
             ImGui::PopItemWidth();
             
             // Value
             ImGui::TableSetColumnIndex(2);
             ImGui::PushItemWidth(ImGui::GetColumnWidth()-20);
-            DrawUniformInput(uniform, m_Uniforms.GetUniformData(i));
+            DrawUniformInput(uniform, m_Uniforms->GetUniformData(i));
             ImGui::PopItemWidth();
             if(uniform.Type != OpenGL::ShaderDataType::Bool) {
                 ImGui::SameLine();
@@ -89,7 +93,7 @@ void UniformPanel::Draw(const char* title, bool* p_open)  {
         ImGui::EndTable();
     }
     if(ImGui::Button("Add uniform")) {
-        m_Uniforms.PushUniform();
+        m_Uniforms->PushUniform();
     }
     if(ImGui::IsItemClicked(ImGuiMouseButton_Right)) {
         ImGui::OpenPopup("NewUniformType");
@@ -98,7 +102,7 @@ void UniformPanel::Draw(const char* title, bool* p_open)  {
         for(int i=1; i<OpenGL::ShaderDataTypeCount(); i++) {
             OpenGL::ShaderDataType type = static_cast<OpenGL::ShaderDataType>(i);
             if(ImGui::Selectable(OpenGL::ShaderDataTypeTitle(type))) {
-                m_Uniforms.PushUniform(type);
+                m_Uniforms->PushUniform(type);
             }
         }
         ImGui::EndPopup();
@@ -106,14 +110,12 @@ void UniformPanel::Draw(const char* title, bool* p_open)  {
     
     // Update Data
     for(int i=0; i<m_UniformsToDelete.size(); i++)
-        m_Uniforms.Delete(m_UniformsToDelete[i]);
+        m_Uniforms->Delete(m_UniformsToDelete[i]);
     m_UniformsToDelete.clear();
-    
-    ImGui::End();
 }
 
-void UniformPanel::DrawInputSettings(int i) {
-    Uniform& uniform = m_Uniforms[i];
+void UniformView::DrawInputSettings(int i) {
+    Uniform& uniform = (*m_Uniforms)[i];
     OpenGL::ShaderDataType type = uniform.Type;
     InputSettings* settings = &uniform.Settings;
 
@@ -123,7 +125,7 @@ void UniformPanel::DrawInputSettings(int i) {
     }
 }
 
-void UniformPanel::DrawUniformInput(Uniform& uniform, void* data) {
+void UniformView::DrawUniformInput(Uniform& uniform, void* data) {
     switch (uniform.Type) {
         case OpenGL::ShaderDataType::Float:
         case OpenGL::ShaderDataType::Float2:

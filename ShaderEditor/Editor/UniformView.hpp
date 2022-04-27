@@ -10,21 +10,23 @@
 
 #include "OpenGL/Buffer.hpp"
 #include "UniformBufferConteiner.hpp"
+#include "Core/Core.hpp"
 
 namespace Editor {
 
-class UniformPanel {
+class UniformView {
 public:
-    UniformPanel();
-    ~UniformPanel();
+    UniformView();
+    ~UniformView();
     
-    void Draw(const char* title, bool* p_open = nullptr);
+    void Draw();
+    void SetContext(const Core::Ref<UniformBufferConteiner>& context) { m_Uniforms = context; }
 private:
     void DrawUniformTypeInput(const OpenGL::ShaderDataType& type, void* data);
     void DrawInputSettings(int index);
     void DrawUniformInput(Uniform& uniform, void* data);
 private:
-    UniformBufferConteiner m_Uniforms;
+    Core::Ref<UniformBufferConteiner> m_Uniforms = nullptr;
     
 private:
     std::vector<uint32_t> m_UniformsToDelete;

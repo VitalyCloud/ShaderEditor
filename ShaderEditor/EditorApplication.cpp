@@ -11,7 +11,6 @@
 #include "Editor/ViewportPanel.hpp"
 #include "Editor/TextEditorPanel.hpp"
 
-#include "Editor/UniformPanel.hpp"
 #include "Editor/PipelinePanel.hpp"
 #include "Editor/InspectorPanel.hpp"
 
@@ -66,8 +65,6 @@ public:
                 m_ShowPipeline = !m_ShowPipeline;
             if (ImGui::MenuItem("Inspector", nullptr, m_ShowInspector))
                 m_ShowInspector = !m_ShowInspector;
-            if (ImGui::MenuItem("Uniforms", nullptr, m_ShowUniform))
-                m_ShowUniform = !m_ShowUniform;
             if (ImGui::MenuItem("Text Editor", nullptr, m_ShowTextEditor))
                 m_ShowTextEditor = !m_ShowTextEditor;
             
@@ -142,8 +139,6 @@ public:
             m_Pipeline.Draw("Pipeline", &m_ShowPipeline);
         if(m_ShowInspector)
             m_InspectorPanel.Draw("Inspector", &m_ShowInspector);
-        if(m_ShowUniform)
-            m_Uniform.Draw("Uniforms", &m_ShowUniform);
         if(m_ShowTextEditor)
             m_TextEditor.Draw("Text Editor", &m_ShowTextEditor);
         
@@ -165,14 +160,12 @@ public:
 private:
     ViewportPanel m_Viewport;
     TextEditorPanel m_TextEditor;
-    UniformPanel m_Uniform;
     PipelinePanel m_Pipeline;
     InspectorPanel m_InspectorPanel;
     
     bool m_ShowViewport = true;
     bool m_ShowPipeline = true;
     bool m_ShowInspector = true;
-    bool m_ShowUniform = false;
     bool m_ShowTextEditor = true;
     
     bool m_ShowImGuiDemo = false;

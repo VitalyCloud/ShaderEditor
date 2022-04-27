@@ -26,17 +26,24 @@ public:
     void Bind();
     void Unbind();
     
-    void SetInt(const std::string& name, int value);
-    void SetIntArray(const std::string& name, int* values, uint32_t count);
-    void SetFloat(const std::string& name, float value);
-    void SetFloat2(const std::string& name, const glm::vec2& value);
-    void SetFloat3(const std::string& name, const glm::vec3& value);
-    void SetFloat4(const std::string& name, const glm::vec4& value);
-    void SetFloatArray(const std::string& name, float* values, uint32_t count);
-    void SetMat3(const std::string& name, const glm::mat3& value);
-    void SetMat3v(const std::string& name, const float* values);
-    void SetMat4(const std::string& name, const glm::mat4& value);
-    void SetMat4v(const std::string& name, const float* values);
+    bool SetInt(const std::string& name, int value);
+    bool SetInt2(const std::string& name, const int* value);
+    bool SetInt3(const std::string& name, const int* value);
+    bool SetInt4(const std::string& name, const int* value);
+    bool SetIntArray(const std::string& name, int* values, uint32_t count);
+    bool SetFloat(const std::string& name, float value);
+    bool SetFloat2(const std::string& name, const glm::vec2& value);
+    bool SetFloat2(const std::string& name, const float* value);
+    bool SetFloat3(const std::string& name, const glm::vec3& value);
+    bool SetFloat3(const std::string& name, const float* value);
+    bool SetFloat4(const std::string& name, const glm::vec4& value);
+    bool SetFloat4(const std::string& name, const float* value);
+    bool SetFloatArray(const std::string& name, float* values, uint32_t count);
+    bool SetMat3(const std::string& name, const glm::mat3& value);
+    bool SetMat4(const std::string& name, const glm::mat4& value);
+
+    bool SetMat3v(const std::string& name, const float* values);
+    bool SetMat4v(const std::string& name, const float* values);
     
 private:
     unsigned int m_RendererID;

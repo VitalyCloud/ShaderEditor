@@ -18,6 +18,7 @@ namespace Editor {
 struct Uniform {
     std::string Title;
     OpenGL::ShaderDataType Type;
+    bool Connected = false;
     
     InputSettings Settings;
 

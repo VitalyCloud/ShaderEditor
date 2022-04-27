@@ -18,6 +18,8 @@ ShaderPass::ShaderPass(const std::string& title) : m_Title(title) {
     auto fragPath = Core::Utils::FileWatcher::Get().LoadFile("/Users/vitalycloud/Desktop/ShaderEditor/Resources/BasicShader/Basic.frag");
     
     SetShaderPath(vertPath, fragPath);
+    
+    m_Uniforms = Core::CreateRef<UniformBufferConteiner>();
 }
 
 ShaderPass::~ShaderPass() {
@@ -30,7 +32,10 @@ void ShaderPass::OnUpdate() {
        m_FragmnetPath->GetStatus() == Core::Utils::FileStatus::FileChanged)
         UpdateShader();
     
+    m_Shader->Bind();
+    m_Uniforms->UploadUniforms(m_Shader);
     
+    // Draw
     if(m_Shader != nullptr) {
         m_Shader->Bind();
         for(auto& mesh : m_Meshes) {
@@ -151,6 +156,10 @@ void ShaderPassInspector::Draw() {
         }
         
         ImGui::EndTable();
+        
+        m_UniformView.SetContext(m_Context->m_Uniforms);
+        m_UniformView.Draw();
+        
     }
     
     

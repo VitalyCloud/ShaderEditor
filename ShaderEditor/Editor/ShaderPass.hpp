@@ -10,6 +10,8 @@
 
 #include "InspectorPanel.hpp"
 #include "Mesh.hpp"
+#include "UniformBufferConteiner.hpp"
+#include "UniformView.hpp"
 
 namespace Editor {
 
@@ -39,6 +41,7 @@ private:
     friend class ShaderPassInspector;
     std::string m_Title;
     std::vector<Core::Ref<Mesh>> m_Meshes;
+    Core::Ref<UniformBufferConteiner> m_Uniforms;
     
     Core::Ref<OpenGL::Shader> m_Shader;
     Core::Ref<Core::Utils::File> m_VertexPath;
@@ -52,6 +55,7 @@ public:
     const Core::Ref<ShaderPass>& GetContext() { return m_Context; }
 private:
     Core::Ref<ShaderPass> m_Context = nullptr;
+    UniformView m_UniformView;
     
     enum class ActionPopupSelector {
         Vertex, Fragment
