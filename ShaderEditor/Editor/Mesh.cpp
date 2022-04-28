@@ -14,15 +14,15 @@ namespace Editor {
 
 Mesh::Mesh(const std::string& title) : m_Title(title) {
     m_Indicies = Core::CreateRef<std::vector<uint32_t>>();
-//    AddVertexBuffer();
-//    m_VertexBuffers[0]->PushLayoutElement({OpenGL::ShaderDataType::Float, "Element"});
-    PopulateDefaultMesh(DefaultMesh::Triangle);
+    m_Indicies = {0};
+    m_VertexBuffers.push_back(Core::CreateRef<VertexBufferConteiner>());
+    m_VertexBuffers[0]->PushLayoutElement({OpenGL::ShaderDataType::Float, "Element"});
+    m_VertexBuffers[0]->PushVertex();
 }
 
 Mesh::Mesh(DefaultMesh defaultMesh, const std::string& title) : m_Title(title) {
     m_Indicies = Core::CreateRef<std::vector<uint32_t>>();
     PopulateDefaultMesh(defaultMesh);
-    
 }
 
 Mesh::~Mesh() {
@@ -32,7 +32,10 @@ Mesh::~Mesh() {
 void Mesh::Draw(const Core::Ref<OpenGL::Shader>& shader) {
     if(m_VertexArray != nullptr && m_VertexArray->GetVertexBuffers().size() > 0) {
         m_VertexArray->Bind();
-        OpenGL::RenderCommand::DrawIndexed(m_VertexArray);
+        if(m_DrawIndexed)
+            OpenGL::RenderCommand::DrawIndexed(m_VertexArray);
+        else
+            OpenGL::RenderCommand::Draw(m_VertexBuffers[0]->VertexCount());
     }
 }
 
@@ -116,12 +119,14 @@ void MeshInspector::Draw() {
             m_Context->InvalidateVertexArray();
         }
     }
+    
+    ImGui::Checkbox("Draw Indexed", &m_Context->m_DrawIndexed);
 }
 
 void Mesh::PopulateDefaultMesh(DefaultMesh defaultMesh) {
     switch (defaultMesh) {
         case DefaultMesh::Triangle: {
-            AddVertexBuffer();
+            m_VertexBuffers.push_back(Core::CreateRef<VertexBufferConteiner>());
             auto vb = m_VertexBuffers[0];
             
             vb->PushLayoutElement({OpenGL::ShaderDataType::Float2, "Pos"});
@@ -159,17 +164,48 @@ void Mesh::PopulateDefaultMesh(DefaultMesh defaultMesh) {
 
             *m_Indicies = {0, 1, 2};
             
+            m_DrawIndexed = true;
+            
             if(m_Title.empty())
                 m_Title = "Triangle";
-            
+    
             InvalidateVertexArray();
+            
+           
             break;
         }
         case DefaultMesh::Squad: {
-            EN_ERROR("Squad is not implemented");
+            m_VertexBuffers.push_back(Core::CreateRef<VertexBufferConteiner>());
+            auto vb = m_VertexBuffers[0];
+            
+            vb->PushLayoutElement({OpenGL::ShaderDataType::Float2, "Pos"});
+            vb->PushVertex();vb->PushVertex();
+            vb->PushVertex();vb->PushVertex();
+            
+            float* pos0 = (float*)vb->GetVertexComponent(0, 0);
+            *(pos0+0) = -1.0;
+            *(pos0+1) = 1.0;
+
+            float* pos1 = (float*)vb->GetVertexComponent(1, 0);
+            *(pos1+0) = 1.0;
+            *(pos1+1) = 1.0;
+
+            float* pos2 = (float*)vb->GetVertexComponent(2, 0);
+            *(pos2+0) = 1.0;
+            *(pos2+1) = -1.0;
+            
+            float* pos3 = (float*)vb->GetVertexComponent(3, 0);
+            *(pos3+0) = -1.0;
+            *(pos3+1) = -1.0;
+            
+            *m_Indicies = {0, 1, 2, 2, 0, 3};
+            m_DrawIndexed = true;
             
             if(m_Title.empty())
                 m_Title = "Squad";
+            
+            InvalidateVertexArray();
+            
             break;
         }
         default:

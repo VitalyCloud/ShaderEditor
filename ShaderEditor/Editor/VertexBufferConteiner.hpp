@@ -22,7 +22,7 @@ struct VertexBufferElement {
 class VertexBufferConteiner
 {
 public:
-    VertexBufferConteiner(int reserve = 10);
+    VertexBufferConteiner();
     ~VertexBufferConteiner();
     void PushLayoutElement(const OpenGL::BufferElement& element);
     void InsertLayoutElement(int position, OpenGL::BufferElement& element);

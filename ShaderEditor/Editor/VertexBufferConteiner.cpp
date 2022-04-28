@@ -9,7 +9,7 @@
 
 namespace Editor {
 
-VertexBufferConteiner::VertexBufferConteiner(int reserve) {
+VertexBufferConteiner::VertexBufferConteiner() {
 //    PushLayoutElement(OpenGL::BufferElement(OpenGL::ShaderDataType::Float, "Pos"));
 //
 //    // Reserve buffer

@@ -11,7 +11,7 @@
 #include "imgui.h"
 #include "ImGuiHelper.h"
 
-#include "EditorUniforms.hpp"
+
 
 namespace Editor {
 
@@ -20,9 +20,8 @@ PipelinePanel::PipelinePanel() {
     auto triangle = Core::CreateRef<ShaderPass>("TriangleShaderPass");
     auto vertPath = Core::Utils::FileWatcher::Get().LoadFile("/Users/vitalycloud/Desktop/ShaderEditor/Resources/BasicShader/Basic.vert");
     auto fragPath = Core::Utils::FileWatcher::Get().LoadFile("/Users/vitalycloud/Desktop/ShaderEditor/Resources/BasicShader/Basic.frag");
+    triangle->GetMeshes().push_back(Core::CreateRef<Mesh>(DefaultMesh::Triangle));
     triangle->SetShaderPath(vertPath, fragPath);
-    
-//    triangle->GetMeshes().push_back(Core::CreateRef<Mesh>("Triangle"));
     
     m_ShaderPasses.push_back(triangle);
 }
@@ -33,8 +32,6 @@ PipelinePanel::~PipelinePanel() {
 
 void PipelinePanel::OnUpdate() {
     for(auto& shaderPass: m_ShaderPasses) {
-        if(shaderPass->GetShader() == nullptr) continue;
-        EditorUniforms::Get().Upload(shaderPass->GetShader());
         shaderPass->OnUpdate();
     }
         

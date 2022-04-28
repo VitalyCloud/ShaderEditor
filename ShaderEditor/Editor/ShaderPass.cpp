@@ -8,6 +8,7 @@
 #include "Core/pch.h"
 #include "ShaderPass.hpp"
 #include "TextEditorPanel.hpp"
+#include "EditorUniforms.hpp"
 
 #include "ImGuiHelper.h"
 
@@ -23,15 +24,17 @@ ShaderPass::~ShaderPass() {
 
 void ShaderPass::OnUpdate() {
     
-    if(m_VertexPath->GetStatus() == Core::Utils::FileStatus::FileChanged ||
-       m_FragmnetPath->GetStatus() == Core::Utils::FileStatus::FileChanged)
-        UpdateShader();
-    
-    m_Shader->Bind();
-    m_Uniforms->UploadUniforms(m_Shader);
+    if(m_VertexPath != nullptr && m_FragmnetPath != nullptr) {
+        if(m_VertexPath->GetStatus() == Core::Utils::FileStatus::FileChanged ||
+           m_FragmnetPath->GetStatus() == Core::Utils::FileStatus::FileChanged)
+            UpdateShader();
+    }
     
     // Draw
     if(m_Shader != nullptr) {
+        EditorUniforms::Get().Upload(m_Shader);
+        m_Uniforms->UploadUniforms(m_Shader);
+        
         m_Shader->Bind();
         for(int i=0; i<m_Meshes.size(); i++) {
             m_Meshes[i]->Draw(m_Shader);
@@ -40,11 +43,13 @@ void ShaderPass::OnUpdate() {
 }
 
 void ShaderPass::UpdateShader() {
-    EN_INFO("Updating shader");
-    auto vertexContent = m_VertexPath->Read();
-    auto fragmentContent = m_FragmnetPath->Read();
-    if(vertexContent.has_value() && fragmentContent.has_value()) {
-        m_Shader = Core::CreateRef<OpenGL::Shader>(vertexContent.value(), fragmentContent.value());
+    if(m_VertexPath != nullptr && m_FragmnetPath != nullptr) {
+        EN_INFO("Updating shader");
+        auto vertexContent = m_VertexPath->Read();
+        auto fragmentContent = m_FragmnetPath->Read();
+        if(vertexContent.has_value() && fragmentContent.has_value()) {
+            m_Shader = Core::CreateRef<OpenGL::Shader>(vertexContent.value(), fragmentContent.value());
+        }
     }
 }
 
@@ -77,7 +82,7 @@ void ShaderPassInspector::Draw() {
     std::string fragmentPath = "";
     if(m_Context->m_VertexPath != nullptr)
         vertexPath = m_Context->m_VertexPath->GetPath();
-    if(m_Context->m_VertexPath != nullptr)
+    if(m_Context->m_FragmnetPath != nullptr)
         fragmentPath = m_Context->m_FragmnetPath->GetPath();
     
     if(ImGui::BeginTable("##ShaderPassProperties", 3)) {
@@ -138,10 +143,13 @@ void ShaderPassInspector::Draw() {
                 }
             }
             
-            if(ImGui::Selectable("Show")) {
-                if(m_ActionPopupSelector == ActionPopupSelector::Vertex)
+            if(m_ActionPopupSelector == ActionPopupSelector::Vertex && m_Context->m_VertexPath != nullptr) {
+                if(ImGui::Selectable("Show"))
                     TextEditorPanel::Get().AddBuffer(m_Context->m_VertexPath);
-                if(m_ActionPopupSelector == ActionPopupSelector::Fragment)
+            }
+            
+            if(m_ActionPopupSelector == ActionPopupSelector::Fragment && m_Context->m_FragmnetPath != nullptr) {
+                if(ImGui::Selectable("Show"))
                     TextEditorPanel::Get().AddBuffer(m_Context->m_FragmnetPath);
             }
             

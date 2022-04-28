@@ -48,6 +48,7 @@ private:
     std::vector<Core::Ref<VertexBufferConteiner>> m_VertexBuffers;
     Core::Ref<IndexBufferContainer> m_Indicies;
     Core::Ref<OpenGL::VertexArray> m_VertexArray;
+    bool m_DrawIndexed = false;
     
     std::string m_Title;
 };
