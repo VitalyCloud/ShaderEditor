@@ -29,6 +29,8 @@ public:
     
     void Resize(uint32_t width, uint32_t height);
     
+    float GetAspectRatio() { return (float)m_Specification.Width / (float)m_Specification.Height; }
+    
     unsigned int  GetColorAttachmentRendererID() { return m_ColorAttachment; }
     const FramebufferSpecification& GetSpecification() { return m_Specification; }
     

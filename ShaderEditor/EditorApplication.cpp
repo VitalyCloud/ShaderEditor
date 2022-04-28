@@ -113,7 +113,7 @@ public:
         spec.Width = 800;
         spec.Height = 600;
         m_Framebuffer = Core::CreateRef<OpenGL::Framebuffer>(spec);
-        m_Viewport.SetTexture((ImTextureID)(uintptr_t)m_Framebuffer->GetColorAttachmentRendererID());
+        m_Viewport.SetFramebuffer(m_Framebuffer);
         m_Viewport.SetResizeCallback(std::bind(&EditorLayer::OnViewportResize,
                                                this, std::placeholders::_1, std::placeholders::_2));
         
