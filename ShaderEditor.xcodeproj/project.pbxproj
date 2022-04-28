@@ -340,10 +340,11 @@
 		8075225F2811917100C0AD39 /* Editor */ = {
 			isa = PBXGroup;
 			children = (
+				803B40BF2816F4B9006B89EA /* ImGui */,
 				80BDCC0228199C5E00212D14 /* InspectorPanel */,
 				80BDCBFB2819971100212D14 /* Conteiners */,
 				803B40DA281760F7006B89EA /* Uniform */,
-				803B40BF2816F4B9006B89EA /* ImGui */,
+				80F990A1281AB234008A3CF3 /* Editor Uniforms */,
 				803B40C02816F4D0006B89EA /* Viewport */,
 				803B40C12816F4DB006B89EA /* TextBuffer */,
 				803B40D828175FAE006B89EA /* VertexArrayViews */,
@@ -385,6 +386,13 @@
 				80DCD45B2812C2C200610807 /* MacosXUtils.mm */,
 			);
 			path = Platform;
+			sourceTree = "<group>";
+		};
+		80F990A1281AB234008A3CF3 /* Editor Uniforms */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Editor Uniforms";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

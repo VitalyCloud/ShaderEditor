@@ -14,57 +14,37 @@ namespace Editor {
 
 Mesh::Mesh(const std::string& title) : m_Title(title) {
     m_Indicies = Core::CreateRef<std::vector<uint32_t>>();
-    AddVertexBuffer();
+//    AddVertexBuffer();
+//    m_VertexBuffers[0]->PushLayoutElement({OpenGL::ShaderDataType::Float, "Element"});
+    PopulateDefaultMesh(DefaultMesh::Triangle);
+}
+
+Mesh::Mesh(DefaultMesh defaultMesh, const std::string& title) : m_Title(title) {
+    m_Indicies = Core::CreateRef<std::vector<uint32_t>>();
+    PopulateDefaultMesh(defaultMesh);
     
-    auto vb = m_VertexBuffers[0];
-    
-    vb->ChangeElementType(0, OpenGL::ShaderDataType::Float2);
-    vb->PushLayoutElement({OpenGL::ShaderDataType::Float3, "Color"});
-    vb->PushVertex();
-    vb->PushVertex();
-
-    float* pos0 = (float*)vb->GetVertexComponent(0, 0);
-    *(pos0+0) = -0.5;
-    *(pos0+1) = 0.5;
-
-    float* pos1 = (float*)vb->GetVertexComponent(1, 0);
-    *(pos1+0) = 0.5;
-    *(pos1+1) = 0.5;
-
-    float* pos2 = (float*)vb->GetVertexComponent(2, 0);
-    *(pos2+0) = 0.0;
-    *(pos2+1) = -0.5;
-    
-    float* color0 = (float*)vb->GetVertexComponent(0, 1);
-    *(color0+0) = 1.0;
-    *(color0+1) = 0.0;
-    *(color0+2) = 0.0;
-
-    float* color1 = (float*)vb->GetVertexComponent(1, 1);
-    *(color1+0) = 0.0;
-    *(color1+1) = 1.0;
-    *(color1+2) = 0.0;
-
-    float* color2 = (float*)vb->GetVertexComponent(2, 1);
-    *(color2+0) = 0.0;
-    *(color2+1) = 0.0;
-    *(color2+2) = 1.0;
-
-    *m_Indicies = {0, 1, 2};
-    InvalidateVertexArray();
 }
 
 Mesh::~Mesh() {
     
 }
 
+void Mesh::Draw(const Core::Ref<OpenGL::Shader>& shader) {
+    if(m_VertexArray != nullptr && m_VertexArray->GetVertexBuffers().size() > 0) {
+        m_VertexArray->Bind();
+        OpenGL::RenderCommand::DrawIndexed(m_VertexArray);
+    }
+}
 
 void Mesh::InvalidateVertexArray() {
     EN_INFO("Invalidating Vertex Array Changes");
+        
     m_VertexArray = Core::CreateRef<OpenGL::VertexArray>();
     for(auto buffer: m_VertexBuffers) {
-        auto vb = buffer->CreateOpenGLVertexBuffer();
-        m_VertexArray->AddVertexBuffer(vb);
+        if(buffer->GetLayoutElements().size() > 0) {
+            auto vb = buffer->CreateOpenGLVertexBuffer();
+            m_VertexArray->AddVertexBuffer(vb);
+        }
     }
     auto indexBuffer = Core::CreateRef<OpenGL::IndexBuffer>(m_Indicies->data(), m_Indicies->size());
     m_VertexArray->SetIndexBuffer(indexBuffer);
@@ -135,6 +115,66 @@ void MeshInspector::Draw() {
         if(m_IndexView.IsChanged()) {
             m_Context->InvalidateVertexArray();
         }
+    }
+}
+
+void Mesh::PopulateDefaultMesh(DefaultMesh defaultMesh) {
+    switch (defaultMesh) {
+        case DefaultMesh::Triangle: {
+            AddVertexBuffer();
+            auto vb = m_VertexBuffers[0];
+            
+            vb->PushLayoutElement({OpenGL::ShaderDataType::Float2, "Pos"});
+            vb->PushLayoutElement({OpenGL::ShaderDataType::Float3, "Color"});
+            vb->PushVertex();
+            vb->PushVertex();
+            vb->PushVertex();
+
+            float* pos0 = (float*)vb->GetVertexComponent(0, 0);
+            *(pos0+0) = -0.5;
+            *(pos0+1) = 0.5;
+
+            float* pos1 = (float*)vb->GetVertexComponent(1, 0);
+            *(pos1+0) = 0.5;
+            *(pos1+1) = 0.5;
+
+            float* pos2 = (float*)vb->GetVertexComponent(2, 0);
+            *(pos2+0) = 0.0;
+            *(pos2+1) = -0.5;
+            
+            float* color0 = (float*)vb->GetVertexComponent(0, 1);
+            *(color0+0) = 1.0;
+            *(color0+1) = 0.0;
+            *(color0+2) = 0.0;
+
+            float* color1 = (float*)vb->GetVertexComponent(1, 1);
+            *(color1+0) = 0.0;
+            *(color1+1) = 1.0;
+            *(color1+2) = 0.0;
+
+            float* color2 = (float*)vb->GetVertexComponent(2, 1);
+            *(color2+0) = 0.0;
+            *(color2+1) = 0.0;
+            *(color2+2) = 1.0;
+
+            *m_Indicies = {0, 1, 2};
+            
+            if(m_Title.empty())
+                m_Title = "Triangle";
+            
+            InvalidateVertexArray();
+            break;
+        }
+        case DefaultMesh::Squad: {
+            EN_ERROR("Squad is not implemented");
+            
+            if(m_Title.empty())
+                m_Title = "Squad";
+            break;
+        }
+        default:
+            EN_ERROR("DefaultMesh is unknown");
+            break;
     }
 }
 

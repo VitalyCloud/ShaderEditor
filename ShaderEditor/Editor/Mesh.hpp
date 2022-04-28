@@ -20,11 +20,18 @@ namespace Editor {
 
 class MeshInspector;
 
+enum class DefaultMesh {
+    Triangle, Squad
+};
+
 class Mesh {
 public:
     using IndexBufferContainer = std::vector<uint32_t>;
     Mesh(const std::string& title = "New Mesh");
+    Mesh(DefaultMesh defaultMesh, const std::string& title = "");
     ~Mesh();
+    
+    void Draw(const Core::Ref<OpenGL::Shader>& shader);
     
     const Core::Ref<OpenGL::VertexArray>& GetVertexArray() { return m_VertexArray; }
     uint32_t GetVertexCount() { return m_VertexBuffers[0]->VertexCount(); }
@@ -34,6 +41,7 @@ private:
     void InvalidateVertexArray();
     void AddVertexBuffer();
     void RemoveVertexBuffer(int index);
+    void PopulateDefaultMesh(DefaultMesh defaultMesh);
 
 private:
     friend class MeshInspector;

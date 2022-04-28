@@ -10,13 +10,13 @@
 namespace Editor {
 
 VertexBufferConteiner::VertexBufferConteiner(int reserve) {
-    PushLayoutElement(OpenGL::BufferElement(OpenGL::ShaderDataType::Float, "Pos"));
-    
-    // Reserve buffer
-    uint32_t vertexSize = GetVertexSize();
-    m_Buffer.reserve(vertexSize * reserve);
-    
-    PushVertex();
+//    PushLayoutElement(OpenGL::BufferElement(OpenGL::ShaderDataType::Float, "Pos"));
+//
+//    // Reserve buffer
+//    uint32_t vertexSize = GetVertexSize();
+//    m_Buffer.reserve(vertexSize * reserve);
+//
+//    PushVertex();
 }
 
 VertexBufferConteiner::~VertexBufferConteiner() {}

@@ -14,11 +14,6 @@
 namespace Editor {
 
 ShaderPass::ShaderPass(const std::string& title) : m_Title(title) {
-    auto vertPath = Core::Utils::FileWatcher::Get().LoadFile("/Users/vitalycloud/Desktop/ShaderEditor/Resources/BasicShader/Basic.vert");
-    auto fragPath = Core::Utils::FileWatcher::Get().LoadFile("/Users/vitalycloud/Desktop/ShaderEditor/Resources/BasicShader/Basic.frag");
-    
-    SetShaderPath(vertPath, fragPath);
-    
     m_Uniforms = Core::CreateRef<UniformBufferConteiner>();
 }
 
@@ -38,10 +33,8 @@ void ShaderPass::OnUpdate() {
     // Draw
     if(m_Shader != nullptr) {
         m_Shader->Bind();
-        for(auto& mesh : m_Meshes) {
-            auto va = mesh->GetVertexArray();
-            va->Bind();
-            OpenGL::RenderCommand::DrawIndexed(va);
+        for(int i=0; i<m_Meshes.size(); i++) {
+            m_Meshes[i]->Draw(m_Shader);
         }
     }
 }

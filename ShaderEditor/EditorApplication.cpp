@@ -118,7 +118,7 @@ public:
                                                this, std::placeholders::_1, std::placeholders::_2));
         
         Core::Application::Get().SetMenubarCallback(std::bind(&EditorLayer::OnMainMenuBar, this));
-        
+        ImGui::StyleColorsLight();
     }
     
     virtual void OnUpdate() override {
