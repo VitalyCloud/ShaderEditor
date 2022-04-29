@@ -13,5 +13,6 @@
 #include "Shader.hpp"
 #include "Buffer.hpp"
 #include "VertexArray.hpp"
+#include "Texture.hpp"
 
 #endif /* OpenGL_hpp */

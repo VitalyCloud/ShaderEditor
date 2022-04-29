@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		8034BB592815E87900FB48D3 /* ImGuiInputSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8034BB572815E87900FB48D3 /* ImGuiInputSettings.cpp */; };
+		80372AFA281B60E7005031C7 /* stb_image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80372AF9281B60E7005031C7 /* stb_image.cpp */; };
+		80372B02281B6152005031C7 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80372B00281B6152005031C7 /* Texture.cpp */; };
 		803AFF3F281068F7005C6FA6 /* EntryPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 803AFF3E281068F7005C6FA6 /* EntryPoint.cpp */; };
 		803B40BC2816F417006B89EA /* PipelinePanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 803B40BA2816F417006B89EA /* PipelinePanel.cpp */; };
 		803B40D628175D29006B89EA /* ShaderPass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 803B40D428175D29006B89EA /* ShaderPass.cpp */; };
@@ -60,6 +62,9 @@
 /* Begin PBXFileReference section */
 		8034BB572815E87900FB48D3 /* ImGuiInputSettings.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ImGuiInputSettings.cpp; sourceTree = "<group>"; };
 		8034BB582815E87900FB48D3 /* ImGuiInputSettings.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ImGuiInputSettings.hpp; sourceTree = "<group>"; };
+		80372AF9281B60E7005031C7 /* stb_image.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = stb_image.cpp; sourceTree = "<group>"; };
+		80372B00281B6152005031C7 /* Texture.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Texture.cpp; sourceTree = "<group>"; };
+		80372B01281B6152005031C7 /* Texture.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Texture.hpp; sourceTree = "<group>"; };
 		803AFF3B281068F7005C6FA6 /* ShaderEditor */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ShaderEditor; sourceTree = BUILT_PRODUCTS_DIR; };
 		803AFF3E281068F7005C6FA6 /* EntryPoint.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = EntryPoint.cpp; sourceTree = "<group>"; };
 		803B40BA2816F417006B89EA /* PipelinePanel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PipelinePanel.cpp; sourceTree = "<group>"; };
@@ -157,6 +162,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		80372AF8281B60C9005031C7 /* stb_image */ = {
+			isa = PBXGroup;
+			children = (
+				80372AF9281B60E7005031C7 /* stb_image.cpp */,
+			);
+			path = stb_image;
+			sourceTree = "<group>";
+		};
 		803AFF32281068F7005C6FA6 = {
 			isa = PBXGroup;
 			children = (
@@ -265,6 +278,7 @@
 		8075220B2810A14100C0AD39 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				80372AF8281B60C9005031C7 /* stb_image */,
 				80DCD45A2812C28300610807 /* Platform */,
 				807522122810A1F300C0AD39 /* Input */,
 				8075220C2810A1C600C0AD39 /* Events */,
@@ -322,6 +336,8 @@
 				8075225628117C6B00C0AD39 /* Buffer.hpp */,
 				8075225828117F0900C0AD39 /* VertexArray.cpp */,
 				8075225928117F0900C0AD39 /* VertexArray.hpp */,
+				80372B00281B6152005031C7 /* Texture.cpp */,
+				80372B01281B6152005031C7 /* Texture.hpp */,
 			);
 			path = OpenGL;
 			sourceTree = "<group>";
@@ -354,8 +370,6 @@
 				803B40BB2816F417006B89EA /* PipelinePanel.hpp */,
 				80BDCBFC2819997400212D14 /* Mesh.cpp */,
 				80BDCBFD2819997400212D14 /* Mesh.hpp */,
-				80BDCC03281A033D00212D14 /* EditorUniforms.cpp */,
-				80BDCC04281A033D00212D14 /* EditorUniforms.hpp */,
 			);
 			path = Editor;
 			sourceTree = "<group>";
@@ -391,6 +405,8 @@
 		80F990A1281AB234008A3CF3 /* Editor Uniforms */ = {
 			isa = PBXGroup;
 			children = (
+				80BDCC03281A033D00212D14 /* EditorUniforms.cpp */,
+				80BDCC04281A033D00212D14 /* EditorUniforms.hpp */,
 			);
 			name = "Editor Uniforms";
 			sourceTree = "<group>";
@@ -465,12 +481,14 @@
 				808FA13E281412B6009E669E /* UniformView.cpp in Sources */,
 				8075223E2810B52900C0AD39 /* Framebuffer.cpp in Sources */,
 				8075224E2811764D00C0AD39 /* Shader.cpp in Sources */,
+				80372B02281B6152005031C7 /* Texture.cpp in Sources */,
 				80BDCC05281A033D00212D14 /* EditorUniforms.cpp in Sources */,
 				80752208281095A400C0AD39 /* ImGuiBuild.cpp in Sources */,
 				80DCD4662812CD5500610807 /* TextEditorPanel.cpp in Sources */,
 				8075225428117AA500C0AD39 /* Utils.cpp in Sources */,
 				80752262281191AE00C0AD39 /* ViewportPanel.cpp in Sources */,
 				80819A7C2816045D00E803B1 /* IndexView.cpp in Sources */,
+				80372AFA281B60E7005031C7 /* stb_image.cpp in Sources */,
 				803B40D628175D29006B89EA /* ShaderPass.cpp in Sources */,
 				80DCD4592812BF3400610807 /* TextBufferView.cpp in Sources */,
 				807E4B5728156B76004918CF /* VertexBufferConteiner.cpp in Sources */,
@@ -626,6 +644,7 @@
 					Vendor/imgui,
 					Vendor/spdlog/include,
 					ShaderEditor,
+					Vendor/stb_image,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					Vendor/bin,
@@ -654,6 +673,7 @@
 					Vendor/imgui,
 					Vendor/spdlog/include,
 					ShaderEditor,
+					Vendor/stb_image,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					Vendor/bin,

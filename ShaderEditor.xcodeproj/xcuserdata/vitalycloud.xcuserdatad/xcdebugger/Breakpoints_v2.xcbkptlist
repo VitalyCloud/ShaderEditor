@@ -174,8 +174,8 @@
             filePath = "ShaderEditor/Editor/PipelinePanel.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
             landmarkName = "PipelinePanel::Draw(title, p_open)"
             landmarkType = "7">
          </BreakpointContent>

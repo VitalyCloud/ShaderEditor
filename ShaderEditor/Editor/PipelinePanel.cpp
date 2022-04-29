@@ -11,6 +11,7 @@
 #include "imgui.h"
 #include "ImGuiHelper.h"
 
+#include "EditorUniforms.hpp"
 
 
 namespace Editor {
@@ -31,6 +32,7 @@ PipelinePanel::~PipelinePanel() {
 }
 
 void PipelinePanel::OnUpdate() {
+    EditorUniforms::Get().SetViewProjection(m_Camera->GetViewProjectionMatrix());
     for(auto& shaderPass: m_ShaderPasses) {
         shaderPass->OnUpdate();
     }

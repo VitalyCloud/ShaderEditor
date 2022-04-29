@@ -50,6 +50,8 @@ private:
     Core::Ref<OpenGL::VertexArray> m_VertexArray;
     bool m_DrawIndexed = false;
     
+    std::vector<Core::Ref<OpenGL::Texture>> m_Textures;
+    
     std::string m_Title;
 };
 
