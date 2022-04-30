@@ -29,6 +29,8 @@
 		8075225E2811834700C0AD39 /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8075225C2811834700C0AD39 /* Renderer.cpp */; };
 		809B4720281DDAA80083DBD2 /* Context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 809B471E281DDAA80083DBD2 /* Context.cpp */; };
 		809B4726281DDE610083DBD2 /* ViewportPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 809B4724281DDE610083DBD2 /* ViewportPanel.cpp */; };
+		809B4729281DEBCF0083DBD2 /* ImguiHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 809B4727281DEBCF0083DBD2 /* ImguiHelper.cpp */; };
+		809B472C281DECC70083DBD2 /* InspectorPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 809B472A281DECC60083DBD2 /* InspectorPanel.cpp */; };
 		80C4915328122BE7009FC5E3 /* Log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80C4915128122BE7009FC5E3 /* Log.cpp */; };
 		80C4915F2812359E009FC5E3 /* OrthographicCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80C4915E2812359E009FC5E3 /* OrthographicCamera.cpp */; };
 		80DCD45C2812C2C200610807 /* MacosXUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 80DCD45B2812C2C200610807 /* MacosXUtils.mm */; };
@@ -93,6 +95,10 @@
 		809B471F281DDAA80083DBD2 /* Context.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Context.hpp; sourceTree = "<group>"; };
 		809B4724281DDE610083DBD2 /* ViewportPanel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ViewportPanel.cpp; sourceTree = "<group>"; };
 		809B4725281DDE610083DBD2 /* ViewportPanel.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ViewportPanel.hpp; sourceTree = "<group>"; };
+		809B4727281DEBCF0083DBD2 /* ImguiHelper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ImguiHelper.cpp; sourceTree = "<group>"; };
+		809B4728281DEBCF0083DBD2 /* ImguiHelper.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ImguiHelper.hpp; sourceTree = "<group>"; };
+		809B472A281DECC60083DBD2 /* InspectorPanel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = InspectorPanel.cpp; sourceTree = "<group>"; };
+		809B472B281DECC60083DBD2 /* InspectorPanel.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = InspectorPanel.hpp; sourceTree = "<group>"; };
 		80C4915028122B2C009FC5E3 /* Assert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Assert.h; sourceTree = "<group>"; };
 		80C4915128122BE7009FC5E3 /* Log.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Log.cpp; sourceTree = "<group>"; };
 		80C4915228122BE7009FC5E3 /* Log.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Log.hpp; sourceTree = "<group>"; };
@@ -270,6 +276,10 @@
 			children = (
 				809B4724281DDE610083DBD2 /* ViewportPanel.cpp */,
 				809B4725281DDE610083DBD2 /* ViewportPanel.hpp */,
+				809B4727281DEBCF0083DBD2 /* ImguiHelper.cpp */,
+				809B4728281DEBCF0083DBD2 /* ImguiHelper.hpp */,
+				809B472A281DECC60083DBD2 /* InspectorPanel.cpp */,
+				809B472B281DECC60083DBD2 /* InspectorPanel.hpp */,
 			);
 			path = Editor;
 			sourceTree = "<group>";
@@ -350,10 +360,12 @@
 				80372B02281B6152005031C7 /* Texture.cpp in Sources */,
 				80752208281095A400C0AD39 /* ImGuiBuild.cpp in Sources */,
 				8075225428117AA500C0AD39 /* Utils.cpp in Sources */,
+				809B4729281DEBCF0083DBD2 /* ImguiHelper.cpp in Sources */,
 				80372AFA281B60E7005031C7 /* stb_image.cpp in Sources */,
 				809B4726281DDE610083DBD2 /* ViewportPanel.cpp in Sources */,
 				8075224A2811730B00C0AD39 /* RenderCommand.cpp in Sources */,
 				80C4915F2812359E009FC5E3 /* OrthographicCamera.cpp in Sources */,
+				809B472C281DECC70083DBD2 /* InspectorPanel.cpp in Sources */,
 				8075220A28109CA700C0AD39 /* EditorApplication.cpp in Sources */,
 				80DCD45C2812C2C200610807 /* MacosXUtils.mm in Sources */,
 				803AFF3F281068F7005C6FA6 /* EntryPoint.cpp in Sources */,

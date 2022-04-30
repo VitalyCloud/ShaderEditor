@@ -9,6 +9,7 @@
 #include "OpenGL/OpenGL.hpp"
 
 #include "Editor/ViewportPanel.hpp"
+#include "Editor/InspectorPanel.hpp"
 
 namespace Editor {
 
@@ -35,6 +36,8 @@ public:
         if (ImGui::BeginMenu("Window")) {
             if (ImGui::MenuItem("Viewport", nullptr, m_ShowViewport))
                 m_ShowViewport = !m_ShowViewport;
+            if (ImGui::MenuItem("Inspector", nullptr, m_ShowInspector))
+                m_ShowInspector = !m_ShowInspector;
             
             ImGui::EndMenu();
         }
@@ -79,11 +82,15 @@ public:
     virtual void OnUIRender() override {
         if(m_ShowViewport)
             m_ViewportPanel.Draw("Viewport", &m_ShowViewport);
+        if(m_ShowInspector)
+            m_InspectorPanel.Draw("Inspector", &m_ShowInspector);
     }
     
 private:
     ViewportPanel m_ViewportPanel;
     bool m_ShowViewport = true;
+    InspectorPanel m_InspectorPanel;
+    bool m_ShowInspector = true;
     
     Core::Ref<OpenGL::Framebuffer> m_Framebuffer = nullptr;
 };
