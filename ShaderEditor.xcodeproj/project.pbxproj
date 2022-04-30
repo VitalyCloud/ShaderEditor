@@ -28,6 +28,7 @@
 		8075225A28117F0900C0AD39 /* VertexArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8075225828117F0900C0AD39 /* VertexArray.cpp */; };
 		8075225E2811834700C0AD39 /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8075225C2811834700C0AD39 /* Renderer.cpp */; };
 		809B4720281DDAA80083DBD2 /* Context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 809B471E281DDAA80083DBD2 /* Context.cpp */; };
+		809B4726281DDE610083DBD2 /* ViewportPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 809B4724281DDE610083DBD2 /* ViewportPanel.cpp */; };
 		80C4915328122BE7009FC5E3 /* Log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80C4915128122BE7009FC5E3 /* Log.cpp */; };
 		80C4915F2812359E009FC5E3 /* OrthographicCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80C4915E2812359E009FC5E3 /* OrthographicCamera.cpp */; };
 		80DCD45C2812C2C200610807 /* MacosXUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 80DCD45B2812C2C200610807 /* MacosXUtils.mm */; };
@@ -90,6 +91,8 @@
 		8075225D2811834700C0AD39 /* Renderer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Renderer.hpp; sourceTree = "<group>"; };
 		809B471E281DDAA80083DBD2 /* Context.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Context.cpp; sourceTree = "<group>"; };
 		809B471F281DDAA80083DBD2 /* Context.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Context.hpp; sourceTree = "<group>"; };
+		809B4724281DDE610083DBD2 /* ViewportPanel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ViewportPanel.cpp; sourceTree = "<group>"; };
+		809B4725281DDE610083DBD2 /* ViewportPanel.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ViewportPanel.hpp; sourceTree = "<group>"; };
 		80C4915028122B2C009FC5E3 /* Assert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Assert.h; sourceTree = "<group>"; };
 		80C4915128122BE7009FC5E3 /* Log.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Log.cpp; sourceTree = "<group>"; };
 		80C4915228122BE7009FC5E3 /* Log.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Log.hpp; sourceTree = "<group>"; };
@@ -265,6 +268,8 @@
 		8075225F2811917100C0AD39 /* Editor */ = {
 			isa = PBXGroup;
 			children = (
+				809B4724281DDE610083DBD2 /* ViewportPanel.cpp */,
+				809B4725281DDE610083DBD2 /* ViewportPanel.hpp */,
 			);
 			path = Editor;
 			sourceTree = "<group>";
@@ -346,6 +351,7 @@
 				80752208281095A400C0AD39 /* ImGuiBuild.cpp in Sources */,
 				8075225428117AA500C0AD39 /* Utils.cpp in Sources */,
 				80372AFA281B60E7005031C7 /* stb_image.cpp in Sources */,
+				809B4726281DDE610083DBD2 /* ViewportPanel.cpp in Sources */,
 				8075224A2811730B00C0AD39 /* RenderCommand.cpp in Sources */,
 				80C4915F2812359E009FC5E3 /* OrthographicCamera.cpp in Sources */,
 				8075220A28109CA700C0AD39 /* EditorApplication.cpp in Sources */,
