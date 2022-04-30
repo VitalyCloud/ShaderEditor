@@ -27,6 +27,7 @@
 		8075225728117C6B00C0AD39 /* Buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8075225528117C6B00C0AD39 /* Buffer.cpp */; };
 		8075225A28117F0900C0AD39 /* VertexArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8075225828117F0900C0AD39 /* VertexArray.cpp */; };
 		8075225E2811834700C0AD39 /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8075225C2811834700C0AD39 /* Renderer.cpp */; };
+		809B4720281DDAA80083DBD2 /* Context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 809B471E281DDAA80083DBD2 /* Context.cpp */; };
 		80C4915328122BE7009FC5E3 /* Log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80C4915128122BE7009FC5E3 /* Log.cpp */; };
 		80C4915F2812359E009FC5E3 /* OrthographicCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80C4915E2812359E009FC5E3 /* OrthographicCamera.cpp */; };
 		80DCD45C2812C2C200610807 /* MacosXUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 80DCD45B2812C2C200610807 /* MacosXUtils.mm */; };
@@ -87,6 +88,8 @@
 		8075225928117F0900C0AD39 /* VertexArray.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VertexArray.hpp; sourceTree = "<group>"; };
 		8075225C2811834700C0AD39 /* Renderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Renderer.cpp; sourceTree = "<group>"; };
 		8075225D2811834700C0AD39 /* Renderer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Renderer.hpp; sourceTree = "<group>"; };
+		809B471E281DDAA80083DBD2 /* Context.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Context.cpp; sourceTree = "<group>"; };
+		809B471F281DDAA80083DBD2 /* Context.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Context.hpp; sourceTree = "<group>"; };
 		80C4915028122B2C009FC5E3 /* Assert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Assert.h; sourceTree = "<group>"; };
 		80C4915128122BE7009FC5E3 /* Log.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Log.cpp; sourceTree = "<group>"; };
 		80C4915228122BE7009FC5E3 /* Log.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Log.hpp; sourceTree = "<group>"; };
@@ -242,6 +245,8 @@
 				8075225928117F0900C0AD39 /* VertexArray.hpp */,
 				80372B00281B6152005031C7 /* Texture.cpp */,
 				80372B01281B6152005031C7 /* Texture.hpp */,
+				809B471E281DDAA80083DBD2 /* Context.cpp */,
+				809B471F281DDAA80083DBD2 /* Context.hpp */,
 			);
 			path = OpenGL;
 			sourceTree = "<group>";
@@ -332,6 +337,7 @@
 				8075225E2811834700C0AD39 /* Renderer.cpp in Sources */,
 				8075225A28117F0900C0AD39 /* VertexArray.cpp in Sources */,
 				8075220428108FCF00C0AD39 /* Application.cpp in Sources */,
+				809B4720281DDAA80083DBD2 /* Context.cpp in Sources */,
 				8075225728117C6B00C0AD39 /* Buffer.cpp in Sources */,
 				80C4915328122BE7009FC5E3 /* Log.cpp in Sources */,
 				8075223E2810B52900C0AD39 /* Framebuffer.cpp in Sources */,

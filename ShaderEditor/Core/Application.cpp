@@ -10,6 +10,7 @@
 #include "Events/KeyEvent.hpp"
 #include "Events/MouseEvent.hpp"
 #include "OpenGL/RenderCommand.hpp"
+#include "OpenGL/Context.hpp"
 
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
@@ -60,13 +61,14 @@ void Application::Init() {
     
     m_WindowHandle = glfwCreateWindow(m_Data.Width, m_Data.Height, m_Data.Title.c_str(), NULL, NULL);
     
-    glfwMakeContextCurrent(m_WindowHandle);
+    m_Context = CreateScope<OpenGL::Context>(m_WindowHandle);
+    m_Context->Init();
     
     SetVSync(true);
     
     EN_INFO("Application {0} created. Window size: {1}x{2}. VSync is {3}", m_Data.Title, m_Data.Width, m_Data.Height, m_Data.VSync);
     
-    EN_CORE_ASSERT(gladLoadGLLoader((GLADloadproc)glfwGetProcAddress), "Failed to initialize GLAD");
+
     
     glfwSetWindowUserPointer(m_WindowHandle, &m_Data);
     SetCallbacks();

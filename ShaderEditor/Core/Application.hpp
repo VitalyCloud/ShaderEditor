@@ -13,6 +13,8 @@
 #include "Events/ApplicationEvent.hpp"
 #include "Utils.hpp"
 
+#include "OpenGL/Context.hpp"
+
 #include <string>
 #include <memory>
 #include <vector>
@@ -72,6 +74,7 @@ private:
     };
     WindowData m_Data;
     
+    Scope<OpenGL::Context> m_Context = nullptr;
     GLFWwindow* m_WindowHandle = nullptr;
     bool m_Running = true;
     
