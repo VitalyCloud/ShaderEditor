@@ -4,7 +4,7 @@
 //
 //  Created by Vitaly Cloud on 22.04.2022.
 //
-#include "Core/pch.h"
+#include "pch.h"
 #include <AppKit/AppKit.h>
 
 std::string Core::Utils::FileDialogs::OpenFile(const char* filter) {

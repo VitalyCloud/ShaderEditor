@@ -4,12 +4,12 @@
 //
 //  Created by Vitaly Cloud on 20.04.2022.
 //
-#include "Core/pch.h"
+#include "pch.h"
 #include "Application.hpp"
 #include "Events/ApplicationEvent.hpp"
 #include "Events/KeyEvent.hpp"
 #include "Events/MouseEvent.hpp"
-#include "Renderer/Renderer.hpp"
+#include "OpenGL/RenderCommand.hpp"
 
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
@@ -125,7 +125,7 @@ bool Application::OnWindowClose(WindowCloseEvent& e) {
 }
 
 bool Application::OnWindowResize(WindowResizeEvent& e) {
-    Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
+    OpenGL::RenderCommand::SetViewport(0, 0, e.GetWidth(), e.GetHeight());
     return false;
 }
 

@@ -4,7 +4,7 @@
 //
 //  Created by Vitaly Cloud on 20.04.2022.
 //
-#include "Core/pch.h"
+#include "pch.h"
 #define IMGUI_IMPL_OPENGL_LOADER_CUSTOM
 #define IMGUI_IMPL_OPENGL_LOADER_GLAD
 #include "glad/glad.h"

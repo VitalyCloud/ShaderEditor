@@ -5,7 +5,7 @@
 //  Created by Vitaly Cloud on 29.04.2022.
 //
 
-#include "Core/pch.h"
+#include "pch.h"
 #include "Texture.hpp"
 #include "stb_image.h"
 
