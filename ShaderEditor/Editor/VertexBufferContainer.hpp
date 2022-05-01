@@ -13,7 +13,44 @@
 
 #include <vector>
 
+#define BIT(x) (1 << x)
+
 namespace Editor {
+
+class VertexBufferState {
+public:
+    enum StateType {
+        None = 0,
+        LayoutChanged = BIT(0),
+        SizeChanged = BIT(1),
+        DataChanged = BIT(2)
+    };
+    
+    void Set(StateType state) {
+        State |= (uint8_t)state;
+    }
+    
+    void Reset() {
+        State = 0;
+    }
+    
+    bool CheckIf(StateType state) const {
+        if(State & (uint8_t) state)
+            return true;
+        return false;
+    }
+    
+    template<typename... Args>
+    bool CheckIf(StateType state, Args... args) const {
+        if(CheckIf(state))
+            return true;
+        else
+            return CheckIf(args...);
+        return false;
+    }
+private:
+    uint8_t State = 0;
+};
 
 struct VertexBufferElement {
     ImGuiInputSettings Settings;
@@ -44,6 +81,14 @@ public:
     uint32_t Count() { return m_VertexCount; }
     
     VertexData* operator[](int index) { return GetVertexData(index); }
+    
+    // Experimental
+    void UpdateVertexBuffer();
+    void UpdateVertexBufferIfNeeded();
+    const Core::Ref<OpenGL::VertexBuffer>& GetVB() { return m_VertexBuffer; }
+    const VertexBufferState& GetState() const { return m_State; }
+    VertexBufferState& GetState() { return m_State; }
+    
 private:
     uint32_t CalculateVertexSize();
     uint32_t GetVertexOffsetForIndex(int index);
@@ -55,6 +100,10 @@ private:
     
     uint32_t m_VertexCount = 0;
     uint32_t m_VertexSize = 0;
+    
+    VertexBufferState m_State;
+    
+    Core::Ref<OpenGL::VertexBuffer> m_VertexBuffer = nullptr;
 };
 
 }

@@ -15,6 +15,7 @@ void VertexView::Draw() {
         return;
     
     auto layoutElements = m_VertexBufferContext->GetLayoutElements();
+    
     if(ImGui::BeginTable("VertexBufferTable", (int)layoutElements.size()+1)) {
         // Setup columns
         ImGui::TableSetupColumn("Index", ImGuiTableColumnFlags_WidthFixed, 50);
@@ -32,6 +33,7 @@ void VertexView::Draw() {
                 OpenGL::ShaderDataType type = static_cast<OpenGL::ShaderDataType>(i);
                 if(ImGui::Selectable(OpenGL::ShaderDataTypeTitle(type))) {
                     m_VertexBufferContext->PushLayoutElement(OpenGL::BufferElement(type, "Element"));
+                    m_VertexBufferContext->GetState().Set(VertexBufferState::LayoutChanged);
                 }
             }
             ImGui::EndPopup();
@@ -74,7 +76,11 @@ void VertexView::Draw() {
                 VertexBufferContainer::VertexData* componentData = m_VertexBufferContext->GetVertexComponent(i, j-1);
                 ImGui::PushItemWidth(ImGui::GetColumnWidth());
                 
-                DrawTableDataInput(m_VertexBufferContext->GetLayoutElements()[j-1], componentData);
+                bool changed = DrawTableDataInput(m_VertexBufferContext->GetLayoutElements()[j-1], componentData);
+                
+                if(changed)
+                    m_VertexBufferContext->GetState().Set(VertexBufferState::DataChanged);
+                
             
                 ImGui::PopItemWidth();
                 
@@ -87,6 +93,7 @@ void VertexView::Draw() {
     
     if(ImGui::Button("+##AddVertex")) {
         m_VertexBufferContext->PushVertex();
+        m_VertexBufferContext->GetState().Set(VertexBufferState::SizeChanged);
     }
     
     if(ImGui::IsItemClicked(ImGuiMouseButton_Right)) {
@@ -98,16 +105,23 @@ void VertexView::Draw() {
             OpenGL::ShaderDataType type = static_cast<OpenGL::ShaderDataType>(i);
             if(ImGui::Selectable(OpenGL::ShaderDataTypeTitle(type))) {
                 m_VertexBufferContext->PushLayoutElement(OpenGL::BufferElement(type, "Element"));
+                m_VertexBufferContext->GetState().Set(VertexBufferState::LayoutChanged);
             }
         }
         ImGui::EndPopup();
     }
     
-    if(m_VertexIndexToDelete > -1)
+    if(m_VertexIndexToDelete > -1) {
         m_VertexBufferContext->PopVertex(m_VertexIndexToDelete);
+        m_VertexBufferContext->GetState().Set(VertexBufferState::SizeChanged);
+    }
+        
     m_VertexIndexToDelete = -1;
-    if(m_VertexLayoutElementToDelete > -1)
+    if(m_VertexLayoutElementToDelete > -1) {
         m_VertexBufferContext->PopLayoutElement(m_VertexLayoutElementToDelete);
+        m_VertexBufferContext->GetState().Set(VertexBufferState::LayoutChanged);
+    }
+       
     m_VertexLayoutElementToDelete = -1;
         
 }
@@ -125,6 +139,7 @@ void VertexView::DrawBufferElementPopup(int index) {
                 OpenGL::ShaderDataType type = static_cast<OpenGL::ShaderDataType>(i);
                 if(ImGui::Selectable(OpenGL::ShaderDataTypeTitle(type))) {
                     m_VertexBufferContext->ChangeLayoutElementType(index, type);
+                    m_VertexBufferContext->GetState().Set(VertexBufferState::LayoutChanged);
                 }
             }
             ImGui::EndMenu();
@@ -142,6 +157,7 @@ void VertexView::DrawBufferElementPopup(int index) {
                 if(ImGui::Selectable(OpenGL::ShaderDataTypeTitle(type))) {
                     OpenGL::BufferElement element = OpenGL::BufferElement(type, "Element");
                     m_VertexBufferContext->InsertLayoutElement(index, element);
+                    m_VertexBufferContext->GetState().Set(VertexBufferState::LayoutChanged);
                 }
             }
             ImGui::EndMenu();
@@ -152,6 +168,7 @@ void VertexView::DrawBufferElementPopup(int index) {
                 if(ImGui::Selectable(OpenGL::ShaderDataTypeTitle(type))) {
                     OpenGL::BufferElement element = OpenGL::BufferElement(type, "Element");
                     m_VertexBufferContext->InsertLayoutElement(index+1, element);
+                    m_VertexBufferContext->GetState().Set(VertexBufferState::LayoutChanged);
                 }
             }
             ImGui::EndMenu();

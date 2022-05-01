@@ -10,7 +10,7 @@
 namespace Editor {
 
 VertexBufferContainer::VertexBufferContainer() {
-    
+    m_VertexBuffer = Core::CreateRef<OpenGL::VertexBuffer>(0);
 }
 
 VertexBufferContainer::~VertexBufferContainer() {
@@ -138,4 +138,47 @@ uint32_t VertexBufferContainer::GetLayoutElementOffsetForIndex(int index) {
     return offset;
 }
 
+void VertexBufferContainer::UpdateVertexBuffer() {
+    m_VertexBuffer->Resize(m_VertexSize * m_VertexCount);
+    m_VertexBuffer->SetData(m_Data.data(), m_VertexSize * m_VertexCount);
+    
+    std::vector<OpenGL::BufferElement> layout;
+    layout.reserve(m_Layout.size());
+    for(auto& i : m_Layout)
+        layout.push_back(i.Element);
+    
+    m_VertexBuffer->SetLayout(layout);
+}
+
+void VertexBufferContainer::UpdateVertexBufferIfNeeded() {
+    if(m_Data.size() == 0 || m_Layout.size() == 0)
+        return;
+    
+    if(m_State.CheckIf(VertexBufferState::LayoutChanged)) {
+        EN_INFO("Handle VBC layout change");
+        m_VertexBuffer->Resize(m_VertexSize * m_VertexCount);
+        m_VertexBuffer->SetData(m_Data.data(), m_VertexSize * m_VertexCount);
+        
+        std::vector<OpenGL::BufferElement> layout;
+        layout.reserve(m_Layout.size());
+        for(auto& i : m_Layout)
+            layout.push_back(i.Element);
+        
+        m_VertexBuffer->SetLayout(layout);
+        return;
+    }
+    
+    if(m_State.CheckIf(VertexBufferState::SizeChanged)) {
+        EN_INFO("Handle VBC size change");
+        m_VertexBuffer->Resize(m_VertexSize * m_VertexCount);
+        m_VertexBuffer->SetData(m_Data.data(), m_VertexSize * m_VertexCount);
+        return;
+    }
+    
+    if(m_State.CheckIf(VertexBufferState::DataChanged)) {
+        EN_INFO("Handle VBC data change");
+        m_VertexBuffer->SetData(m_Data.data(), m_VertexSize * m_VertexCount);
+        return;
+    }
+}
 }

@@ -10,9 +10,8 @@
 
 #include "Editor/ViewportPanel.hpp"
 #include "Editor/InspectorPanel.hpp"
-#include "Editor/VertexView.hpp"
-#include "Editor/UniformView.hpp"
-#include "Editor/IndexView.hpp"
+
+#include "Editor/VertexArrayView.hpp"
 
 namespace Editor {
 
@@ -73,10 +72,7 @@ public:
         m_ViewportPanel.SetFramebuffer(m_Framebuffer);
         Core::Application::Get().SetMenubarCallback(std::bind(&EditorLayer::OnMainMenuBar, this));
     
-        m_VertexContainer = Core::CreateRef<VertexBufferContainer>();
-        m_UniformContainer = Core::CreateRef<UniformBufferContainer>();
-        m_IndexContainer = Core::CreateRef<IndexBufferContainer>();
-        m_IndexContainer->GetData().push_back(0);
+        m_VertexArrayContainer = Core::CreateRef<VertexArrayContainer>();
     }
     
     virtual void OnUpdate() override {
@@ -92,22 +88,15 @@ public:
             m_ViewportPanel.Draw("Viewport", &m_ShowViewport);
         if(m_ShowInspector)
             m_InspectorPanel.Draw("Inspector", &m_ShowInspector);
-        
-        ImGui::Begin("VertexTest");
-        m_VertexView.SetContext(m_VertexContainer);
-        m_VertexView.Draw();
+    
+        ImGui::Begin("VA Text");
+        m_VertexArrayView.SetContext(m_VertexArrayContainer);
+        m_VertexArrayView.Draw();
         ImGui::End();
-        
-        ImGui::Begin("UniformTest");
-        m_UniformView.SetContext(m_UniformContainer);
-        m_UniformView.Draw();
-        ImGui::End();
-        
-        ImGui::Begin("IndexTest");
-        m_IndexView.SetContext(m_IndexContainer);
-        m_IndexView.Draw();
-        ImGui::End();
+    
     }
+        
+        
     
 private:
     ViewportPanel m_ViewportPanel;
@@ -115,12 +104,8 @@ private:
     InspectorPanel m_InspectorPanel;
     bool m_ShowInspector = true;
     
-    VertexView m_VertexView;
-    UniformView m_UniformView;
-    IndexView m_IndexView;
-    Core::Ref<VertexBufferContainer> m_VertexContainer;
-    Core::Ref<UniformBufferContainer> m_UniformContainer;
-    Core::Ref<IndexBufferContainer> m_IndexContainer;
+    VertexArrayView m_VertexArrayView;
+    Core::Ref<VertexArrayContainer> m_VertexArrayContainer = nullptr;
     
     Core::Ref<OpenGL::Framebuffer> m_Framebuffer = nullptr;
 };

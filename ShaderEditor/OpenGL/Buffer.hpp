@@ -97,6 +97,7 @@ public:
     VertexBuffer(float* vertices, uint32_t size);
     ~VertexBuffer();
     
+    void Resize(uint32_t size);
     void SetData(const void* data, uint32_t size);
     void SetLayout(const BufferLayout& layout) { m_Layout = layout; }
     const BufferLayout& GetLayout() const { return m_Layout; }
@@ -107,6 +108,7 @@ public:
 private:
     uint32_t m_RendererID;
     BufferLayout m_Layout;
+    uint32_t m_Size;
 };
 
 class IndexBuffer {
