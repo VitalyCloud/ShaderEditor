@@ -16,7 +16,6 @@ void VertexArrayView::Draw() {
         ImGui::PushID(i);
         auto title = fmt::format("Buffer #{0}", i);
         bool close = true;
-        
         bool open = false;
         if(m_Context->GetVertexConteiners().size() == 1)
             open = ImGui::CollapsingHeader(title.c_str());
@@ -34,44 +33,37 @@ void VertexArrayView::Draw() {
             ImGui::EndPopup();
         }
         
+        auto& vertexContainer = m_Context->GetVertexConteiners()[i];
+        
         if(m_AutoChange) {
-            m_Context->GetVertexConteiners()[i]->UpdateVertexBufferIfNeeded();
-            if(m_LayoutChanged)
+            bool isLayoutChanged = vertexContainer->IsLayoutChanged();
+            vertexContainer->UpdateVertexBufferIfNeeded();
+            if(isLayoutChanged)
                 m_Context->InvalidateVertexArray();
-            m_Context->GetVertexConteiners()[i]->GetState().Reset();
-            m_LayoutChanged = false;
         }
             
         
         if(open) {
             ImGui::PushID(i);
-            m_VertexView.SetContext(m_Context->GetVertexConteiners()[i]);
+            m_VertexView.SetContext(vertexContainer);
             m_VertexView.Draw();
             ImGui::PopID();
         }
         
         if(!close && m_Context->GetVertexConteiners().size() > 1) {
-            m_Context->RemoveVertexBuffer(i);
+            m_VertexContainerToDelete = i;
         }
         
-        bool layoutChanged = m_Context->GetVertexConteiners()[i]->GetState().CheckIf(VertexBufferState::LayoutChanged);
-        
-        if(layoutChanged)
-            m_LayoutChanged = true;
         
         ImGui::Checkbox("Auto change", &m_AutoChange);
         if(!m_AutoChange) {
             ImGui::SameLine();
             if(ImGui::Button("Apply")) {
-                
-                m_Context->GetVertexConteiners()[i]->UpdateVertexBufferIfNeeded();
-                if(m_LayoutChanged)
+                bool layoutChanged = vertexContainer->IsLayoutChanged();
+                vertexContainer->UpdateVertexBufferIfNeeded();
+                if(layoutChanged)
                     m_Context->InvalidateVertexArray();
-                
-                m_Context->GetVertexConteiners()[i]->GetState().Reset();
-                m_LayoutChanged = false;
             }
-                
         }
         ImGui::PopID();
         
@@ -87,6 +79,10 @@ void VertexArrayView::Draw() {
 //        }
     }
     
+    
+    if(m_VertexContainerToDelete > -1)
+        m_Context->RemoveVertexBuffer(m_VertexContainerToDelete);
+    m_VertexContainerToDelete = -1;
 }
 
 }

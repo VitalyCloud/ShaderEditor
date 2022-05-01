@@ -6,6 +6,7 @@
 //
 #include "pch.h"
 #include "VertexArrayContainer.hpp"
+#include "Core/Assert.h"
 
 
 namespace Editor {
@@ -38,7 +39,7 @@ void VertexArrayContainer::AddVertexBuffer() {
 }
 
 void VertexArrayContainer::RemoveVertexBuffer(int index) {
-    EN_ASSERT(m_VertexContainers.size() < index);
+//    EN_ASSERT(m_VertexContainers.size() < index, "");
     m_VertexContainers.erase(m_VertexContainers.begin() + index);
     InvalidateVertexArray();
 }

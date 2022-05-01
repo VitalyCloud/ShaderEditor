@@ -32,6 +32,7 @@ void VertexBufferContainer::PushLayoutElement(const OpenGL::BufferElement& eleme
     for(int i=0; i<m_VertexCount; i++, iterator += m_VertexSize) {
         m_Data.insert(iterator + elementOffset, elementSize, 0);
     }
+    m_State.Set(VertexBufferState::LayoutChanged);
 }
 
 
@@ -48,6 +49,7 @@ void VertexBufferContainer::PopLayoutElement(int index) {
     
     m_Layout.erase(m_Layout.begin() + index);
     m_VertexSize = CalculateVertexSize();
+    m_State.Set(VertexBufferState::LayoutChanged);
 }
 
 void VertexBufferContainer::ChangeLayoutElementType(int index, OpenGL::ShaderDataType newType) {
@@ -57,6 +59,7 @@ void VertexBufferContainer::ChangeLayoutElementType(int index, OpenGL::ShaderDat
     
     PopLayoutElement(index);
     InsertLayoutElement(index, newElement);
+    m_State.Set(VertexBufferState::LayoutChanged);
 }
 
 void VertexBufferContainer::InsertLayoutElement(int position, const OpenGL::BufferElement& element) {
@@ -72,6 +75,7 @@ void VertexBufferContainer::InsertLayoutElement(int position, const OpenGL::Buff
     for(int i=0; i<m_VertexCount; i++, iterator += m_VertexSize) {
         m_Data.insert(iterator + elementOffset, elementSize, 0);
     }
+    m_State.Set(VertexBufferState::LayoutChanged);
 }
 
 void VertexBufferContainer::PushVertex(VertexData* value, int size) {
@@ -80,6 +84,7 @@ void VertexBufferContainer::PushVertex(VertexData* value, int size) {
     if(value != nullptr) {
         SetVertex(m_VertexCount-1, value, size);
     }
+    m_State.Set(VertexBufferState::SizeChanged);
 }
 
 void VertexBufferContainer::SetVertex(int index, VertexData* value, int size) {
@@ -91,6 +96,7 @@ void VertexBufferContainer::SetVertex(int index, VertexData* value, int size) {
     for(int i=0; i<size; i++) {
         m_Data[begin + i] = *(value + i);
     }
+    m_State.Set(VertexBufferState::DataChanged);
 }
 
 void VertexBufferContainer::PopVertex(int index) {
@@ -103,6 +109,7 @@ void VertexBufferContainer::PopVertex(int index) {
         m_Data.erase(begin + vertexOffset, begin + vertexOffset + m_VertexSize);
         m_VertexCount -= 1;
     }
+    m_State.Set(VertexBufferState::SizeChanged);
 }
 
 VertexBufferContainer::VertexData* VertexBufferContainer::GetVertexData(int index) {
@@ -148,11 +155,14 @@ void VertexBufferContainer::UpdateVertexBuffer() {
         layout.push_back(i.Element);
     
     m_VertexBuffer->SetLayout(layout);
+    m_State.Reset();
 }
 
 void VertexBufferContainer::UpdateVertexBufferIfNeeded() {
     if(m_Data.size() == 0 || m_Layout.size() == 0)
         return;
+    
+    
     
     if(m_State.CheckIf(VertexBufferState::LayoutChanged)) {
         EN_INFO("Handle VBC layout change");
@@ -165,6 +175,7 @@ void VertexBufferContainer::UpdateVertexBufferIfNeeded() {
             layout.push_back(i.Element);
         
         m_VertexBuffer->SetLayout(layout);
+        m_State.Reset();
         return;
     }
     
@@ -172,13 +183,17 @@ void VertexBufferContainer::UpdateVertexBufferIfNeeded() {
         EN_INFO("Handle VBC size change");
         m_VertexBuffer->Resize(m_VertexSize * m_VertexCount);
         m_VertexBuffer->SetData(m_Data.data(), m_VertexSize * m_VertexCount);
+        m_State.Reset();
         return;
     }
     
     if(m_State.CheckIf(VertexBufferState::DataChanged)) {
         EN_INFO("Handle VBC data change");
         m_VertexBuffer->SetData(m_Data.data(), m_VertexSize * m_VertexCount);
+        m_State.Reset();
         return;
     }
+    
 }
+
 }

@@ -88,6 +88,7 @@ public:
     const Core::Ref<OpenGL::VertexBuffer>& GetVB() { return m_VertexBuffer; }
     const VertexBufferState& GetState() const { return m_State; }
     VertexBufferState& GetState() { return m_State; }
+    bool IsLayoutChanged() { return m_State.CheckIf(VertexBufferState::LayoutChanged); }
     
 private:
     uint32_t CalculateVertexSize();
