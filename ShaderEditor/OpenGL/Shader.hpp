@@ -40,10 +40,9 @@ public:
     bool SetFloat4(const std::string& name, const float* value);
     bool SetFloatArray(const std::string& name, float* values, uint32_t count);
     bool SetMat3(const std::string& name, const glm::mat3& value);
+    bool SetMat3(const std::string& name, const float* values);
     bool SetMat4(const std::string& name, const glm::mat4& value);
-
-    bool SetMat3v(const std::string& name, const float* values);
-    bool SetMat4v(const std::string& name, const float* values);
+    bool SetMat4(const std::string& name, const float* values);
     
 private:
     unsigned int m_RendererID;

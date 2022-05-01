@@ -10,6 +10,8 @@
 
 #include "Editor/ViewportPanel.hpp"
 #include "Editor/InspectorPanel.hpp"
+#include "Editor/VertexView.hpp"
+#include "Editor/UniformView.hpp"
 
 namespace Editor {
 
@@ -69,6 +71,9 @@ public:
         m_Framebuffer = Core::CreateRef<OpenGL::Framebuffer>(spec);
         m_ViewportPanel.SetFramebuffer(m_Framebuffer);
         Core::Application::Get().SetMenubarCallback(std::bind(&EditorLayer::OnMainMenuBar, this));
+    
+        m_VertexContainer = Core::CreateRef<VertexBufferContainer>();
+        m_UniformContainer = Core::CreateRef<UniformBufferContainer>();
     }
     
     virtual void OnUpdate() override {
@@ -84,6 +89,16 @@ public:
             m_ViewportPanel.Draw("Viewport", &m_ShowViewport);
         if(m_ShowInspector)
             m_InspectorPanel.Draw("Inspector", &m_ShowInspector);
+        
+        ImGui::Begin("VertexTest");
+        m_VertexView.SetContext(m_VertexContainer);
+        m_VertexView.Draw();
+        ImGui::End();
+        
+        ImGui::Begin("UniformTest");
+        m_UniformView.SetContext(m_UniformContainer);
+        m_UniformView.Draw();
+        ImGui::End();
     }
     
 private:
@@ -91,6 +106,11 @@ private:
     bool m_ShowViewport = true;
     InspectorPanel m_InspectorPanel;
     bool m_ShowInspector = true;
+    
+    VertexView m_VertexView;
+    UniformView m_UniformView;
+    Core::Ref<VertexBufferContainer> m_VertexContainer;
+    Core::Ref<UniformBufferContainer> m_UniformContainer;
     
     Core::Ref<OpenGL::Framebuffer> m_Framebuffer = nullptr;
 };

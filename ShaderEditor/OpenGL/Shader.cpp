@@ -181,7 +181,7 @@ bool Shader::SetMat3(const std::string &name, const glm::mat3 &value) {
     return location != -1;
 }
 
-bool Shader::SetMat3v(const std::string& name, const float* values) {
+bool Shader::SetMat3(const std::string& name, const float* values) {
     GLint location = glGetUniformLocation(m_RendererID, name.c_str());
     glUniformMatrix3fv(location, 1, GL_FALSE, values);
     return location != -1;
@@ -193,7 +193,7 @@ bool Shader::SetMat4(const std::string &name, const glm::mat4 &value) {
     return location != -1;
 }
 
-bool Shader::SetMat4v(const std::string& name, const float* values) {
+bool Shader::SetMat4(const std::string& name, const float* values) {
     GLint location = glGetUniformLocation(m_RendererID, name.c_str());
     glUniformMatrix4fv(location, 1, GL_FALSE, values);
     return location != -1;

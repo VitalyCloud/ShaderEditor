@@ -1,11 +1,11 @@
 //
-//  ImguiHelper.cpp
+//  ImGuiHelper.cpp
 //  ShaderEditor
 //
 //  Created by Vitaly Cloud on 01.05.2022.
 //
-
-#include "ImguiHelper.hpp"
+#include "pch.h"
+#include "ImGuiHelper.hpp"
 
 namespace ImGui {
 struct InputTextCallback_UserData

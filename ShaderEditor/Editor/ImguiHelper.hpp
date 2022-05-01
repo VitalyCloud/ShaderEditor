@@ -1,12 +1,12 @@
 //
-//  ImguiHelper.hpp
+//  ImGuiHelper.hpp
 //  ShaderEditor
 //
 //  Created by Vitaly Cloud on 01.05.2022.
 //
 
-#ifndef ImguiHelper_hpp
-#define ImguiHelper_hpp
+#ifndef ImGuiHelper_hpp
+#define ImGuiHelper_hpp
 
 #include "OpenGL/Buffer.hpp"
 
@@ -37,4 +37,4 @@ bool DrawInputMat(float* value, const ImGuiInputSettings* settings = nullptr, in
 
 
 
-#endif /* ImguiHelper_hpp */
+#endif /* ImGuiHelper_hpp */

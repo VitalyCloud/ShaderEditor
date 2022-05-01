@@ -29,8 +29,12 @@
 		8075225E2811834700C0AD39 /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8075225C2811834700C0AD39 /* Renderer.cpp */; };
 		809B4720281DDAA80083DBD2 /* Context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 809B471E281DDAA80083DBD2 /* Context.cpp */; };
 		809B4726281DDE610083DBD2 /* ViewportPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 809B4724281DDE610083DBD2 /* ViewportPanel.cpp */; };
-		809B4729281DEBCF0083DBD2 /* ImguiHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 809B4727281DEBCF0083DBD2 /* ImguiHelper.cpp */; };
+		809B4729281DEBCF0083DBD2 /* ImGuiHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 809B4727281DEBCF0083DBD2 /* ImGuiHelper.cpp */; };
 		809B472C281DECC70083DBD2 /* InspectorPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 809B472A281DECC60083DBD2 /* InspectorPanel.cpp */; };
+		809B4730281DEF980083DBD2 /* UniformBufferContainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 809B472E281DEF980083DBD2 /* UniformBufferContainer.cpp */; };
+		809B4733281DFB670083DBD2 /* UniformView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 809B4731281DFB670083DBD2 /* UniformView.cpp */; };
+		809B4737281DFE9E0083DBD2 /* VertexBufferContainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 809B4735281DFE9E0083DBD2 /* VertexBufferContainer.cpp */; };
+		809B473A281E0CBA0083DBD2 /* VertexView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 809B4738281E0CBA0083DBD2 /* VertexView.cpp */; };
 		80C4915328122BE7009FC5E3 /* Log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80C4915128122BE7009FC5E3 /* Log.cpp */; };
 		80C4915F2812359E009FC5E3 /* OrthographicCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80C4915E2812359E009FC5E3 /* OrthographicCamera.cpp */; };
 		80DCD45C2812C2C200610807 /* MacosXUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 80DCD45B2812C2C200610807 /* MacosXUtils.mm */; };
@@ -95,10 +99,18 @@
 		809B471F281DDAA80083DBD2 /* Context.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Context.hpp; sourceTree = "<group>"; };
 		809B4724281DDE610083DBD2 /* ViewportPanel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ViewportPanel.cpp; sourceTree = "<group>"; };
 		809B4725281DDE610083DBD2 /* ViewportPanel.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ViewportPanel.hpp; sourceTree = "<group>"; };
-		809B4727281DEBCF0083DBD2 /* ImguiHelper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ImguiHelper.cpp; sourceTree = "<group>"; };
-		809B4728281DEBCF0083DBD2 /* ImguiHelper.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ImguiHelper.hpp; sourceTree = "<group>"; };
+		809B4727281DEBCF0083DBD2 /* ImGuiHelper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ImGuiHelper.cpp; sourceTree = "<group>"; };
+		809B4728281DEBCF0083DBD2 /* ImGuiHelper.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ImGuiHelper.hpp; sourceTree = "<group>"; };
 		809B472A281DECC60083DBD2 /* InspectorPanel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = InspectorPanel.cpp; sourceTree = "<group>"; };
 		809B472B281DECC60083DBD2 /* InspectorPanel.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = InspectorPanel.hpp; sourceTree = "<group>"; };
+		809B472E281DEF980083DBD2 /* UniformBufferContainer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UniformBufferContainer.cpp; sourceTree = "<group>"; };
+		809B472F281DEF980083DBD2 /* UniformBufferContainer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UniformBufferContainer.hpp; sourceTree = "<group>"; };
+		809B4731281DFB670083DBD2 /* UniformView.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UniformView.cpp; sourceTree = "<group>"; };
+		809B4732281DFB670083DBD2 /* UniformView.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UniformView.hpp; sourceTree = "<group>"; };
+		809B4735281DFE9E0083DBD2 /* VertexBufferContainer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VertexBufferContainer.cpp; sourceTree = "<group>"; };
+		809B4736281DFE9E0083DBD2 /* VertexBufferContainer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VertexBufferContainer.hpp; sourceTree = "<group>"; };
+		809B4738281E0CBA0083DBD2 /* VertexView.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VertexView.cpp; sourceTree = "<group>"; };
+		809B4739281E0CBA0083DBD2 /* VertexView.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VertexView.hpp; sourceTree = "<group>"; };
 		80C4915028122B2C009FC5E3 /* Assert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Assert.h; sourceTree = "<group>"; };
 		80C4915128122BE7009FC5E3 /* Log.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Log.cpp; sourceTree = "<group>"; };
 		80C4915228122BE7009FC5E3 /* Log.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Log.hpp; sourceTree = "<group>"; };
@@ -274,14 +286,38 @@
 		8075225F2811917100C0AD39 /* Editor */ = {
 			isa = PBXGroup;
 			children = (
+				809B472D281DEF6D0083DBD2 /* Panels */,
+				809B4734281DFE630083DBD2 /* Uniform */,
+				809B4735281DFE9E0083DBD2 /* VertexBufferContainer.cpp */,
+				809B4736281DFE9E0083DBD2 /* VertexBufferContainer.hpp */,
+				809B4738281E0CBA0083DBD2 /* VertexView.cpp */,
+				809B4739281E0CBA0083DBD2 /* VertexView.hpp */,
+			);
+			path = Editor;
+			sourceTree = "<group>";
+		};
+		809B472D281DEF6D0083DBD2 /* Panels */ = {
+			isa = PBXGroup;
+			children = (
+				809B4727281DEBCF0083DBD2 /* ImGuiHelper.cpp */,
+				809B4728281DEBCF0083DBD2 /* ImGuiHelper.hpp */,
 				809B4724281DDE610083DBD2 /* ViewportPanel.cpp */,
 				809B4725281DDE610083DBD2 /* ViewportPanel.hpp */,
-				809B4727281DEBCF0083DBD2 /* ImguiHelper.cpp */,
-				809B4728281DEBCF0083DBD2 /* ImguiHelper.hpp */,
 				809B472A281DECC60083DBD2 /* InspectorPanel.cpp */,
 				809B472B281DECC60083DBD2 /* InspectorPanel.hpp */,
 			);
-			path = Editor;
+			name = Panels;
+			sourceTree = "<group>";
+		};
+		809B4734281DFE630083DBD2 /* Uniform */ = {
+			isa = PBXGroup;
+			children = (
+				809B472E281DEF980083DBD2 /* UniformBufferContainer.cpp */,
+				809B472F281DEF980083DBD2 /* UniformBufferContainer.hpp */,
+				809B4731281DFB670083DBD2 /* UniformView.cpp */,
+				809B4732281DFB670083DBD2 /* UniformView.hpp */,
+			);
+			name = Uniform;
 			sourceTree = "<group>";
 		};
 		80DCD45A2812C28300610807 /* Platform */ = {
@@ -352,15 +388,19 @@
 				8075225E2811834700C0AD39 /* Renderer.cpp in Sources */,
 				8075225A28117F0900C0AD39 /* VertexArray.cpp in Sources */,
 				8075220428108FCF00C0AD39 /* Application.cpp in Sources */,
+				809B473A281E0CBA0083DBD2 /* VertexView.cpp in Sources */,
 				809B4720281DDAA80083DBD2 /* Context.cpp in Sources */,
 				8075225728117C6B00C0AD39 /* Buffer.cpp in Sources */,
 				80C4915328122BE7009FC5E3 /* Log.cpp in Sources */,
 				8075223E2810B52900C0AD39 /* Framebuffer.cpp in Sources */,
 				8075224E2811764D00C0AD39 /* Shader.cpp in Sources */,
+				809B4733281DFB670083DBD2 /* UniformView.cpp in Sources */,
 				80372B02281B6152005031C7 /* Texture.cpp in Sources */,
 				80752208281095A400C0AD39 /* ImGuiBuild.cpp in Sources */,
 				8075225428117AA500C0AD39 /* Utils.cpp in Sources */,
-				809B4729281DEBCF0083DBD2 /* ImguiHelper.cpp in Sources */,
+				809B4729281DEBCF0083DBD2 /* ImGuiHelper.cpp in Sources */,
+				809B4737281DFE9E0083DBD2 /* VertexBufferContainer.cpp in Sources */,
+				809B4730281DEF980083DBD2 /* UniformBufferContainer.cpp in Sources */,
 				80372AFA281B60E7005031C7 /* stb_image.cpp in Sources */,
 				809B4726281DDE610083DBD2 /* ViewportPanel.cpp in Sources */,
 				8075224A2811730B00C0AD39 /* RenderCommand.cpp in Sources */,

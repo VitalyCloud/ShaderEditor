@@ -4,7 +4,7 @@
 //
 //  Created by Vitaly Cloud on 01.05.2022.
 //
-
+#include "pch.h"
 #include "InspectorPanel.hpp"
 
 #include "imgui.h"
