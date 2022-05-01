@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "Editor::TextBufferView::SaveFile():TextBufferView.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "m_Buffer.GetText()">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Editor::UniformBuffer::GetData(int):UniformBuffer.hpp">
+      </ContextState>
+      <ContextState
+         contextName = "Editor::VertexView::Draw():VertexView.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "m_VertexBuffer.VertexCount()">
+            </PersistentString>
+            <PersistentString
+               value = "layoutElements.size()">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Editor::UniformBuffer::PushUnifrom():UniformBuffer.hpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "m_Buffer.size()">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Editor::UniformBuffer::Delete(int):UniformBuffer.hpp">
+      </ContextState>
+      <ContextState
+         contextName = "Editor::PipelinePanel::Draw(char const*, bool*):PipelinePanel.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "m_ShaderPasses[i]-&gt;GetMeshes()">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Core::Utils::FileWatcher::End():Utils.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "m_ManagedFiles.size()">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Editor::UniformBuffer::GetUniform(int):UniformBuffer.hpp">
+      </ContextState>
+      <ContextState
+         contextName = "Core::Utils::FileWatcher::OpenFile(std::__1::__fs::filesystem::path const&amp;):Utils.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "Get().m_ManagedFiles.size()">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Renderer::OrthographicCamera::SetPostion(glm::vec&lt;3, float, (glm::qualifier)0&gt; const&amp;):OrthographicCamera.hpp">
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

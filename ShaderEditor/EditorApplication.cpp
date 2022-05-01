@@ -12,6 +12,7 @@
 #include "Editor/InspectorPanel.hpp"
 #include "Editor/VertexView.hpp"
 #include "Editor/UniformView.hpp"
+#include "Editor/IndexView.hpp"
 
 namespace Editor {
 
@@ -74,6 +75,8 @@ public:
     
         m_VertexContainer = Core::CreateRef<VertexBufferContainer>();
         m_UniformContainer = Core::CreateRef<UniformBufferContainer>();
+        m_IndexContainer = Core::CreateRef<IndexBufferContainer>();
+        m_IndexContainer->GetData().push_back(0);
     }
     
     virtual void OnUpdate() override {
@@ -99,6 +102,11 @@ public:
         m_UniformView.SetContext(m_UniformContainer);
         m_UniformView.Draw();
         ImGui::End();
+        
+        ImGui::Begin("IndexTest");
+        m_IndexView.SetContext(m_IndexContainer);
+        m_IndexView.Draw();
+        ImGui::End();
     }
     
 private:
@@ -109,8 +117,10 @@ private:
     
     VertexView m_VertexView;
     UniformView m_UniformView;
+    IndexView m_IndexView;
     Core::Ref<VertexBufferContainer> m_VertexContainer;
     Core::Ref<UniformBufferContainer> m_UniformContainer;
+    Core::Ref<IndexBufferContainer> m_IndexContainer;
     
     Core::Ref<OpenGL::Framebuffer> m_Framebuffer = nullptr;
 };
