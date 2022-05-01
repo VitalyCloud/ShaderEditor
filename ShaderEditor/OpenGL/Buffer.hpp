@@ -114,7 +114,11 @@ private:
 class IndexBuffer {
 public:
     IndexBuffer(uint32_t* indices, uint32_t count);
+    IndexBuffer(uint32_t count);
     ~IndexBuffer();
+    
+    void SetData(uint32_t* indices, uint32_t count);
+    void Resize(uint32_t count);
     
     void Bind();
     void Unbind();

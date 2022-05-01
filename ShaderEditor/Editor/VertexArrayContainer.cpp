@@ -13,7 +13,10 @@ namespace Editor {
 
 VertexArrayContainer::VertexArrayContainer() {
     m_VertexArray = Core::CreateRef<OpenGL::VertexArray>();
+    m_IndexContainer = Core::CreateRef<IndexBufferContainer>();
+    
     AddVertexBuffer();
+    m_IndexContainer->GetData().push_back(0);
 }
 
 VertexArrayContainer::~VertexArrayContainer() {
@@ -30,6 +33,8 @@ void VertexArrayContainer::InvalidateVertexArray() {
     }
     
     // Index buffer
+    if(m_IndexContainer != nullptr)
+        m_VertexArray->SetIndexBuffer(m_IndexContainer->GetIB());
 }
 
 void VertexArrayContainer::AddVertexBuffer() {

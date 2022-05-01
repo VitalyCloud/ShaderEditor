@@ -159,10 +159,6 @@ void VertexBufferContainer::UpdateVertexBuffer() {
 }
 
 void VertexBufferContainer::UpdateVertexBufferIfNeeded() {
-    if(m_Data.size() == 0 || m_Layout.size() == 0)
-        return;
-    
-    
     
     if(m_State.CheckIf(VertexBufferState::LayoutChanged)) {
         EN_INFO("Handle VBC layout change");
@@ -180,6 +176,10 @@ void VertexBufferContainer::UpdateVertexBufferIfNeeded() {
     }
     
     if(m_State.CheckIf(VertexBufferState::SizeChanged)) {
+        if(m_Layout.size() == 0) {
+            m_State.Reset();
+            return;
+        }
         EN_INFO("Handle VBC size change");
         m_VertexBuffer->Resize(m_VertexSize * m_VertexCount);
         m_VertexBuffer->SetData(m_Data.data(), m_VertexSize * m_VertexCount);

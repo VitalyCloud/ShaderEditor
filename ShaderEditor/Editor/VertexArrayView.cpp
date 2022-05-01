@@ -48,6 +48,18 @@ void VertexArrayView::Draw() {
             m_VertexView.SetContext(vertexContainer);
             m_VertexView.Draw();
             ImGui::PopID();
+            
+            ImGui::SameLine();
+            ImGui::Checkbox("Auto change##VertexBuffer", &m_AutoChange);
+            if(!m_AutoChange) {
+                ImGui::SameLine();
+                if(ImGui::Button("Apply")) {
+                    bool layoutChanged = vertexContainer->IsLayoutChanged();
+                    vertexContainer->UpdateVertexBufferIfNeeded();
+                    if(layoutChanged)
+                        m_Context->InvalidateVertexArray();
+                }
+            }
         }
         
         if(!close && m_Context->GetVertexConteiners().size() > 1) {
@@ -55,16 +67,6 @@ void VertexArrayView::Draw() {
         }
         
         
-        ImGui::Checkbox("Auto change", &m_AutoChange);
-        if(!m_AutoChange) {
-            ImGui::SameLine();
-            if(ImGui::Button("Apply")) {
-                bool layoutChanged = vertexContainer->IsLayoutChanged();
-                vertexContainer->UpdateVertexBufferIfNeeded();
-                if(layoutChanged)
-                    m_Context->InvalidateVertexArray();
-            }
-        }
         ImGui::PopID();
         
     }
@@ -74,11 +76,17 @@ void VertexArrayView::Draw() {
     if(ImGui::CollapsingHeader("Index Buffer")) {
         m_IndexView.SetContext(m_Context->GetIndexConteiner());
         m_IndexView.Draw();
-//        if(m_IndexView.IsChanged()) {
-//            m_Context->InvalidateVertexArray();
-//        }
+        
+        ImGui::Checkbox("Auto change##IndexBuffer", &m_IndexAutoChange);
+        if(!m_IndexAutoChange) {
+            ImGui::SameLine();
+            if(ImGui::Button("Apply")) {
+                m_Context->GetIndexConteiner()->UpdateIndexBufferIfNeeded();
+            }
+        }
+        if(m_IndexAutoChange)
+            m_Context->GetIndexConteiner()->UpdateIndexBufferIfNeeded();
     }
-    
     
     if(m_VertexContainerToDelete > -1)
         m_Context->RemoveVertexBuffer(m_VertexContainerToDelete);

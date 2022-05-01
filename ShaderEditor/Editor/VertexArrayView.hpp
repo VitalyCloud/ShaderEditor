@@ -30,6 +30,7 @@ private:
     IndexView m_IndexView;
     
     bool m_AutoChange = false;
+    bool m_IndexAutoChange = false;
     
 };
 

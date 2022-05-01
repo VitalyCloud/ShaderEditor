@@ -10,46 +10,17 @@
 
 #include "ImGuiHelper.hpp"
 #include "OpenGL/Buffer.hpp"
+#include "BufferState.hpp"
 
 #include <vector>
 
-#define BIT(x) (1 << x)
-
 namespace Editor {
 
-class VertexBufferState {
-public:
-    enum StateType {
-        None = 0,
-        LayoutChanged = BIT(0),
-        SizeChanged = BIT(1),
-        DataChanged = BIT(2)
-    };
-    
-    void Set(StateType state) {
-        State |= (uint8_t)state;
-    }
-    
-    void Reset() {
-        State = 0;
-    }
-    
-    bool CheckIf(StateType state) const {
-        if(State & (uint8_t) state)
-            return true;
-        return false;
-    }
-    
-    template<typename... Args>
-    bool CheckIf(StateType state, Args... args) const {
-        if(CheckIf(state))
-            return true;
-        else
-            return CheckIf(args...);
-        return false;
-    }
-private:
-    uint8_t State = 0;
+enum class VertexBufferState {
+    None = 0,
+    LayoutChanged = BIT(0),
+    SizeChanged = BIT(1),
+    DataChanged = BIT(2)
 };
 
 struct VertexBufferElement {
@@ -86,8 +57,8 @@ public:
     void UpdateVertexBuffer();
     void UpdateVertexBufferIfNeeded();
     const Core::Ref<OpenGL::VertexBuffer>& GetVB() { return m_VertexBuffer; }
-    const VertexBufferState& GetState() const { return m_State; }
-    VertexBufferState& GetState() { return m_State; }
+    const BufferState<VertexBufferState>& GetState() const { return m_State; }
+    BufferState<VertexBufferState>& GetState() { return m_State; }
     bool IsLayoutChanged() { return m_State.CheckIf(VertexBufferState::LayoutChanged); }
     
 private:
@@ -102,7 +73,7 @@ private:
     uint32_t m_VertexCount = 0;
     uint32_t m_VertexSize = 0;
     
-    VertexBufferState m_State;
+    BufferState<VertexBufferState> m_State;
     
     Core::Ref<OpenGL::VertexBuffer> m_VertexBuffer = nullptr;
 };

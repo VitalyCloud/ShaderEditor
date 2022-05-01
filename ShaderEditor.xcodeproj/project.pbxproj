@@ -123,6 +123,7 @@
 		809B4747281E933B0083DBD2 /* VertexArrayContainer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VertexArrayContainer.hpp; sourceTree = "<group>"; };
 		809B475D281EBCB60083DBD2 /* VertexArrayView.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VertexArrayView.cpp; sourceTree = "<group>"; };
 		809B475E281EBCB60083DBD2 /* VertexArrayView.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VertexArrayView.hpp; sourceTree = "<group>"; };
+		809B4761281EEC3D0083DBD2 /* BufferState.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BufferState.hpp; sourceTree = "<group>"; };
 		80C4915028122B2C009FC5E3 /* Assert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Assert.h; sourceTree = "<group>"; };
 		80C4915128122BE7009FC5E3 /* Log.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Log.cpp; sourceTree = "<group>"; };
 		80C4915228122BE7009FC5E3 /* Log.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Log.hpp; sourceTree = "<group>"; };
@@ -298,14 +299,12 @@
 		8075225F2811917100C0AD39 /* Editor */ = {
 			isa = PBXGroup;
 			children = (
+				809B4761281EEC3D0083DBD2 /* BufferState.hpp */,
 				809B472D281DEF6D0083DBD2 /* Panels */,
 				809B4734281DFE630083DBD2 /* Uniform */,
 				809B473B281E8E420083DBD2 /* Vertex */,
 				809B4742281E920C0083DBD2 /* Index */,
-				809B4746281E933B0083DBD2 /* VertexArrayContainer.cpp */,
-				809B4747281E933B0083DBD2 /* VertexArrayContainer.hpp */,
-				809B475D281EBCB60083DBD2 /* VertexArrayView.cpp */,
-				809B475E281EBCB60083DBD2 /* VertexArrayView.hpp */,
+				809B4763281EF51B0083DBD2 /* VertexArray */,
 			);
 			path = Editor;
 			sourceTree = "<group>";
@@ -354,6 +353,17 @@
 				809B4740281E8F790083DBD2 /* IndexView.hpp */,
 			);
 			name = Index;
+			sourceTree = "<group>";
+		};
+		809B4763281EF51B0083DBD2 /* VertexArray */ = {
+			isa = PBXGroup;
+			children = (
+				809B4746281E933B0083DBD2 /* VertexArrayContainer.cpp */,
+				809B4747281E933B0083DBD2 /* VertexArrayContainer.hpp */,
+				809B475D281EBCB60083DBD2 /* VertexArrayView.cpp */,
+				809B475E281EBCB60083DBD2 /* VertexArrayView.hpp */,
+			);
+			name = VertexArray;
 			sourceTree = "<group>";
 		};
 		80DCD45A2812C28300610807 /* Platform */ = {

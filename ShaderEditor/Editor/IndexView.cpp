@@ -40,18 +40,19 @@ void IndexView::Draw() {
                 needFocusIndex = -1;
             }
             bool changed = ImGui::InputScalar("##indexInput", ImGuiDataType_U32, &context[i]);
-//            if(changed && m_AutoChange)
-//                m_Changed = changed;
+            if(changed)
+                m_Context->GetState().Set(IndexBufferState::DataChanged);
+            
             ImGui::PopItemWidth();
             if(ImGui::IsItemActive()) {
                 if(!ImGui::IsKeyDown(ImGuiKey_LeftShift) && ImGui::IsKeyPressed(ImGuiKey_Tab) && i == context.size()-1) {
                     context.emplace_back(0);
-//                    if(m_AutoChange) m_Changed = true;
+                    m_Context->GetState().Set(IndexBufferState::SizeChanged);
                 }
                 if(ImGui::IsKeyDown(ImGuiKey_LeftShift) && ImGui::IsKeyPressed(ImGuiKey_Backspace) && context.size() > 1) {
                     context.erase(context.begin() + i);
                     needFocusIndex = i-1;
-//                    if(m_AutoChange) m_Changed = true;
+                    m_Context->GetState().Set(IndexBufferState::SizeChanged);
                 }
             }
             if(ImGui::IsMouseClicked(ImGuiMouseButton_Right) && ImGui::IsItemHovered())
@@ -59,7 +60,7 @@ void IndexView::Draw() {
             if(ImGui::BeginPopup("IndexContext")) {
                 if(ImGui::Selectable("Delete")) {
                     context.erase(context.begin() + i);
-//                    if(m_AutoChange) m_Changed = true;
+                    m_Context->GetState().Set(IndexBufferState::SizeChanged);
                 }
                 ImGui::EndPopup();
             }
@@ -70,18 +71,10 @@ void IndexView::Draw() {
     if(ImGui::Button("Clear")) {
         context.clear();
         context.emplace_back(0);
-//        if(m_AutoChange) m_Changed = true;
+        m_Context->GetState().Set(IndexBufferState::SizeChanged);
     }
     
     ImGui::SameLine();
-//    ImGui::Checkbox("Auto change", &m_AutoChange);
-//    if(!m_AutoChange) {
-//        ImGui::SameLine();
-//        if(ImGui::Button("Apply")) {
-//            m_Changed = true;
-//        }
-//    }
-    
 }
 
 }
