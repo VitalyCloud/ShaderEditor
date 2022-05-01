@@ -108,16 +108,19 @@ void PipelinePanel::Draw(const char* title, bool* p_open) {
                         InspectorPanel::Get().SetContext(&m_MeshInspector);
                     }
                     if(ImGui::IsItemClicked(ImGuiMouseButton_Right) && ImGui::IsItemFocused())
-                        ImGui::OpenPopup("MeshPopup");
-                    if(ImGui::BeginPopup("MeshPopup")) {
-                        if(ImGui::Selectable("Delete")) {
-                            if(m_MeshInspector.GetContext() == mesh)
-                                m_MeshInspector.SetContext(nullptr);
-                            shaderPass->GetShaderPassObjects().erase(shaderPass->GetShaderPassObjects().begin() + j);
-                        }
-                        ImGui::EndPopup();
-                    }
+                        ImGui::OpenPopup("ObjectPopup");
                 }
+                
+                
+                if(ImGui::BeginPopup("ObjectPopup")) {
+                    if(ImGui::Selectable("Delete")) {
+                        if(m_MeshInspector.GetContext() == object.get())
+                            m_MeshInspector.SetContext(nullptr);
+                        shaderPass->GetShaderPassObjects().erase(shaderPass->GetShaderPassObjects().begin() + j);
+                    }
+                    ImGui::EndPopup();
+                }
+                
                 ImGui::PopID();
             }
             ImGui::TreePop();
