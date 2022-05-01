@@ -22,6 +22,7 @@ public:
     
     void SetContext(Inspector* context = nullptr) { m_Context = context;}
     const Inspector* GetContext() const { return m_Context; }
+    bool IsActive(Inspector* context) { return m_Context == context; }
   
     void Draw(const char* title, bool* p_open = nullptr) const;
     

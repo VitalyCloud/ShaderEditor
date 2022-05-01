@@ -15,8 +15,8 @@ VertexArrayContainer::VertexArrayContainer() {
     m_VertexArray = Core::CreateRef<OpenGL::VertexArray>();
     m_IndexContainer = Core::CreateRef<IndexBufferContainer>();
     
-    AddVertexBuffer();
-    m_IndexContainer->GetData().push_back(0);
+//    AddVertexBuffer();
+//    m_IndexContainer->GetData().push_back(0);
 }
 
 VertexArrayContainer::~VertexArrayContainer() {

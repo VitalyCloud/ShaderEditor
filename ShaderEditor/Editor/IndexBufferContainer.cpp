@@ -10,7 +10,12 @@
 namespace Editor {
 
 IndexBufferContainer::IndexBufferContainer() {
-    m_IndexBuffer = Core::CreateRef<OpenGL::IndexBuffer>(0);
+    m_IndexBuffer = Core::CreateRef<OpenGL::IndexBuffer>(1);
+    
+    // Default value
+    m_Data.push_back(0);
+    m_State.Set(IndexBufferState::DataChanged);
+    UpdateIndexBufferIfNeeded();
 }
 
 IndexBufferContainer::~IndexBufferContainer() {

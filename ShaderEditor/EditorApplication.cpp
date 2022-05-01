@@ -11,7 +11,8 @@
 #include "Editor/ViewportPanel.hpp"
 #include "Editor/InspectorPanel.hpp"
 
-#include "Editor/VertexArrayView.hpp"
+#include "Editor/Pipeline.hpp"
+#include "Editor/PipelinePanel.hpp"
 
 namespace Editor {
 
@@ -40,6 +41,8 @@ public:
                 m_ShowViewport = !m_ShowViewport;
             if (ImGui::MenuItem("Inspector", nullptr, m_ShowInspector))
                 m_ShowInspector = !m_ShowInspector;
+            if (ImGui::MenuItem("Pipeline", nullptr, m_ShowPipeline))
+                m_ShowPipeline = !m_ShowPipeline;
             
             ImGui::EndMenu();
         }
@@ -72,7 +75,8 @@ public:
         m_ViewportPanel.SetFramebuffer(m_Framebuffer);
         Core::Application::Get().SetMenubarCallback(std::bind(&EditorLayer::OnMainMenuBar, this));
     
-        m_VertexArrayContainer = Core::CreateRef<VertexArrayContainer>();
+        m_Pipeline = Core::CreateRef<Pipeline>();
+        m_PipelinePanel.SerContext(m_Pipeline);
     }
     
     virtual void OnUpdate() override {
@@ -88,11 +92,8 @@ public:
             m_ViewportPanel.Draw("Viewport", &m_ShowViewport);
         if(m_ShowInspector)
             m_InspectorPanel.Draw("Inspector", &m_ShowInspector);
-    
-        ImGui::Begin("VA Text");
-        m_VertexArrayView.SetContext(m_VertexArrayContainer);
-        m_VertexArrayView.Draw();
-        ImGui::End();
+        if(m_ShowPipeline)
+            m_PipelinePanel.Draw("Pipeline", &m_ShowPipeline);
     
     }
         
@@ -103,10 +104,10 @@ private:
     bool m_ShowViewport = true;
     InspectorPanel m_InspectorPanel;
     bool m_ShowInspector = true;
+    PipelinePanel m_PipelinePanel;
+    bool m_ShowPipeline = true;
     
-    VertexArrayView m_VertexArrayView;
-    Core::Ref<VertexArrayContainer> m_VertexArrayContainer = nullptr;
-    
+    Core::Ref<Pipeline> m_Pipeline = nullptr;
     Core::Ref<OpenGL::Framebuffer> m_Framebuffer = nullptr;
 };
 

@@ -30,6 +30,8 @@ public:
     
     std::vector<Core::Ref<VertexBufferContainer>>& GetVertexConteiners() { return m_VertexContainers; }
     
+    const Core::Ref<OpenGL::VertexArray>& GetVA() { return m_VertexArray; }
+    
 private:
     Core::Ref<OpenGL::VertexArray> m_VertexArray = nullptr;
     
