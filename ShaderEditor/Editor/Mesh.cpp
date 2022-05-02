@@ -47,6 +47,7 @@ void Mesh::OnUpdate(const Core::Ref<OpenGL::Shader>& shader) {
     if(va != nullptr && va->GetVertexBuffers().size() > 0) {
         shader->Bind();
         va->Bind();
+        shader->SetMat4("u_Transform", m_Transform.GetTransform());
         if(m_UseIndexBuffer)
             OpenGL::RenderCommand::DrawIndexed(va);
         else {
@@ -57,13 +58,61 @@ void Mesh::OnUpdate(const Core::Ref<OpenGL::Shader>& shader) {
     }
 }
 
+MeshInspector::MeshInspector() {
+    ImGuiInputSettings settings;
+    settings.Type = ImGuiWidgetType::Drag;
+    settings.Speed = 0.050f;
+    
+    m_PositionSettings = settings;
+    m_RrotationSettings = settings;
+    m_ScaleSettings = settings;
+}
+
 void MeshInspector::Draw() {
     if(m_Context == nullptr) return;
     
+    ImGui::PushID(1);
     ImGui::InputText("Title##MeshTitle", &m_Context->m_Title);
     m_VertexArrayView.SetContext(m_Context->m_VertexArrayContainer);
     m_VertexArrayView.Draw();
     ImGui::Checkbox("Use Index Buffer", &m_Context->m_UseIndexBuffer);
+
+    ImGui::Text("Position"); ImGui::SameLine();
+    ImGui::PushID("PositionInput");
+    ImGui::DrawInputFloat(&m_Context->m_Transform.Translation.x, &m_PositionSettings, 3);
+    ImGui::PopID();
+    ImGui::SameLine();
+    if(ImGui::Button(":##PositionSettings")) {
+        m_PopupContext = &m_PositionSettings;
+        ImGui::OpenPopup("InputSettings");
+    }
+    
+    ImGui::Text("Rotation"); ImGui::SameLine();
+    ImGui::PushID("RotationInput");
+    ImGui::DrawInputFloat(&m_Context->m_Transform.Rotation.x, &m_RrotationSettings, 3);
+    ImGui::PopID();
+    ImGui::SameLine();
+    if(ImGui::Button(":##RotationSettings")) {
+        m_PopupContext = &m_RrotationSettings;
+        ImGui::OpenPopup("InputSettings");
+    }
+    
+    ImGui::Text("Scale"); ImGui::SameLine();
+    ImGui::PushID("ScaleInput");
+    ImGui::DrawInputFloat(&m_Context->m_Transform.Scale.x, &m_ScaleSettings, 3);
+    ImGui::PopID();
+    ImGui::SameLine();
+    if(ImGui::Button(":##ScaleSettings")) {
+        m_PopupContext = &m_ScaleSettings;
+        ImGui::OpenPopup("InputSettings");
+    }
+    
+    if(ImGui::BeginPopup("InputSettings") && m_PopupContext != nullptr) {
+        ImGui::DrawInputSettingsView(OpenGL::ShaderDataType::Float3, m_PopupContext);
+        ImGui::EndPopup();
+    }
+    
+    ImGui::PopID();
 }
 
 Core::Ref<VertexArrayContainer> DefaultMesh::CreateTriangle() {

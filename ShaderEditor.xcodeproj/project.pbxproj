@@ -10,6 +10,7 @@
 		80372AFA281B60E7005031C7 /* stb_image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80372AF9281B60E7005031C7 /* stb_image.cpp */; };
 		80372B02281B6152005031C7 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80372B00281B6152005031C7 /* Texture.cpp */; };
 		803AFF3F281068F7005C6FA6 /* EntryPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 803AFF3E281068F7005C6FA6 /* EntryPoint.cpp */; };
+		803B081E28200C3F0033737B /* Components.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 803B081C28200C3F0033737B /* Components.cpp */; };
 		807521F728106D6800C0AD39 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 807521F628106D6800C0AD39 /* OpenGL.framework */; };
 		807521F928106D8600C0AD39 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 807521F828106D8600C0AD39 /* Cocoa.framework */; };
 		807521FB28106D8D00C0AD39 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 807521FA28106D8D00C0AD39 /* IOKit.framework */; };
@@ -65,6 +66,8 @@
 		80372B01281B6152005031C7 /* Texture.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Texture.hpp; sourceTree = "<group>"; };
 		803AFF3B281068F7005C6FA6 /* ShaderEditor */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ShaderEditor; sourceTree = BUILT_PRODUCTS_DIR; };
 		803AFF3E281068F7005C6FA6 /* EntryPoint.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = EntryPoint.cpp; sourceTree = "<group>"; };
+		803B081C28200C3F0033737B /* Components.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Components.cpp; sourceTree = "<group>"; };
+		803B081D28200C3F0033737B /* Components.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Components.hpp; sourceTree = "<group>"; };
 		807521F428106CEB00C0AD39 /* ShaderEditor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShaderEditor.entitlements; sourceTree = "<group>"; };
 		807521F628106D6800C0AD39 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		807521F828106D8600C0AD39 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -315,6 +318,8 @@
 				809B4742281E920C0083DBD2 /* Index */,
 				809B4763281EF51B0083DBD2 /* VertexArray */,
 				809B476D281EFF840083DBD2 /* Pipeline */,
+				803B081C28200C3F0033737B /* Components.cpp */,
+				803B081D28200C3F0033737B /* Components.hpp */,
 			);
 			path = Editor;
 			sourceTree = "<group>";
@@ -476,6 +481,7 @@
 				809B4730281DEF980083DBD2 /* UniformBufferContainer.cpp in Sources */,
 				80372AFA281B60E7005031C7 /* stb_image.cpp in Sources */,
 				809B4770281EFF9F0083DBD2 /* Mesh.cpp in Sources */,
+				803B081E28200C3F0033737B /* Components.cpp in Sources */,
 				809B475F281EBCB60083DBD2 /* VertexArrayView.cpp in Sources */,
 				809B4726281DDE610083DBD2 /* ViewportPanel.cpp in Sources */,
 				8075224A2811730B00C0AD39 /* RenderCommand.cpp in Sources */,
