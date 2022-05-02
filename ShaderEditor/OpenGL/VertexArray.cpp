@@ -35,15 +35,18 @@ static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type) {
     return 0;
 }
 
+uint32_t VertexArray::s_ActviveObjectsCount = 0;
 
 VertexArray::VertexArray() { 
     glGenVertexArrays(1, &m_RendererID);
     EN_INFO("Vertex Array created: {0}", (u_int64_t)this);
+    s_ActviveObjectsCount += 1;
 }
 
 VertexArray::~VertexArray() { 
     glDeleteVertexArrays(1, &m_RendererID);
     EN_WARN("Vertex Array deleted: {0}", (u_int64_t)this);
+    s_ActviveObjectsCount -= 1;
 }
 
 void VertexArray::Bind() { 

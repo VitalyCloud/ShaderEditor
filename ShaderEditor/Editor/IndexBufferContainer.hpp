@@ -10,8 +10,11 @@
 
 #include "BufferState.hpp"
 #include "OpenGL/Buffer.hpp"
+#include "InspectorPanel.hpp"
+
 
 #include <vector>
+namespace Editor {
 
 enum class IndexBufferState {
     None = 0,
@@ -19,25 +22,41 @@ enum class IndexBufferState {
     SizeChanged = BIT(1)
 };
 
-namespace Editor {
+class IndexBufferContainer;
+
+class IndexView: public Inspector {
+public:
+    
+    void Draw() override;
+    void SetContext(const Core::Ref<IndexBufferContainer>& context) { m_Context = context; }
+    
+private:
+    Core::Ref<IndexBufferContainer> m_Context = nullptr;
+};
+
+
 
 class IndexBufferContainer {
 public:
     IndexBufferContainer();
     ~IndexBufferContainer();
   
-    std::vector<uint32_t>& GetData() { return m_Data; }
+    void SetData(const std::vector<uint32_t>& data);
+    
     BufferState<IndexBufferState>& GetState() { return m_State; }
     const Core::Ref<OpenGL::IndexBuffer>& GetIB() { return m_IndexBuffer; }
     
     void UpdateIndexBufferIfNeeded();
     
 private:
+    friend IndexView;
     Core::Ref<OpenGL::IndexBuffer> m_IndexBuffer = nullptr;
     std::vector<uint32_t> m_Data;
     
     BufferState<IndexBufferState> m_State;
 };
+
+
 
 }
 

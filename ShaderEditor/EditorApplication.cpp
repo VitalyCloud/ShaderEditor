@@ -83,6 +83,7 @@ public:
         m_Framebuffer->Bind();
         OpenGL::RenderCommand::SetClearColor(glm::vec4(0.3));
         OpenGL::RenderCommand::Clear();
+        m_Pipeline->OnUpdate();
         
         m_Framebuffer->Unbind();
     }
@@ -95,6 +96,16 @@ public:
         if(m_ShowPipeline)
             m_PipelinePanel.Draw("Pipeline", &m_ShowPipeline);
     
+        if(m_ShowDebug) {
+            ImGui::Begin("Debug");
+            
+            ImGui::Text("VBs: %d", OpenGL::VertexBuffer::GetActiveObjectsCount());
+            ImGui::Text("IBs: %d", OpenGL::IndexBuffer::GetActiveObjectsCount());
+            ImGui::Text("VAs: %d", OpenGL::VertexArray::GetActiveObjectsCount());
+            
+            ImGui::End();
+        }
+        
     }
         
         
@@ -106,6 +117,7 @@ private:
     bool m_ShowInspector = true;
     PipelinePanel m_PipelinePanel;
     bool m_ShowPipeline = true;
+    bool m_ShowDebug = true;
     
     Core::Ref<Pipeline> m_Pipeline = nullptr;
     Core::Ref<OpenGL::Framebuffer> m_Framebuffer = nullptr;

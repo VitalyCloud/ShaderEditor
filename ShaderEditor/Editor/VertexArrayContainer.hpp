@@ -23,6 +23,7 @@ public:
     ~VertexArrayContainer();
     
     void AddVertexBuffer(const Core::Ref<VertexBufferContainer>& vb = nullptr);
+    void SetIndexBuffer(const Core::Ref<IndexBufferContainer>& ib);
     void RemoveVertexBuffer(int index);
     void InvalidateVertexArray();
     

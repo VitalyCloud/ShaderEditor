@@ -12,7 +12,7 @@
 #include "InspectorPanel.hpp"
 
 #include "VertexView.hpp"
-#include "IndexView.hpp"
+#include "IndexBufferContainer.hpp"
 
 namespace Editor {
 

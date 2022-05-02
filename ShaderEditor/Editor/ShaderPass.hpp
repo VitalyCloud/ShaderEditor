@@ -31,13 +31,25 @@ public:
     const std::string& GetTitle() const { return m_Title; }
     std::vector<Core::Ref<ShaderPassObject>>& GetShaderPassObjects() { return m_ShaderPassObjects; }
     
+    void SetVertexPath(const Core::Ref<Core::Utils::File>& vertexPath);
+    void SetFragmnetPath(const Core::Ref<Core::Utils::File>& fragmentPath);
+    void SetShaderPath(const Core::Ref<Core::Utils::File>& vertexPath,
+                       const Core::Ref<Core::Utils::File>& fragmentPath);
+    void SetAutoCompile(bool value) { m_AutoCompile = value; }
+    bool IsAutoCompile() { return m_AutoCompile; }
+private:
+    void UpdateShader();
+    
 private:
     friend ShaderPassInspector;
     std::string m_Title;
     std::vector<Core::Ref<ShaderPassObject>> m_ShaderPassObjects;
     
     Core::Ref<OpenGL::Shader> m_Shader = nullptr;
+    Core::Ref<Core::Utils::File> m_VertexPath = nullptr;
+    Core::Ref<Core::Utils::File> m_FragmnetPath = nullptr;
     
+    bool m_AutoCompile = false;
 };
 
 

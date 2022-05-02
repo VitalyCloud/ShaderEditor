@@ -24,7 +24,6 @@ public:
     std::vector<Core::Ref<ShaderPass>>& GetShaderPasses() { return m_ShaderPasses; }
 private:
     std::vector<Core::Ref<ShaderPass>> m_ShaderPasses;
-    
 };
 
 }

@@ -36,7 +36,6 @@
 		809B4737281DFE9E0083DBD2 /* VertexBufferContainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 809B4735281DFE9E0083DBD2 /* VertexBufferContainer.cpp */; };
 		809B473A281E0CBA0083DBD2 /* VertexView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 809B4738281E0CBA0083DBD2 /* VertexView.cpp */; };
 		809B473E281E8E940083DBD2 /* IndexBufferContainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 809B473C281E8E940083DBD2 /* IndexBufferContainer.cpp */; };
-		809B4741281E8F790083DBD2 /* IndexView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 809B473F281E8F790083DBD2 /* IndexView.cpp */; };
 		809B4748281E933B0083DBD2 /* VertexArrayContainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 809B4746281E933B0083DBD2 /* VertexArrayContainer.cpp */; };
 		809B475F281EBCB60083DBD2 /* VertexArrayView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 809B475D281EBCB60083DBD2 /* VertexArrayView.cpp */; };
 		809B4766281EF5F60083DBD2 /* Pipeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 809B4764281EF5F60083DBD2 /* Pipeline.cpp */; };
@@ -121,8 +120,6 @@
 		809B4739281E0CBA0083DBD2 /* VertexView.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VertexView.hpp; sourceTree = "<group>"; };
 		809B473C281E8E940083DBD2 /* IndexBufferContainer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IndexBufferContainer.cpp; sourceTree = "<group>"; };
 		809B473D281E8E940083DBD2 /* IndexBufferContainer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IndexBufferContainer.hpp; sourceTree = "<group>"; };
-		809B473F281E8F790083DBD2 /* IndexView.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IndexView.cpp; sourceTree = "<group>"; };
-		809B4740281E8F790083DBD2 /* IndexView.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IndexView.hpp; sourceTree = "<group>"; };
 		809B4746281E933B0083DBD2 /* VertexArrayContainer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VertexArrayContainer.cpp; sourceTree = "<group>"; };
 		809B4747281E933B0083DBD2 /* VertexArrayContainer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VertexArrayContainer.hpp; sourceTree = "<group>"; };
 		809B475D281EBCB60083DBD2 /* VertexArrayView.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VertexArrayView.cpp; sourceTree = "<group>"; };
@@ -364,8 +361,6 @@
 			children = (
 				809B473C281E8E940083DBD2 /* IndexBufferContainer.cpp */,
 				809B473D281E8E940083DBD2 /* IndexBufferContainer.hpp */,
-				809B473F281E8F790083DBD2 /* IndexView.cpp */,
-				809B4740281E8F790083DBD2 /* IndexView.hpp */,
 			);
 			name = Index;
 			sourceTree = "<group>";
@@ -485,7 +480,6 @@
 				809B4726281DDE610083DBD2 /* ViewportPanel.cpp in Sources */,
 				8075224A2811730B00C0AD39 /* RenderCommand.cpp in Sources */,
 				80C4915F2812359E009FC5E3 /* OrthographicCamera.cpp in Sources */,
-				809B4741281E8F790083DBD2 /* IndexView.cpp in Sources */,
 				809B472C281DECC70083DBD2 /* InspectorPanel.cpp in Sources */,
 				8075220A28109CA700C0AD39 /* EditorApplication.cpp in Sources */,
 				80DCD45C2812C2C200610807 /* MacosXUtils.mm in Sources */,

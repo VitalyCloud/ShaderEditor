@@ -44,7 +44,7 @@ Mesh::~Mesh() {
 
 void Mesh::OnUpdate(const Core::Ref<OpenGL::Shader>& shader) {
     auto va = m_VertexArrayContainer->GetVA();
-    if(va != nullptr) {
+    if(va != nullptr && va->GetVertexBuffers().size() > 0) {
         shader->Bind();
         va->Bind();
         OpenGL::RenderCommand::DrawIndexed(va);
@@ -62,6 +62,7 @@ void MeshInspector::Draw() {
 Core::Ref<VertexArrayContainer> DefaultMesh::CreateTriangle() {
     auto va = Core::CreateRef<VertexArrayContainer>();
     auto vb = Core::CreateRef<VertexBufferContainer>();
+    auto ib = Core::CreateRef<IndexBufferContainer>();
     
     vb->PushLayoutElement({OpenGL::ShaderDataType::Float2, "Pos"});
     vb->PushLayoutElement({OpenGL::ShaderDataType::Float3, "Color"});
@@ -81,8 +82,12 @@ Core::Ref<VertexArrayContainer> DefaultMesh::CreateTriangle() {
     
     vb->UpdateVertexBufferIfNeeded();
     
+    ib->SetData({0, 1, 2});
+    ib->UpdateIndexBufferIfNeeded();
+    
     va->AddVertexBuffer(vb);
-    va->GetIndexConteiner()->GetData() = {0, 1, 2};
+    va->SetIndexBuffer(ib);
+    
     return va;
 }
 
@@ -104,8 +109,10 @@ Core::Ref<VertexArrayContainer> DefaultMesh::CreateQuad() {
     
     vb->UpdateVertexBufferIfNeeded();
     
+    va->GetIndexConteiner()->SetData({0, 1, 2, 2, 0, 3});
+    va->GetIndexConteiner()->UpdateIndexBufferIfNeeded();
+    
     va->AddVertexBuffer(vb);
-    va->GetIndexConteiner()->GetData() = {0, 1, 2, 2, 0, 3};
     return va;
 }
 

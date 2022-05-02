@@ -105,7 +105,10 @@ public:
     void Bind();
     void Unbind();
     
+    static uint32_t GetActiveObjectsCount() { return s_ActviveObjectsCount; }
 private:
+    static uint32_t s_ActviveObjectsCount;
+    
     uint32_t m_RendererID;
     BufferLayout m_Layout;
     uint32_t m_Size;
@@ -124,7 +127,11 @@ public:
     void Unbind();
     
     uint32_t GetCount() const { return m_Count; }
+    
+    static uint32_t GetActiveObjectsCount() { return s_ActviveObjectsCount; }
 private:
+    static uint32_t s_ActviveObjectsCount;
+    
     uint32_t m_RendererID;
     uint32_t m_Count;
 };

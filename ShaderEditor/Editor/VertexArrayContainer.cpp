@@ -12,11 +12,8 @@
 namespace Editor {
 
 VertexArrayContainer::VertexArrayContainer() {
-    m_VertexArray = Core::CreateRef<OpenGL::VertexArray>();
-    m_IndexContainer = Core::CreateRef<IndexBufferContainer>();
-    
-//    AddVertexBuffer();
-//    m_IndexContainer->GetData().push_back(0);
+//    m_VertexArray = Core::CreateRef<OpenGL::VertexArray>();
+    SetIndexBuffer(Core::CreateRef<IndexBufferContainer>());
 }
 
 VertexArrayContainer::~VertexArrayContainer() {
@@ -47,6 +44,14 @@ void VertexArrayContainer::AddVertexBuffer(const Core::Ref<VertexBufferContainer
     
     m_VertexContainers.push_back(vertexBuffer);
     InvalidateVertexArray();
+}
+
+void VertexArrayContainer::SetIndexBuffer(const Core::Ref<IndexBufferContainer>& ib) {
+    
+    m_IndexContainer = ib;
+    
+    if(m_VertexArray!=nullptr)
+        m_VertexArray->SetIndexBuffer(m_IndexContainer->GetIB());
 }
 
 void VertexArrayContainer::RemoveVertexBuffer(int index) {

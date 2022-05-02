@@ -78,6 +78,7 @@ uint32_t ShaderDataTypeComponentCount(ShaderDataType type) {
     return 0;
 }
 
+uint32_t VertexBuffer::s_ActviveObjectsCount = 0;
 
 VertexBuffer::VertexBuffer(float *vertices, uint32_t size) { 
     glGenBuffers(1, &m_RendererID);
@@ -85,6 +86,7 @@ VertexBuffer::VertexBuffer(float *vertices, uint32_t size) {
     glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
     m_Size = size;
     EN_INFO("Vertex Buffer {0} created, Size: {1}", (uint64_t)this, size);
+    s_ActviveObjectsCount+=1;
 }
 
 VertexBuffer::VertexBuffer(uint32_t size) {
@@ -93,6 +95,7 @@ VertexBuffer::VertexBuffer(uint32_t size) {
     glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_STATIC_DRAW);
     m_Size = size;
     EN_INFO("Vertex Buffer {0} created, Size: {1}", (uint64_t)this, size);
+    s_ActviveObjectsCount+=1;
 }
 
 void VertexBuffer::Resize(uint32_t size) {
@@ -111,6 +114,7 @@ void VertexBuffer::SetData(const void* data, uint32_t size) {
 VertexBuffer::~VertexBuffer() { 
     glDeleteBuffers(1, &m_RendererID);
     EN_WARN("Vertex Buffer {0} deleted", (uint64_t)this);
+    s_ActviveObjectsCount-=1;
 }
 
 void VertexBuffer::Bind() { 
@@ -121,19 +125,22 @@ void VertexBuffer::Unbind() {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
+uint32_t IndexBuffer::s_ActviveObjectsCount = 0;
 
 IndexBuffer::IndexBuffer(uint32_t *indices, uint32_t count) : m_Count(count) {
     glGenBuffers(1, &m_RendererID);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint32_t), indices, GL_STATIC_DRAW);
     EN_INFO("Index Buffer {0} created, Count: {1}", (uint64_t)this, count);
+    s_ActviveObjectsCount += 1;
 }
 
-IndexBuffer::IndexBuffer(uint32_t count) {
+IndexBuffer::IndexBuffer(uint32_t count) : m_Count(count) {
     glGenBuffers(1, &m_RendererID);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint32_t), nullptr, GL_STATIC_DRAW);
     EN_INFO("Index Buffer {0} created, Count: {1}", (uint64_t)this, count);
+    s_ActviveObjectsCount += 1;
 }
 
 void IndexBuffer::Resize(uint32_t count) {
@@ -152,6 +159,8 @@ void IndexBuffer::SetData(uint32_t* indices, uint32_t count) {
 
 IndexBuffer::~IndexBuffer() { 
     glDeleteBuffers(1, &m_RendererID);
+    EN_INFO("Index Buffer {0} deleted", (uint64_t)this);
+    s_ActviveObjectsCount -= 1;
 }
 
 void IndexBuffer::Bind() { 
