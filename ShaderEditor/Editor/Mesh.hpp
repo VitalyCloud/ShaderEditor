@@ -51,6 +51,8 @@ private:
     friend MeshInspector;
     std::string m_Title;
     Core::Ref<VertexArrayContainer> m_VertexArrayContainer;
+    
+    bool m_UseIndexBuffer = true;
 };
 
 

@@ -47,7 +47,13 @@ void Mesh::OnUpdate(const Core::Ref<OpenGL::Shader>& shader) {
     if(va != nullptr && va->GetVertexBuffers().size() > 0) {
         shader->Bind();
         va->Bind();
-        OpenGL::RenderCommand::DrawIndexed(va);
+        if(m_UseIndexBuffer)
+            OpenGL::RenderCommand::DrawIndexed(va);
+        else {
+            auto count = m_VertexArrayContainer->GetVertexConteiners()[0]->Count();
+            OpenGL::RenderCommand::Draw(count);
+        }
+            
     }
 }
 
@@ -57,6 +63,7 @@ void MeshInspector::Draw() {
     ImGui::InputText("Title##MeshTitle", &m_Context->m_Title);
     m_VertexArrayView.SetContext(m_Context->m_VertexArrayContainer);
     m_VertexArrayView.Draw();
+    ImGui::Checkbox("Use Index Buffer", &m_Context->m_UseIndexBuffer);
 }
 
 Core::Ref<VertexArrayContainer> DefaultMesh::CreateTriangle() {
