@@ -37,8 +37,14 @@ void VertexArrayContainer::InvalidateVertexArray() {
         m_VertexArray->SetIndexBuffer(m_IndexContainer->GetIB());
 }
 
-void VertexArrayContainer::AddVertexBuffer() {
-    Core::Ref<VertexBufferContainer> vertexBuffer = Core::CreateRef<VertexBufferContainer>();
+void VertexArrayContainer::AddVertexBuffer(const Core::Ref<VertexBufferContainer>& vb) {
+    
+    Core::Ref<VertexBufferContainer> vertexBuffer;
+    if(vb != nullptr)
+        vertexBuffer = vb;
+    else
+        vertexBuffer = Core::CreateRef<VertexBufferContainer>();
+    
     m_VertexContainers.push_back(vertexBuffer);
     InvalidateVertexArray();
 }

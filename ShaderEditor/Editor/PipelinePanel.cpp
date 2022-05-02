@@ -74,15 +74,16 @@ void PipelinePanel::Draw(const char* title, bool* p_open) {
                     auto mesh = Core::CreateRef<Mesh>(title);
                     shaderPass->GetShaderPassObjects().push_back(mesh);
                 }
-
-//                if(ImGui::Selectable("Triangle")) {
-//                    m_ShaderPasses[i]->GetMeshes().push_back(Core::CreateRef<Mesh>(DefaultMesh::Triangle));
-//                }
-//
-//                if(ImGui::Selectable("Squad")) {
-//                    m_ShaderPasses[i]->GetMeshes().push_back(Core::CreateRef<Mesh>(DefaultMesh::Squad));
-//                }
-//
+                
+                if(ImGui::Selectable("Traingle")) {
+                    auto mesh = Core::CreateRef<Mesh>(DefaultMesh::Triangle);
+                    shaderPass->GetShaderPassObjects().push_back(mesh);
+                }
+                
+                if(ImGui::Selectable("Quad")) {
+                    auto mesh = Core::CreateRef<Mesh>(DefaultMesh::Quad);
+                    shaderPass->GetShaderPassObjects().push_back(mesh);
+                }
                 ImGui::EndMenu();
             }
             
@@ -101,6 +102,7 @@ void PipelinePanel::Draw(const char* title, bool* p_open) {
             for(int j=0; j<shaderPass->GetShaderPassObjects().size(); j++) {
                 auto& object = shaderPass->GetShaderPassObjects()[j];
                 ImGui::PushID(j);
+                
                 if(Mesh* mesh = dynamic_cast<Mesh*>(object.get()); mesh != nullptr) {
                     bool isMeshSelected = InspectorPanel::Get().IsActive(&m_MeshInspector) && m_MeshInspector.GetContext() == mesh;
                     if(ImGui::Selectable(mesh->GetTitle().c_str(), isMeshSelected)) {

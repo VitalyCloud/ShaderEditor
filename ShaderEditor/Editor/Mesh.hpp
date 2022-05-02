@@ -28,9 +28,20 @@ private:
     VertexArrayView m_VertexArrayView;
 };
 
+class DefaultMesh {
+public:
+    enum MeshType {
+        Triangle, Quad
+    };
+    
+    static Core::Ref<VertexArrayContainer> CreateTriangle();
+    static Core::Ref<VertexArrayContainer> CreateQuad();
+};
+
 class Mesh: public ShaderPassObject {
 public:
     Mesh(const std::string& title = "Mesh");
+    Mesh(DefaultMesh::MeshType type, const std::string& title = "");
     ~Mesh();
     
     void OnUpdate(const Core::Ref<OpenGL::Shader>& shader) override;
