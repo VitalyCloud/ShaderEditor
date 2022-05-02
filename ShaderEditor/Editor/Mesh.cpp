@@ -49,10 +49,10 @@ void Mesh::OnUpdate(const Core::Ref<OpenGL::Shader>& shader) {
         va->Bind();
         shader->SetMat4("u_Transform", m_Transform.GetTransform());
         if(m_UseIndexBuffer)
-            OpenGL::RenderCommand::DrawIndexed(va);
+            OpenGL::RenderCommand::DrawIndexed(va, m_Topology);
         else {
             auto count = m_VertexArrayContainer->GetVertexConteiners()[0]->Count();
-            OpenGL::RenderCommand::Draw(count);
+            OpenGL::RenderCommand::Draw(count, m_Topology);
         }
             
     }
@@ -67,6 +67,26 @@ MeshInspector::MeshInspector() {
     m_RrotationSettings = settings;
     m_ScaleSettings = settings;
 }
+
+//Points,
+//
+//Lines,
+//LineStrip,
+//LineLoop,
+//
+//Triangles,
+//TriangleStrip,
+//TrinagleFan
+
+static const char* const s_Primitives[] = {
+    "Points",
+    "Lines",
+    "Line Strip",
+    "Line Loop",
+    "Trinagles",
+    "Triangle Strip",
+    "Trinagle Fan"
+};
 
 void MeshInspector::Draw() {
     if(m_Context == nullptr) return;
@@ -111,6 +131,11 @@ void MeshInspector::Draw() {
         ImGui::DrawInputSettingsView(OpenGL::ShaderDataType::Float3, m_PopupContext);
         ImGui::EndPopup();
     }
+    
+    ImGui::Text("Topology"); ImGui::SameLine();
+    int selectedTopology = static_cast<int>(m_Context->m_Topology);
+    if(ImGui::Combo("##TopologyType", &selectedTopology, s_Primitives, IM_ARRAYSIZE(s_Primitives)))
+        m_Context->m_Topology = OpenGL::Primitive(selectedTopology);
     
     ImGui::PopID();
 }

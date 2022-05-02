@@ -13,6 +13,8 @@
 #include "Core/Memory.hpp"
 #include "VertexArray.hpp"
 
+#include "Primitives.hpp"
+
 namespace OpenGL {
 
     namespace RenderCommand {
@@ -25,9 +27,9 @@ namespace OpenGL {
 
         void EnableDepthTesting();
 
-        void DrawIndexed(const Core::Ref<VertexArray>& vertexArray, uint32_t indexCount = 0);
+        void DrawIndexed(const Core::Ref<VertexArray>& vertexArray, Primitive topology = Primitive::Triangles, uint32_t indexCount = 0);
     
-        void Draw(uint32_t count);
+        void Draw(uint32_t count, Primitive topology = Primitive::Triangles);
     }
 
 }

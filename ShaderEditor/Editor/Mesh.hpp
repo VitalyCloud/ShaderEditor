@@ -12,10 +12,9 @@
 #include "VertexArrayContainer.hpp"
 #include "VertexArrayView.hpp"
 #include "ShaderPass.hpp"
-
 #include "Components.hpp"
-
 #include "ImGuiHelper.hpp"
+#include "OpenGL/Primitives.hpp"
 
 
 namespace Editor {
@@ -65,6 +64,7 @@ private:
     bool m_UseIndexBuffer = true;
     
     TransformComponent m_Transform;
+    OpenGL::Primitive m_Topology = OpenGL::Primitive::Triangles;
 };
 
 
