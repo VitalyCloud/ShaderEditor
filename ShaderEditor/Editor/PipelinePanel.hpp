@@ -13,6 +13,7 @@
 
 #include "ShaderPass.hpp"
 #include "Mesh.hpp"
+#include "ShaderRenderState.hpp"
 
 
 namespace Editor {
@@ -29,7 +30,9 @@ public:
 private:
     Core::Ref<Pipeline> m_Context = nullptr;
     ShaderPassInspector m_ShaderPassInspector;
+    
     MeshInspector m_MeshInspector;
+    ShaderRenderStateInspector m_RenderStateInspector;
 };
 
 }

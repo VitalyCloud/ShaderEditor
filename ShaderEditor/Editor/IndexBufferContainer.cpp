@@ -12,12 +12,7 @@
 namespace Editor {
 
 IndexBufferContainer::IndexBufferContainer() {
-    m_IndexBuffer = Core::CreateRef<OpenGL::IndexBuffer>(1);
-    
-    // Default value
     m_Data.push_back(0);
-    m_State.Set(IndexBufferState::DataChanged);
-    UpdateIndexBufferIfNeeded();
 }
 
 IndexBufferContainer::~IndexBufferContainer() {
@@ -30,6 +25,15 @@ void IndexBufferContainer::SetData(const std::vector<uint32_t>& data) {
 }
 
 void IndexBufferContainer::UpdateIndexBufferIfNeeded() {
+    
+    if(m_IndexBuffer == nullptr && m_Data.size() > 0) {
+        m_IndexBuffer = Core::CreateRef<OpenGL::IndexBuffer>(m_Data.size());
+        m_IndexBuffer->SetData(m_Data.data(), (uint32_t)m_Data.size());
+        m_State.Reset();
+        return;
+    }
+    
+    
     if(m_State.CheckIf(IndexBufferState::SizeChanged)) {
         EN_INFO("Handle IB size change");
         m_IndexBuffer->Resize((uint32_t)m_Data.size());

@@ -10,6 +10,7 @@
 
 #include "Mesh.hpp"
 
+
 #include "imgui.h"
 
 namespace Editor {
@@ -84,10 +85,20 @@ void PipelinePanel::Draw(const char* title, bool* p_open) {
                     auto mesh = Core::CreateRef<Mesh>(DefaultMesh::Quad);
                     shaderPass->GetShaderPassObjects().push_back(mesh);
                 }
+                
+                if(ImGui::Selectable("Cube")) {
+                    auto mesh = Core::CreateRef<Mesh>(DefaultMesh::Cube);
+                    shaderPass->GetShaderPassObjects().push_back(mesh);
+                }
                 ImGui::EndMenu();
             }
             
-            if(ImGui::Selectable("Delete")) {
+            if(ImGui::Selectable("Add Render State")) {
+                auto state = Core::CreateRef<ShaderRenderState>("RenderState");
+                shaderPass->GetShaderPassObjects().push_back(state);
+            }
+            
+            if(ImGui::Selectable("Delete##ShaderPassPopup")) {
                 if(m_ShaderPassInspector.GetContext() == shaderPass)
                     m_ShaderPassInspector.SetContext(nullptr);
                 
@@ -113,7 +124,7 @@ void PipelinePanel::Draw(const char* title, bool* p_open) {
                         ImGui::OpenPopup("ObjectPopup");
                     
                     if(ImGui::BeginPopup("ObjectPopup")) {
-                        if(ImGui::Selectable("Delete")) {
+                        if(ImGui::Selectable("Delete##ObjectPopup")) {
                             if(m_MeshInspector.GetContext() == mesh)
                                 m_MeshInspector.SetContext(nullptr);
                             shaderPass->GetShaderPassObjects().erase(shaderPass->GetShaderPassObjects().begin() + j);
@@ -122,8 +133,43 @@ void PipelinePanel::Draw(const char* title, bool* p_open) {
                     }
                 }
                 
+                if(ShaderRenderState* renderState = dynamic_cast<ShaderRenderState*>(object.get()); renderState != nullptr) {
+                    
+                    bool isSelected = InspectorPanel::Get().IsActive(&m_RenderStateInspector) && m_RenderStateInspector.GetContext() == renderState;
+                    if(ImGui::Selectable(renderState->GetTitle().c_str(), isSelected)) {
+                        m_RenderStateInspector.SetContext(renderState);
+                        InspectorPanel::Get().SetContext(&m_RenderStateInspector);
+                    }
+                    
+                    if(ImGui::IsItemClicked(ImGuiMouseButton_Right) && ImGui::IsItemFocused())
+                        ImGui::OpenPopup("ObjectPopup");
+                    
+                    if(ImGui::BeginPopup("ObjectPopup")) {
+                        if(ImGui::Selectable("Delete##ObjectPopup")) {
+                            if(m_RenderStateInspector.GetContext() == renderState)
+                                m_RenderStateInspector.SetContext(nullptr);
+                            shaderPass->GetShaderPassObjects().erase(shaderPass->GetShaderPassObjects().begin() + j);
+                        }
+                        ImGui::EndPopup();
+                    }
+                }
                 
-                
+                if(ImGui::BeginPopup("ObjectPopup")) {
+                    if(shaderPass->GetShaderPassObjects().size() > 1) {
+                        if(j > 0) {
+                            if(ImGui::Selectable("Move Up")) {
+                                std::swap(*(shaderPass->GetShaderPassObjects().begin() + j), *(shaderPass->GetShaderPassObjects().begin() + j - 1));
+                            }
+                        }
+                        
+                        if(j < shaderPass->GetShaderPassObjects().size() - 1) {
+                            if(ImGui::Selectable("Move Down")) {
+                                std::swap(*(shaderPass->GetShaderPassObjects().begin() + j), *(shaderPass->GetShaderPassObjects().begin() + j + 1));
+                            }
+                        }
+                    }
+                    ImGui::EndPopup();
+                }
                 
                 ImGui::PopID();
             }

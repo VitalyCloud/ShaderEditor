@@ -15,5 +15,6 @@
 #include "VertexArray.hpp"
 #include "Texture.hpp"
 #include "Primitives.hpp"
+#include "RenderState.hpp"
 
 #endif /* OpenGL_hpp */

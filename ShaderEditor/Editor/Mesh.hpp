@@ -40,11 +40,12 @@ private:
 class DefaultMesh {
 public:
     enum MeshType {
-        Triangle, Quad
+        Triangle, Quad, Cube
     };
     
     static Core::Ref<VertexArrayContainer> CreateTriangle();
     static Core::Ref<VertexArrayContainer> CreateQuad();
+    static Core::Ref<VertexArrayContainer> CreateCube();
 };
 
 class Mesh: public ShaderPassObject {

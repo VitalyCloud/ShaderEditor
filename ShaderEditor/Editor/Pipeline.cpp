@@ -8,6 +8,8 @@
 #include "Pipeline.hpp"
 
 #include "Mesh.hpp"
+#include "OpenGL/RenderState.hpp"
+#include "ShaderRenderState.hpp"
 
 
 namespace Editor {
@@ -22,6 +24,7 @@ Pipeline::Pipeline() {
     auto fragmentPath = Core::Utils::FileWatcher::Get().LoadFile(fragment);
     shaderPass->SetShaderPath(vertexPath, fragmentPath);
     
+    shaderPass->GetShaderPassObjects().push_back(Core::CreateRef<ShaderRenderState>("RS"));
     shaderPass->GetShaderPassObjects().push_back(Core::CreateRef<Mesh>(DefaultMesh::Triangle));
     
     m_ShaderPasses.push_back(shaderPass);
@@ -33,6 +36,7 @@ Pipeline::~Pipeline() {
 
 void Pipeline::OnUpdate() {
     for(auto& shaderPass: m_ShaderPasses) {
+        OpenGL::RenderState::BindDefault();
         shaderPass->OnUpdate();
     }
 }

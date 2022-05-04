@@ -30,7 +30,7 @@ void VertexArrayContainer::InvalidateVertexArray() {
     }
     
     // Index buffer
-    if(m_IndexContainer != nullptr)
+    if(m_IndexContainer != nullptr && m_IndexContainer->GetIB() != nullptr)
         m_VertexArray->SetIndexBuffer(m_IndexContainer->GetIB());
 }
 

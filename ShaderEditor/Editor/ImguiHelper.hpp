@@ -33,6 +33,7 @@ void DrawInputSettingsView(OpenGL::ShaderDataType type, ImGuiInputSettings* sett
 bool DrawInputFloat(float* value, const ImGuiInputSettings* settings = nullptr, int count = 1);
 bool DrawInputInt(int* value, const ImGuiInputSettings* settings = nullptr, int count = 1);
 bool DrawInputMat(float* value, const ImGuiInputSettings* settings = nullptr, int count = 3);
+
 }
 
 

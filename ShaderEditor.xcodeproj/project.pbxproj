@@ -11,6 +11,7 @@
 		80372B02281B6152005031C7 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80372B00281B6152005031C7 /* Texture.cpp */; };
 		803AFF3F281068F7005C6FA6 /* EntryPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 803AFF3E281068F7005C6FA6 /* EntryPoint.cpp */; };
 		803B081E28200C3F0033737B /* Components.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 803B081C28200C3F0033737B /* Components.cpp */; };
+		803B0824282075090033737B /* RenderState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 803B0822282075090033737B /* RenderState.cpp */; };
 		807521F728106D6800C0AD39 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 807521F628106D6800C0AD39 /* OpenGL.framework */; };
 		807521F928106D8600C0AD39 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 807521F828106D8600C0AD39 /* Cocoa.framework */; };
 		807521FB28106D8D00C0AD39 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 807521FA28106D8D00C0AD39 /* IOKit.framework */; };
@@ -43,6 +44,8 @@
 		809B4769281EF66E0083DBD2 /* ShaderPass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 809B4767281EF66E0083DBD2 /* ShaderPass.cpp */; };
 		809B476C281EF8880083DBD2 /* PipelinePanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 809B476A281EF8880083DBD2 /* PipelinePanel.cpp */; };
 		809B4770281EFF9F0083DBD2 /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 809B476E281EFF9F0083DBD2 /* Mesh.cpp */; };
+		80BD716E2822F00300AAFD92 /* Names.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80BD716C2822F00300AAFD92 /* Names.cpp */; };
+		80BD71742822F40100AAFD92 /* ShaderRenderState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80BD71722822F40100AAFD92 /* ShaderRenderState.cpp */; };
 		80C4915328122BE7009FC5E3 /* Log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80C4915128122BE7009FC5E3 /* Log.cpp */; };
 		80C4915F2812359E009FC5E3 /* OrthographicCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80C4915E2812359E009FC5E3 /* OrthographicCamera.cpp */; };
 		80DCD45C2812C2C200610807 /* MacosXUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 80DCD45B2812C2C200610807 /* MacosXUtils.mm */; };
@@ -69,6 +72,8 @@
 		803B081C28200C3F0033737B /* Components.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Components.cpp; sourceTree = "<group>"; };
 		803B081D28200C3F0033737B /* Components.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Components.hpp; sourceTree = "<group>"; };
 		803B0820282069ED0033737B /* Primitives.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Primitives.hpp; sourceTree = "<group>"; };
+		803B0822282075090033737B /* RenderState.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RenderState.cpp; sourceTree = "<group>"; };
+		803B0823282075090033737B /* RenderState.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RenderState.hpp; sourceTree = "<group>"; };
 		807521F428106CEB00C0AD39 /* ShaderEditor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShaderEditor.entitlements; sourceTree = "<group>"; };
 		807521F628106D6800C0AD39 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		807521F828106D8600C0AD39 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -137,6 +142,11 @@
 		809B476B281EF8880083DBD2 /* PipelinePanel.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PipelinePanel.hpp; sourceTree = "<group>"; };
 		809B476E281EFF9F0083DBD2 /* Mesh.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Mesh.cpp; sourceTree = "<group>"; };
 		809B476F281EFF9F0083DBD2 /* Mesh.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Mesh.hpp; sourceTree = "<group>"; };
+		80BD716C2822F00300AAFD92 /* Names.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Names.cpp; sourceTree = "<group>"; };
+		80BD716D2822F00300AAFD92 /* Names.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Names.hpp; sourceTree = "<group>"; };
+		80BD71722822F40100AAFD92 /* ShaderRenderState.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ShaderRenderState.cpp; sourceTree = "<group>"; };
+		80BD71732822F40100AAFD92 /* ShaderRenderState.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ShaderRenderState.hpp; sourceTree = "<group>"; };
+		80BD717628233A5C00AAFD92 /* PropertyTable.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PropertyTable.hpp; sourceTree = "<group>"; };
 		80C4915028122B2C009FC5E3 /* Assert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Assert.h; sourceTree = "<group>"; };
 		80C4915128122BE7009FC5E3 /* Log.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Log.cpp; sourceTree = "<group>"; };
 		80C4915228122BE7009FC5E3 /* Log.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Log.hpp; sourceTree = "<group>"; };
@@ -295,6 +305,10 @@
 				809B471E281DDAA80083DBD2 /* Context.cpp */,
 				809B471F281DDAA80083DBD2 /* Context.hpp */,
 				803B0820282069ED0033737B /* Primitives.hpp */,
+				803B0822282075090033737B /* RenderState.cpp */,
+				803B0823282075090033737B /* RenderState.hpp */,
+				80BD716C2822F00300AAFD92 /* Names.cpp */,
+				80BD716D2822F00300AAFD92 /* Names.hpp */,
 			);
 			path = OpenGL;
 			sourceTree = "<group>";
@@ -322,6 +336,9 @@
 				809B476D281EFF840083DBD2 /* Pipeline */,
 				803B081C28200C3F0033737B /* Components.cpp */,
 				803B081D28200C3F0033737B /* Components.hpp */,
+				80BD71722822F40100AAFD92 /* ShaderRenderState.cpp */,
+				80BD71732822F40100AAFD92 /* ShaderRenderState.hpp */,
+				80BD717628233A5C00AAFD92 /* PropertyTable.hpp */,
 			);
 			path = Editor;
 			sourceTree = "<group>";
@@ -462,10 +479,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				8075225E2811834700C0AD39 /* Renderer.cpp in Sources */,
+				803B0824282075090033737B /* RenderState.cpp in Sources */,
 				809B4748281E933B0083DBD2 /* VertexArrayContainer.cpp in Sources */,
 				8075225A28117F0900C0AD39 /* VertexArray.cpp in Sources */,
 				8075220428108FCF00C0AD39 /* Application.cpp in Sources */,
 				809B473A281E0CBA0083DBD2 /* VertexView.cpp in Sources */,
+				80BD716E2822F00300AAFD92 /* Names.cpp in Sources */,
 				809B4720281DDAA80083DBD2 /* Context.cpp in Sources */,
 				8075225728117C6B00C0AD39 /* Buffer.cpp in Sources */,
 				80C4915328122BE7009FC5E3 /* Log.cpp in Sources */,
@@ -493,6 +512,7 @@
 				80DCD45C2812C2C200610807 /* MacosXUtils.mm in Sources */,
 				809B4766281EF5F60083DBD2 /* Pipeline.cpp in Sources */,
 				803AFF3F281068F7005C6FA6 /* EntryPoint.cpp in Sources */,
+				80BD71742822F40100AAFD92 /* ShaderRenderState.cpp in Sources */,
 				8075221D2810ADCB00C0AD39 /* Input.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

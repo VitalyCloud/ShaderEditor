@@ -33,6 +33,11 @@ Mesh::Mesh(DefaultMesh::MeshType mesh, const std::string& title)
             if(m_Title.empty())
                 m_Title = "Quad";
             break;
+        case DefaultMesh::Cube:
+            m_VertexArrayContainer = DefaultMesh::CreateCube();
+            if(m_Title.empty())
+                m_Title = "Cube";
+            break;
         default:
             break;
     }
@@ -45,7 +50,6 @@ Mesh::~Mesh() {
 void Mesh::OnUpdate(const Core::Ref<OpenGL::Shader>& shader) {
     auto va = m_VertexArrayContainer->GetVA();
     if(va != nullptr && va->GetVertexBuffers().size() > 0) {
-        shader->Bind();
         va->Bind();
         shader->SetMat4("u_Transform", m_Transform.GetTransform());
         if(m_UseIndexBuffer)
@@ -54,7 +58,8 @@ void Mesh::OnUpdate(const Core::Ref<OpenGL::Shader>& shader) {
             auto count = m_VertexArrayContainer->GetVertexConteiners()[0]->Count();
             OpenGL::RenderCommand::Draw(count, m_Topology);
         }
-            
+        
+        va->Unbind();
     }
 }
 
@@ -145,17 +150,17 @@ Core::Ref<VertexArrayContainer> DefaultMesh::CreateTriangle() {
     auto vb = Core::CreateRef<VertexBufferContainer>();
     auto ib = Core::CreateRef<IndexBufferContainer>();
     
-    vb->PushLayoutElement({OpenGL::ShaderDataType::Float2, "Pos"});
+    vb->PushLayoutElement({OpenGL::ShaderDataType::Float3, "Pos"});
     vb->PushLayoutElement({OpenGL::ShaderDataType::Float3, "Color"});
     
     struct Vertex {
-        glm::vec2 pos;
+        glm::vec3 pos;
         glm::vec3 color;
     };
     
-    Vertex v1 = {{-0.5f, 0.5f}, {1.0f, 0.0f, 0.0f}};
-    Vertex v2 = {{0.5f, 0.5f}, {0.0f, 1.0f, 0.0f}};
-    Vertex v3 = {{0.0f, -0.5f}, {0.0f, 0.0f, 1.0f}};
+    Vertex v1 = {{-0.5f, 0.5f, 0.0f}, {1.0f, 0.0f, 0.0f}};
+    Vertex v2 = {{0.5f, 0.5f, 0.0f}, {0.0f, 1.0f, 0.0f}};
+    Vertex v3 = {{0.0f, -0.5f, 0.0f}, {0.0f, 0.0f, 1.0f}};
     
     vb->PushVertex((VertexBufferContainer::VertexData*)&v1, sizeof(Vertex));
     vb->PushVertex((VertexBufferContainer::VertexData*)&v2, sizeof(Vertex));
@@ -176,21 +181,70 @@ Core::Ref<VertexArrayContainer> DefaultMesh::CreateQuad() {
     auto va = Core::CreateRef<VertexArrayContainer>();
     auto vb = Core::CreateRef<VertexBufferContainer>();
     
-    vb->PushLayoutElement({OpenGL::ShaderDataType::Float2, "Pos"});
+    vb->PushLayoutElement({OpenGL::ShaderDataType::Float3, "Pos"});
     
-    glm::vec2 v1 = {-1.0f, 1.0f};
-    glm::vec2 v2 = {1.0f, 1.0f};
-    glm::vec2 v3 = {1.0f, -1.0f};
-    glm::vec2 v4 = {-1.0f, -1.0f};
+    glm::vec3 v1 = {-1.0f, 1.0f, 0.0f};
+    glm::vec3 v2 = {1.0f, 1.0f, 0.0f};
+    glm::vec3 v3 = {1.0f, -1.0f, 0.0f};
+    glm::vec3 v4 = {-1.0f, -1.0f, 0.0f};
     
-    vb->PushVertex((VertexBufferContainer::VertexData*)&v1, sizeof(glm::vec2));
-    vb->PushVertex((VertexBufferContainer::VertexData*)&v2, sizeof(glm::vec2));
-    vb->PushVertex((VertexBufferContainer::VertexData*)&v3, sizeof(glm::vec2));
-    vb->PushVertex((VertexBufferContainer::VertexData*)&v4, sizeof(glm::vec2));
+    vb->PushVertex((VertexBufferContainer::VertexData*)&v1, sizeof(glm::vec3));
+    vb->PushVertex((VertexBufferContainer::VertexData*)&v2, sizeof(glm::vec3));
+    vb->PushVertex((VertexBufferContainer::VertexData*)&v3, sizeof(glm::vec3));
+    vb->PushVertex((VertexBufferContainer::VertexData*)&v4, sizeof(glm::vec3));
     
     vb->UpdateVertexBufferIfNeeded();
     
     va->GetIndexConteiner()->SetData({0, 1, 2, 2, 0, 3});
+    va->GetIndexConteiner()->UpdateIndexBufferIfNeeded();
+    
+    va->AddVertexBuffer(vb);
+    return va;
+}
+
+Core::Ref<VertexArrayContainer> DefaultMesh::CreateCube() {
+    auto va = Core::CreateRef<VertexArrayContainer>();
+    auto vb = Core::CreateRef<VertexBufferContainer>();
+    
+    vb->PushLayoutElement({OpenGL::ShaderDataType::Float3, "Pos"});
+    vb->PushLayoutElement({OpenGL::ShaderDataType::Float3, "Color"});
+    
+    struct Vertex {
+        glm::vec3 pos;
+        glm::vec3 color;
+    };
+    
+    float a = 0.5f;
+    
+    Vertex v0 = {{-a, -a, +a}, {1, 0, 0}};
+    Vertex v1 = {{+a, -a, +a}, {0, 1, 0}};
+    Vertex v2 = {{+a, +a, +a}, {0, 0, 1}};
+    Vertex v3 = {{-a, +a, +a}, {1, 1, 0}};
+    
+    Vertex v4 = {{+a, -a, -a}, {1, 1, 1}};
+    Vertex v5 = {{+a, +a, -a}, {0, 1, 1}};
+    Vertex v6 = {{-a, -a, -a}, {1, 0, 1}};
+    Vertex v7 = {{-a, +a, -a}, {0, 0, 0}};
+    
+    vb->PushVertex((VertexBufferContainer::VertexData*)&v0, sizeof(Vertex));
+    vb->PushVertex((VertexBufferContainer::VertexData*)&v1, sizeof(Vertex));
+    vb->PushVertex((VertexBufferContainer::VertexData*)&v2, sizeof(Vertex));
+    vb->PushVertex((VertexBufferContainer::VertexData*)&v3, sizeof(Vertex));
+    vb->PushVertex((VertexBufferContainer::VertexData*)&v4, sizeof(Vertex));
+    vb->PushVertex((VertexBufferContainer::VertexData*)&v5, sizeof(Vertex));
+    vb->PushVertex((VertexBufferContainer::VertexData*)&v6, sizeof(Vertex));
+    vb->PushVertex((VertexBufferContainer::VertexData*)&v7, sizeof(Vertex));
+    
+    vb->UpdateVertexBufferIfNeeded();
+    
+    va->GetIndexConteiner()->SetData({
+        0, 1, 2, 2, 3, 0,
+        2, 1, 4, 4, 5, 2,
+        0, 3, 7, 7, 6, 0,
+        7, 6, 4, 4, 5, 7,
+        3, 7, 2, 2, 5, 7,
+        0, 1, 4, 4, 6, 0}
+    );
     va->GetIndexConteiner()->UpdateIndexBufferIfNeeded();
     
     va->AddVertexBuffer(vb);

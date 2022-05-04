@@ -29,9 +29,11 @@ void ShaderPass::OnUpdate() {
     }
     
     if(m_Shader != nullptr) {
+        m_Shader->Bind();
         for(auto& object: m_ShaderPassObjects) {
             object->OnUpdate(m_Shader);
         }
+        m_Shader->Unbind();
     }
 }
 
