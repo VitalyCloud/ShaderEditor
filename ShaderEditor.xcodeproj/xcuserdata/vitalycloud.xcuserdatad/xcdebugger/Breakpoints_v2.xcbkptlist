@@ -78,10 +78,10 @@
             filePath = "ShaderEditor/Editor/TextEditorPanel.hpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "28"
-            endingLineNumber = "28"
-            landmarkName = "TextBuffer()"
-            landmarkType = "7">
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "TextBuffer"
+            landmarkType = "14">
             <Locations>
                <Location
                   uuid = "E14910C2-26ED-4EE7-B228-AB940283BA3C - 7d8e81e5495a1788"

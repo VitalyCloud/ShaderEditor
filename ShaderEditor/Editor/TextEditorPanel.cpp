@@ -190,4 +190,69 @@ void TextEditorPanel::DrawMenuBar() {
     }
 }
 
+
+TextBuffer::TextBuffer(const Core::Ref<Core::Utils::File>& file) {
+    auto lang = TextEditor::LanguageDefinition::GLSL();
+    Buffer.SetLanguageDefinition(lang);
+    Buffer.SetShowWhitespaces(false);
+    Buffer.SetPalette(TextEditor::GetDarkPalette());
+    if(file != nullptr) {
+        if(!OpenFile(file))
+            Buffer.SetText("");
+    } else {
+        Buffer.SetText("");
+    }
+    
+    auto id = (uint64_t)this;
+    bufferID = std::to_string(id);
+}
+
+void TextBuffer::Draw() {
+    Buffer.Render(bufferID.c_str());
+    if(Buffer.IsTextChanged())
+        TextChanged = true;
+}
+
+bool TextBuffer::OpenFile(const Core::Ref<Core::Utils::File>& file) {
+    if(file != nullptr) {
+        auto fileSrc = file->Read();
+        if(fileSrc.has_value()) {
+            Buffer.SetText(fileSrc.value());
+            auto lang = TextEditor::LanguageDefinition::GLSL();
+            Buffer.SetLanguageDefinition(lang);
+            ShouldShow = true;
+            File = file;
+            return true;
+        }
+    } else {
+        auto path = Core::Utils::FileDialogs::OpenFile("");
+        if(!path.empty()) {
+            auto file = Core::Utils::FileWatcher::Get().LoadFile(path);
+            return OpenFile(file);
+        }
+    }
+    
+    return false;
+}
+
+void TextBuffer::SaveFile() {
+    if(File == nullptr) {
+        std::string savePath = Core::Utils::FileDialogs::SaveFile("");
+        if(!savePath.empty())
+            File = Core::Utils::FileWatcher::Get().LoadFile(savePath);
+        else
+            return;
+    }
+    std::string stringToSave = Buffer.GetText();
+    stringToSave.pop_back();
+    
+    File->Write(stringToSave);
+    TextChanged = false;
+}
+
+std::string TextBuffer::GetTitle() {
+    return File == nullptr ? "New File" : File->GetPath().filename();
+}
+
+
 }
