@@ -13,6 +13,7 @@
 
 #include "Editor/Pipeline.hpp"
 #include "Editor/PipelinePanel.hpp"
+#include "Editor/TextEditorPanel.hpp"
 
 namespace Editor {
 
@@ -43,6 +44,8 @@ public:
                 m_ShowInspector = !m_ShowInspector;
             if (ImGui::MenuItem("Pipeline", nullptr, m_ShowPipeline))
                 m_ShowPipeline = !m_ShowPipeline;
+            if (ImGui::MenuItem("Pipeline", nullptr, m_ShowTextEditor))
+                m_ShowTextEditor = !m_ShowTextEditor;
             
             ImGui::EndMenu();
         }
@@ -95,6 +98,8 @@ public:
             m_InspectorPanel.Draw("Inspector", &m_ShowInspector);
         if(m_ShowPipeline)
             m_PipelinePanel.Draw("Pipeline", &m_ShowPipeline);
+        if(m_ShowTextEditor)
+            m_TextEditorPanel.Draw("TextEditor", &m_ShowTextEditor);
     
         if(m_ShowDebug) {
             ImGui::Begin("Debug");
@@ -118,6 +123,8 @@ private:
     PipelinePanel m_PipelinePanel;
     bool m_ShowPipeline = true;
     bool m_ShowDebug = true;
+    TextEditorPanel m_TextEditorPanel;
+    bool m_ShowTextEditor = true;
     
     Core::Ref<Pipeline> m_Pipeline = nullptr;
     Core::Ref<OpenGL::Framebuffer> m_Framebuffer = nullptr;

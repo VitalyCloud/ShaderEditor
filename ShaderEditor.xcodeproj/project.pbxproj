@@ -46,6 +46,7 @@
 		809B4770281EFF9F0083DBD2 /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 809B476E281EFF9F0083DBD2 /* Mesh.cpp */; };
 		80BD716E2822F00300AAFD92 /* Names.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80BD716C2822F00300AAFD92 /* Names.cpp */; };
 		80BD71742822F40100AAFD92 /* ShaderRenderState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80BD71722822F40100AAFD92 /* ShaderRenderState.cpp */; };
+		80BD717A28233C8900AAFD92 /* TextEditorPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80BD717828233C8900AAFD92 /* TextEditorPanel.cpp */; };
 		80C4915328122BE7009FC5E3 /* Log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80C4915128122BE7009FC5E3 /* Log.cpp */; };
 		80C4915F2812359E009FC5E3 /* OrthographicCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80C4915E2812359E009FC5E3 /* OrthographicCamera.cpp */; };
 		80DCD45C2812C2C200610807 /* MacosXUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 80DCD45B2812C2C200610807 /* MacosXUtils.mm */; };
@@ -147,6 +148,8 @@
 		80BD71722822F40100AAFD92 /* ShaderRenderState.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ShaderRenderState.cpp; sourceTree = "<group>"; };
 		80BD71732822F40100AAFD92 /* ShaderRenderState.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ShaderRenderState.hpp; sourceTree = "<group>"; };
 		80BD717628233A5C00AAFD92 /* PropertyTable.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PropertyTable.hpp; sourceTree = "<group>"; };
+		80BD717828233C8900AAFD92 /* TextEditorPanel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TextEditorPanel.cpp; sourceTree = "<group>"; };
+		80BD717928233C8900AAFD92 /* TextEditorPanel.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TextEditorPanel.hpp; sourceTree = "<group>"; };
 		80C4915028122B2C009FC5E3 /* Assert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Assert.h; sourceTree = "<group>"; };
 		80C4915128122BE7009FC5E3 /* Log.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Log.cpp; sourceTree = "<group>"; };
 		80C4915228122BE7009FC5E3 /* Log.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Log.hpp; sourceTree = "<group>"; };
@@ -328,17 +331,15 @@
 			isa = PBXGroup;
 			children = (
 				809B4761281EEC3D0083DBD2 /* BufferState.hpp */,
+				80BD717628233A5C00AAFD92 /* PropertyTable.hpp */,
+				803B081C28200C3F0033737B /* Components.cpp */,
+				803B081D28200C3F0033737B /* Components.hpp */,
 				809B472D281DEF6D0083DBD2 /* Panels */,
 				809B4734281DFE630083DBD2 /* Uniform */,
 				809B473B281E8E420083DBD2 /* Vertex */,
 				809B4742281E920C0083DBD2 /* Index */,
 				809B4763281EF51B0083DBD2 /* VertexArray */,
 				809B476D281EFF840083DBD2 /* Pipeline */,
-				803B081C28200C3F0033737B /* Components.cpp */,
-				803B081D28200C3F0033737B /* Components.hpp */,
-				80BD71722822F40100AAFD92 /* ShaderRenderState.cpp */,
-				80BD71732822F40100AAFD92 /* ShaderRenderState.hpp */,
-				80BD717628233A5C00AAFD92 /* PropertyTable.hpp */,
 			);
 			path = Editor;
 			sourceTree = "<group>";
@@ -354,6 +355,8 @@
 				809B472B281DECC60083DBD2 /* InspectorPanel.hpp */,
 				809B476A281EF8880083DBD2 /* PipelinePanel.cpp */,
 				809B476B281EF8880083DBD2 /* PipelinePanel.hpp */,
+				80BD717828233C8900AAFD92 /* TextEditorPanel.cpp */,
+				80BD717928233C8900AAFD92 /* TextEditorPanel.hpp */,
 			);
 			name = Panels;
 			sourceTree = "<group>";
@@ -409,6 +412,8 @@
 				809B4768281EF66E0083DBD2 /* ShaderPass.hpp */,
 				809B476E281EFF9F0083DBD2 /* Mesh.cpp */,
 				809B476F281EFF9F0083DBD2 /* Mesh.hpp */,
+				80BD71722822F40100AAFD92 /* ShaderRenderState.cpp */,
+				80BD71732822F40100AAFD92 /* ShaderRenderState.hpp */,
 			);
 			name = Pipeline;
 			sourceTree = "<group>";
@@ -486,6 +491,7 @@
 				809B473A281E0CBA0083DBD2 /* VertexView.cpp in Sources */,
 				80BD716E2822F00300AAFD92 /* Names.cpp in Sources */,
 				809B4720281DDAA80083DBD2 /* Context.cpp in Sources */,
+				80BD717A28233C8900AAFD92 /* TextEditorPanel.cpp in Sources */,
 				8075225728117C6B00C0AD39 /* Buffer.cpp in Sources */,
 				80C4915328122BE7009FC5E3 /* Log.cpp in Sources */,
 				809B476C281EF8880083DBD2 /* PipelinePanel.cpp in Sources */,
