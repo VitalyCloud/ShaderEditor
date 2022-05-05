@@ -7,6 +7,7 @@
 #include "pch.h"
 #include "ShaderPass.hpp"
 #include "ImGuiHelper.hpp"
+#include "TextEditorPanel.hpp"
 
 namespace Editor {
 
@@ -40,11 +41,15 @@ void ShaderPass::OnUpdate() {
 void ShaderPass::SetVertexPath(const Core::Ref<Core::Utils::File>& vertexPath) {
     m_VertexPath = vertexPath;
     UpdateShader();
+    if(vertexPath != nullptr)
+        TextEditorPanel::Get().OpenFile(vertexPath);
 }
 
 void ShaderPass::SetFragmnetPath(const Core::Ref<Core::Utils::File>& fragmentPath) {
     m_FragmnetPath = fragmentPath;
     UpdateShader();
+    if(fragmentPath != nullptr)
+        TextEditorPanel::Get().OpenFile(fragmentPath);
 }
 
 void ShaderPass::SetShaderPath(const Core::Ref<Core::Utils::File>& vertexPath,
@@ -52,6 +57,10 @@ void ShaderPass::SetShaderPath(const Core::Ref<Core::Utils::File>& vertexPath,
     m_VertexPath = vertexPath;
     m_FragmnetPath = fragmentPath;
     UpdateShader();
+    if(vertexPath != nullptr)
+        TextEditorPanel::Get().OpenFile(vertexPath);
+    if(fragmentPath != nullptr)
+        TextEditorPanel::Get().OpenFile(fragmentPath);
 }
 
 void ShaderPass::UpdateShader() {

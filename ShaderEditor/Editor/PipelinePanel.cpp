@@ -132,7 +132,7 @@ void PipelinePanel::Draw(const char* title, bool* p_open) {
                         ImGui::EndPopup();
                     }
                 }
-                
+                else
                 if(ShaderRenderState* renderState = dynamic_cast<ShaderRenderState*>(object.get()); renderState != nullptr) {
                     
                     bool isSelected = InspectorPanel::Get().IsActive(&m_RenderStateInspector) && m_RenderStateInspector.GetContext() == renderState;

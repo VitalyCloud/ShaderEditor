@@ -11,10 +11,12 @@
 
 namespace Editor {
 
+TextEditorPanel* TextEditorPanel::s_TextEditorPanel = nullptr;
 
 TextEditorPanel::TextEditorPanel() {
-    m_Buffers.emplace_back();
-    
+    EN_ASSERT(s_TextEditorPanel == nullptr, "Text Editor Panel is already created");
+    s_TextEditorPanel = this;
+
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     ImFontConfig fontConfig;
     fontConfig.FontDataOwnedByAtlas = false;
@@ -81,41 +83,64 @@ bool TextEditorPanel::OnKeyPressed(Core::KeyPressedEvent& event) {
     return true;
 }
 
+void TextEditorPanel::CloseBuffer(int index) {
+    EN_ASSERT(index < m_Buffers.size(), "Index is out of range");
+    m_Buffers.erase(m_Buffers.begin() + index);
+    if(index < m_Buffers.size()) {
+        m_SelectedBuffer = index;
+        m_Buffers[index].ShouldShow = true;
+    } else {
+        m_SelectedBuffer = -1;
+    }
+}
+
+void TextEditorPanel::AddBuffer() {
+    m_Buffers.emplace_back();
+    m_Buffers[m_Buffers.size() - 1].ShouldShow = true;
+}
+
 void TextEditorPanel::Draw(const char* title, bool* p_open) {
     if (!ImGui::Begin(title, p_open, ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_MenuBar)) {
         ImGui::End();
         return;
     }
     
-    if(m_Buffers.size() > 0) {
-        if(ImGui::BeginTabBar("Buffers##TabBarBuffers")) {
-            for(int i=0; i < m_Buffers.size(); i++) {
-                ImGui::PushID(i);
-             
-                auto tabName = m_Buffers[i].GetTitle();
-                ImGuiTabItemFlags tabFlags = (m_Buffers[i].TextChanged ? ImGuiTabItemFlags_UnsavedDocument : 0);
-                tabFlags |= (m_Buffers[i].ShouldShow ? ImGuiTabItemFlags_SetSelected : 0);
-                
-                bool keepOpen = true;
-                if(ImGui::BeginTabItem(tabName.c_str(), &keepOpen, tabFlags)) {
-                    m_SelectedBuffer = i;
-                    if(m_Buffers[i].ShouldShow)
-                        m_Buffers[i].ShouldShow = false;
-                    ImGui::EndTabItem();
-                }
-                
-                if(!keepOpen || m_Buffers[i].ShouldClose) {
-                    m_Buffers.erase(m_Buffers.begin() + i);
-                    m_SelectedBuffer = -1;
-                }
-                
-                ImGui::PopID();
+   
+    if(ImGui::BeginTabBar("Buffers##TabBarBuffers")) {
+        for(int i=0; i < m_Buffers.size(); i++) {
+            ImGui::PushID(i);
+         
+            auto tabName = m_Buffers[i].GetTitle();
+            ImGuiTabItemFlags tabFlags = (m_Buffers[i].TextChanged ? ImGuiTabItemFlags_UnsavedDocument : 0);
+            tabFlags |= (m_Buffers[i].ShouldShow ? ImGuiTabItemFlags_SetSelected : 0);
+            
+            bool keepOpen = true;
+            if(ImGui::BeginTabItem(tabName.c_str(), &keepOpen, tabFlags)) {
+                m_SelectedBuffer = i;
+                if(m_Buffers[i].ShouldShow)
+                    m_Buffers[i].ShouldShow = false;
+                ImGui::EndTabItem();
             }
-            ImGui::EndTabBar();
+            
+            if(!keepOpen || m_Buffers[i].ShouldClose) {
+                if(!m_Buffers[i].TextChanged)
+                    m_BuffersToClose.push_back(i);
+                else {
+                    m_Buffers[i].ShouldClose = false;
+                    m_BuffersToCloseWithConfiramtion.push_back(i);
+                }
+            }
+            
+            ImGui::PopID();
         }
+        if (ImGui::TabItemButton("+", ImGuiTabItemFlags_Trailing | ImGuiTabItemFlags_NoTooltip))
+            AddBuffer();
+        ImGui::EndTabBar();
     }
     
+    
     DrawMenuBar();
+    DrawCloseConfirmationWindow();
     
     if(m_SelectedBuffer > -1) {
         auto& buffer = m_Buffers[m_SelectedBuffer].Buffer;
@@ -134,6 +159,11 @@ void TextEditorPanel::Draw(const char* title, bool* p_open) {
         ImGui::PopFont();
     }
     
+    for(auto i : m_BuffersToClose) {
+        CloseBuffer(i);
+    }
+    m_BuffersToClose.clear();
+    
     ImGui::End();
 }
 
@@ -142,10 +172,8 @@ void TextEditorPanel::DrawMenuBar() {
         
         
         if(ImGui::BeginMenu("File")) {
-            
             if(ImGui::MenuItem("Open", "Ctrl-O", nullptr))
                 OpenFile();
-            
             if(m_SelectedBuffer > -1) {
                 if(ImGui::MenuItem("Save", "Ctrl-S", nullptr))
                     m_Buffers[m_SelectedBuffer].SaveFile();
@@ -185,9 +213,51 @@ void TextEditorPanel::DrawMenuBar() {
                 ImGui::EndMenu();
             }
         }
-        
         ImGui::EndMenuBar();
     }
+}
+
+
+void TextEditorPanel::DrawCloseConfirmationWindow() {
+    if (ImGui::BeginPopupModal("Save?", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+    {
+        int bufferToClose = m_BuffersToCloseWithConfiramtion[m_BuffersToCloseWithConfiramtion.size() - 1];
+        m_Buffers[bufferToClose].ShouldShow = true;
+        m_ConfirmationWindowDisplayed = true;
+        ImVec2 center = ImGui::GetMainViewport()->GetCenter();
+        ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+
+        ImGui::Text("Do you want to save %s file?", m_Buffers[bufferToClose].GetTitle().c_str());
+        ImGui::Separator();
+
+        if (ImGui::Button("Save", ImVec2(120, 0))) {
+            m_Buffers[bufferToClose].SaveFile();
+            CloseBuffer(bufferToClose);
+            ImGui::CloseCurrentPopup();
+            m_ConfirmationWindowDisplayed = false;
+            m_BuffersToCloseWithConfiramtion.pop_back();
+        }
+        ImGui::SameLine();
+        if (ImGui::Button("Don't save", ImVec2(120, 0))) {
+            CloseBuffer(bufferToClose);
+            ImGui::CloseCurrentPopup();
+            m_ConfirmationWindowDisplayed = false;
+            m_BuffersToCloseWithConfiramtion.pop_back();
+        }
+
+        ImGui::SetItemDefaultFocus();
+        ImGui::SameLine();
+        if (ImGui::Button("Cancel", ImVec2(120, 0))) {
+            ImGui::CloseCurrentPopup();
+            m_ConfirmationWindowDisplayed = false;
+            m_BuffersToCloseWithConfiramtion.clear();
+        }
+
+        ImGui::EndPopup();
+    }
+    
+    if(m_BuffersToCloseWithConfiramtion.size() > 0 && m_ConfirmationWindowDisplayed == false)
+        ImGui::OpenPopup("Save?");
 }
 
 

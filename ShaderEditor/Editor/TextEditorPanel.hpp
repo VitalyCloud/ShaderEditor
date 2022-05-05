@@ -41,16 +41,24 @@ public:
     void OnEvent(Core::Event& event);
     
     void OpenFile(const Core::Ref<Core::Utils::File>& file = nullptr);
+    void CloseBuffer(int index);
+    void AddBuffer();
     
+    static TextEditorPanel& Get() { return *s_TextEditorPanel; }
 private:
     void DrawMenuBar();
+    void DrawCloseConfirmationWindow();
     int GetIndexForFile(const Core::Ref<Core::Utils::File>& file);
     bool OnKeyPressed(Core::KeyPressedEvent& event);
     
 private:
+    static TextEditorPanel* s_TextEditorPanel;
     ImFont* m_Font = nullptr;
     std::vector<TextBuffer> m_Buffers;
     int m_SelectedBuffer = -1;
+    std::vector<int> m_BuffersToCloseWithConfiramtion;
+    std::vector<int> m_BuffersToClose;
+    bool m_ConfirmationWindowDisplayed = false;
     
     
 };
