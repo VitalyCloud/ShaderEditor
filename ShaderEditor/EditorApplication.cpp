@@ -23,7 +23,7 @@ public:
     EditorLayer() {}
     
     virtual void OnEvent(Core::Event& event) override {
-        
+        m_TextEditorPanel.OnEvent(event);
     }
     
     
@@ -44,8 +44,10 @@ public:
                 m_ShowInspector = !m_ShowInspector;
             if (ImGui::MenuItem("Pipeline", nullptr, m_ShowPipeline))
                 m_ShowPipeline = !m_ShowPipeline;
-            if (ImGui::MenuItem("Pipeline", nullptr, m_ShowTextEditor))
+            if (ImGui::MenuItem("Text Editor", nullptr, m_ShowTextEditor))
                 m_ShowTextEditor = !m_ShowTextEditor;
+            if (ImGui::MenuItem("Debug", nullptr, m_ShowDebug))
+                m_ShowDebug = !m_ShowDebug;
             
             ImGui::EndMenu();
         }
@@ -99,7 +101,7 @@ public:
         if(m_ShowPipeline)
             m_PipelinePanel.Draw("Pipeline", &m_ShowPipeline);
         if(m_ShowTextEditor)
-            m_TextEditorPanel.Draw("TextEditor", &m_ShowTextEditor);
+            m_TextEditorPanel.Draw("Text Editor", &m_ShowTextEditor);
     
         if(m_ShowDebug) {
             ImGui::Begin("Debug");

@@ -53,6 +53,34 @@ void TextEditorPanel::OpenFile(const Core::Ref<Core::Utils::File>& file) {
     }
 }
 
+
+void TextEditorPanel::OnEvent(Core::Event& event) {
+    Core::EventDispatcher dispatcher(event);
+    dispatcher.Dispatch<Core::KeyPressedEvent>(BIND_EVENT_FN(&TextEditorPanel::OnKeyPressed));
+}
+
+bool TextEditorPanel::OnKeyPressed(Core::KeyPressedEvent& event) {
+    if (event.GetRepeatCount() > 0)
+        return false;
+    bool control = Core::Input::IsKeyPressed(Core::Key::LeftControl) ||
+        Core::Input::IsKeyPressed(Core::Key::RightControl);
+    
+    switch (event.GetKeyCode()) {
+    case Core::Key::S:
+        if (control && m_SelectedBuffer > -1)
+            m_Buffers[m_SelectedBuffer].SaveFile();
+        break;
+    case Core::Key::O:
+        if (control) {
+            OpenFile();
+        }
+    default:
+        break;
+    }
+    
+    return true;
+}
+
 void TextEditorPanel::Draw(const char* title, bool* p_open) {
     if (!ImGui::Begin(title, p_open, ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_MenuBar)) {
         ImGui::End();

@@ -8,7 +8,7 @@
 #ifndef TextEditorPanel_hpp
 #define TextEditorPanel_hpp
 
-#include "Core/Memory.hpp"
+#include "Core/Core.hpp"
 
 #include "Extensions/TextEdit/TextEditor.h"
 
@@ -96,12 +96,14 @@ public:
     ~TextEditorPanel();
   
     void Draw(const char* title, bool* p_open = nullptr);
+    void OnEvent(Core::Event& event);
     
     void OpenFile(const Core::Ref<Core::Utils::File>& file = nullptr);
     
 private:
     void DrawMenuBar();
     int GetIndexForFile(const Core::Ref<Core::Utils::File>& file);
+    bool OnKeyPressed(Core::KeyPressedEvent& event);
     
 private:
     ImFont* m_Font = nullptr;
