@@ -109,9 +109,6 @@ void TextEditorPanel::Draw(const char* title, bool* p_open) {
                     m_SelectedBuffer = -1;
                 }
                 
-                if(!p_open)
-                    EN_INFO("Close");
-                
                 ImGui::PopID();
             }
             ImGui::EndTabBar();
@@ -146,11 +143,11 @@ void TextEditorPanel::DrawMenuBar() {
         
         if(ImGui::BeginMenu("File")) {
             
-            if(ImGui::MenuItem("Open"))
+            if(ImGui::MenuItem("Open", "Ctrl-O", nullptr))
                 OpenFile();
             
             if(m_SelectedBuffer > -1) {
-                if(ImGui::MenuItem("Save"))
+                if(ImGui::MenuItem("Save", "Ctrl-S", nullptr))
                     m_Buffers[m_SelectedBuffer].SaveFile();
                 if(ImGui::MenuItem("Close"))
                     m_Buffers[m_SelectedBuffer].ShouldClose = true;
