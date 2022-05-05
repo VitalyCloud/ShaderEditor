@@ -306,6 +306,8 @@ bool TextBuffer::OpenFile(const Core::Ref<Core::Utils::File>& file) {
 }
 
 void TextBuffer::SaveFile() {
+    if(!TextChanged) return;
+    
     if(File == nullptr) {
         std::string savePath = Core::Utils::FileDialogs::SaveFile("");
         if(!savePath.empty())

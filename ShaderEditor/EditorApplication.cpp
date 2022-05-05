@@ -104,7 +104,7 @@ public:
             m_TextEditorPanel.Draw("Text Editor", &m_ShowTextEditor);
     
         if(m_ShowDebug) {
-            ImGui::Begin("Debug");
+            ImGui::Begin("Debug", &m_ShowDebug);
             
             ImGui::Text("VBs: %d", OpenGL::VertexBuffer::GetActiveObjectsCount());
             ImGui::Text("IBs: %d", OpenGL::IndexBuffer::GetActiveObjectsCount());
@@ -124,7 +124,7 @@ private:
     bool m_ShowInspector = true;
     PipelinePanel m_PipelinePanel;
     bool m_ShowPipeline = true;
-    bool m_ShowDebug = true;
+    bool m_ShowDebug = false;
     TextEditorPanel m_TextEditorPanel;
     bool m_ShowTextEditor = true;
     

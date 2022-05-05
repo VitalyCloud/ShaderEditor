@@ -52,6 +52,29 @@ struct PropertyTable {
         ImGui::PopItemWidth();
         return returnValue;
     }
+    
+    static void ReadOnlyText(const char* title, std::string& value, bool* actionButton = nullptr) {
+        const float buttonWidth = 20;
+        
+        ImGui::TableNextRow(); ImGui::TableNextColumn();
+        ImGui::Text("%s", title);
+        ImGui::TableNextColumn();
+        
+        auto inputTextId = fmt::format("##{0}", title);
+        ImGui::PushItemWidth(actionButton == nullptr ? -1 : ImGui::GetColumnWidth() - buttonWidth);
+        ImGui::InputText(inputTextId.c_str(), &value, ImGuiInputTextFlags_ReadOnly);
+        ImGui::PopItemWidth();
+        
+        if(actionButton != nullptr) {
+            auto buttonId = fmt::format(":##{0}_ActionButton", title);
+            (*actionButton) = false;
+            ImGui::SameLine();
+            ImGui::PushItemWidth(buttonWidth);
+            if(ImGui::Button(buttonId.c_str()))
+                (*actionButton) = true;
+            ImGui::PopItemWidth();
+        }
+    }
 
     static bool Checkbox(const char* title, bool& value) {
         bool returnValue;

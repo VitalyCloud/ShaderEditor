@@ -8,6 +8,7 @@
 #include "ShaderPass.hpp"
 #include "ImGuiHelper.hpp"
 #include "TextEditorPanel.hpp"
+#include "PropertyTable.hpp"
 
 namespace Editor {
 
@@ -83,7 +84,48 @@ void ShaderPass::UpdateShader() {
 void ShaderPassInspector::Draw()  {
     if(m_Context == nullptr) return;
     
-    ImGui::InputText("Title##ShaderPassTitle", &m_Context->m_Title);
+    ImGui::PushID("ShaderPassInspector");
+    
+    ImGui::Text("ShaderPass");
+    ImGui::Separator();
+    if(PropertyTable::Begin("ShaderPassInspectorProperties")) {
+        PropertyTable::Text("Title", m_Context->m_Title);
+        
+        ImGui::Separator();
+        {
+            // Vertex Path
+            bool action = false;
+            std::string path = m_Context->m_VertexPath != nullptr ? m_Context->m_VertexPath->GetPath().string() : "";
+            PropertyTable::ReadOnlyText("Vertex Path", path, &action);
+            if(action) {
+                std::string newPath = Core::Utils::FileDialogs::OpenFile("");
+                if(!newPath.empty()) {
+                    m_Context->SetVertexPath(Core::Utils::FileWatcher::Get().LoadFile(newPath));
+                }
+            }
+        }
+        {
+            // Fragmnent Path
+            bool action = false;
+            std::string path = m_Context->m_FragmnetPath != nullptr ? m_Context->m_FragmnetPath->GetPath().string() : "";
+            PropertyTable::ReadOnlyText("Fragment Path", path, &action);
+            if(action) {
+                std::string newPath = Core::Utils::FileDialogs::OpenFile("");
+                if(!newPath.empty()) {
+                    m_Context->SetFragmnetPath(Core::Utils::FileWatcher::Get().LoadFile(newPath));
+                }
+            }
+        }
+        
+        ImGui::Separator();
+        PropertyTable::Checkbox("Auto compilation", m_Context->m_AutoCompile);
+        
+        
+        PropertyTable::End();
+    }
+    ImGui::Separator();
+    
+    ImGui::PopID();
 }
 
 
