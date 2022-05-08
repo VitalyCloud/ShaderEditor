@@ -30,6 +30,7 @@ public:
     
     const std::string& GetTitle() const { return m_Title; }
     std::vector<Core::Ref<ShaderPassObject>>& GetShaderPassObjects() { return m_ShaderPassObjects; }
+    const Core::Ref<OpenGL::Shader>& GetShader() { return m_Shader; }
     
     void SetVertexPath(const Core::Ref<Core::Utils::File>& vertexPath);
     void SetFragmnetPath(const Core::Ref<Core::Utils::File>& fragmentPath);

@@ -9,7 +9,7 @@
 #define Pipeline_hpp
 
 #include "ShaderPass.hpp"
-
+#include "SceneCamera.hpp"
 #include <vector>
 
 namespace Editor {
@@ -22,8 +22,10 @@ public:
     void OnUpdate();
     
     std::vector<Core::Ref<ShaderPass>>& GetShaderPasses() { return m_ShaderPasses; }
+    SceneCamera& GetSceneCamera() { return m_SceneCamera; }
 private:
     std::vector<Core::Ref<ShaderPass>> m_ShaderPasses;
+    SceneCamera m_SceneCamera;
 };
 
 }

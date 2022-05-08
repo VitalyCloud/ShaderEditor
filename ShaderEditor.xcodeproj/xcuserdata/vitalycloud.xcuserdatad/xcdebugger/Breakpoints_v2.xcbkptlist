@@ -14,8 +14,8 @@
             filePath = "ShaderEditor/Editor/PipelinePanel.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
             landmarkName = "PipelinePanel::Draw(title, p_open)"
             landmarkType = "7">
          </BreakpointContent>
@@ -30,8 +30,8 @@
             filePath = "ShaderEditor/Editor/PipelinePanel.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
             landmarkName = "PipelinePanel::Draw(title, p_open)"
             landmarkType = "7">
          </BreakpointContent>
@@ -46,8 +46,8 @@
             filePath = "ShaderEditor/Editor/PipelinePanel.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
             landmarkName = "PipelinePanel::Draw(title, p_open)"
             landmarkType = "7">
          </BreakpointContent>
@@ -55,16 +55,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E7E04DF5-7810-4D2F-92A1-F656AE560A05"
+            uuid = "8EADA5D0-1DEF-4195-8528-D70D0B58E9C0"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ShaderEditor/Editor/Pipeline.cpp"
+            filePath = "ShaderEditor/Editor/SceneCamera.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
-            landmarkName = "Pipeline::OnUpdate()"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "SceneCamera::Upload(shader)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

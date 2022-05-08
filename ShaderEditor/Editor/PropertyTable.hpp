@@ -126,9 +126,36 @@ struct PropertyTable {
         ImGui::TableNextColumn(); ImGui::PushItemWidth(-1);
         auto inputID = fmt::format("##{0}", title);
         
-        ImGui::InputScalarN(inputID.c_str(), ImGuiDataType_U32, value, size);
+        returnValue = ImGui::InputScalarN(inputID.c_str(), ImGuiDataType_U32, value, size);
 
         ImGui::PopItemWidth();
+        return returnValue;
+    }
+    
+    
+    static bool InputFloat(const char* title, float* data, const ImGuiInputSettings* settings, int count,  bool* actionButton = nullptr) {
+        const float buttonWidth = 20;
+        
+        bool returnValue = false;
+        ImGui::TableNextRow(); ImGui::TableNextColumn();
+        ImGui::Text("%s", title);
+        ImGui::TableNextColumn();
+        
+        auto inputID = fmt::format("##{0}", title);
+        ImGui::PushItemWidth(actionButton == nullptr ? -1 : ImGui::GetColumnWidth() - buttonWidth);
+        returnValue = ImGui::DrawInputFloat(data, settings, count);
+        ImGui::PopItemWidth();
+        
+        if(actionButton != nullptr) {
+            auto buttonId = fmt::format(":##{0}_ActionButton", title);
+            (*actionButton) = false;
+            ImGui::SameLine();
+            ImGui::PushItemWidth(buttonWidth);
+            if(ImGui::Button(buttonId.c_str()))
+                (*actionButton) = true;
+            ImGui::PopItemWidth();
+        }
+        
         return returnValue;
     }
 };

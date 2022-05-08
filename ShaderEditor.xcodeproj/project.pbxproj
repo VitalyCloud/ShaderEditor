@@ -28,7 +28,6 @@
 		8075225428117AA500C0AD39 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8075225228117AA500C0AD39 /* Utils.cpp */; };
 		8075225728117C6B00C0AD39 /* Buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8075225528117C6B00C0AD39 /* Buffer.cpp */; };
 		8075225A28117F0900C0AD39 /* VertexArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8075225828117F0900C0AD39 /* VertexArray.cpp */; };
-		8075225E2811834700C0AD39 /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8075225C2811834700C0AD39 /* Renderer.cpp */; };
 		809B4720281DDAA80083DBD2 /* Context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 809B471E281DDAA80083DBD2 /* Context.cpp */; };
 		809B4726281DDE610083DBD2 /* ViewportPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 809B4724281DDE610083DBD2 /* ViewportPanel.cpp */; };
 		809B4729281DEBCF0083DBD2 /* ImGuiHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 809B4727281DEBCF0083DBD2 /* ImGuiHelper.cpp */; };
@@ -44,11 +43,11 @@
 		809B4769281EF66E0083DBD2 /* ShaderPass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 809B4767281EF66E0083DBD2 /* ShaderPass.cpp */; };
 		809B476C281EF8880083DBD2 /* PipelinePanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 809B476A281EF8880083DBD2 /* PipelinePanel.cpp */; };
 		809B4770281EFF9F0083DBD2 /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 809B476E281EFF9F0083DBD2 /* Mesh.cpp */; };
-		80BD716E2822F00300AAFD92 /* Names.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80BD716C2822F00300AAFD92 /* Names.cpp */; };
 		80BD71742822F40100AAFD92 /* ShaderRenderState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80BD71722822F40100AAFD92 /* ShaderRenderState.cpp */; };
 		80BD717A28233C8900AAFD92 /* TextEditorPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80BD717828233C8900AAFD92 /* TextEditorPanel.cpp */; };
 		80C4915328122BE7009FC5E3 /* Log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80C4915128122BE7009FC5E3 /* Log.cpp */; };
 		80C4915F2812359E009FC5E3 /* OrthographicCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80C4915E2812359E009FC5E3 /* OrthographicCamera.cpp */; };
+		80DBC77F2827FDAE00480E1F /* SceneCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80DBC77D2827FDAE00480E1F /* SceneCamera.cpp */; };
 		80DCD45C2812C2C200610807 /* MacosXUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 80DCD45B2812C2C200610807 /* MacosXUtils.mm */; };
 /* End PBXBuildFile section */
 
@@ -110,8 +109,6 @@
 		8075225628117C6B00C0AD39 /* Buffer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Buffer.hpp; sourceTree = "<group>"; };
 		8075225828117F0900C0AD39 /* VertexArray.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VertexArray.cpp; sourceTree = "<group>"; };
 		8075225928117F0900C0AD39 /* VertexArray.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VertexArray.hpp; sourceTree = "<group>"; };
-		8075225C2811834700C0AD39 /* Renderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Renderer.cpp; sourceTree = "<group>"; };
-		8075225D2811834700C0AD39 /* Renderer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Renderer.hpp; sourceTree = "<group>"; };
 		809B471E281DDAA80083DBD2 /* Context.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Context.cpp; sourceTree = "<group>"; };
 		809B471F281DDAA80083DBD2 /* Context.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Context.hpp; sourceTree = "<group>"; };
 		809B4724281DDE610083DBD2 /* ViewportPanel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ViewportPanel.cpp; sourceTree = "<group>"; };
@@ -143,8 +140,6 @@
 		809B476B281EF8880083DBD2 /* PipelinePanel.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PipelinePanel.hpp; sourceTree = "<group>"; };
 		809B476E281EFF9F0083DBD2 /* Mesh.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Mesh.cpp; sourceTree = "<group>"; };
 		809B476F281EFF9F0083DBD2 /* Mesh.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Mesh.hpp; sourceTree = "<group>"; };
-		80BD716C2822F00300AAFD92 /* Names.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Names.cpp; sourceTree = "<group>"; };
-		80BD716D2822F00300AAFD92 /* Names.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Names.hpp; sourceTree = "<group>"; };
 		80BD71722822F40100AAFD92 /* ShaderRenderState.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ShaderRenderState.cpp; sourceTree = "<group>"; };
 		80BD71732822F40100AAFD92 /* ShaderRenderState.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ShaderRenderState.hpp; sourceTree = "<group>"; };
 		80BD717628233A5C00AAFD92 /* PropertyTable.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PropertyTable.hpp; sourceTree = "<group>"; };
@@ -158,6 +153,8 @@
 		80C4915E2812359E009FC5E3 /* OrthographicCamera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OrthographicCamera.cpp; sourceTree = "<group>"; };
 		80CA28292812F44500E53E94 /* Menlo-Regular.embed */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Menlo-Regular.embed"; sourceTree = "<group>"; };
 		80CA28342813462F00E53E94 /* pch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pch.h; sourceTree = "<group>"; };
+		80DBC77D2827FDAE00480E1F /* SceneCamera.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SceneCamera.cpp; sourceTree = "<group>"; };
+		80DBC77E2827FDAE00480E1F /* SceneCamera.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SceneCamera.hpp; sourceTree = "<group>"; };
 		80DCD45B2812C2C200610807 /* MacosXUtils.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MacosXUtils.mm; sourceTree = "<group>"; };
 		80DCD4622812C83200610807 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		80DCD46A2812E24900610807 /* Roboto-Regular.embed */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Roboto-Regular.embed"; sourceTree = "<group>"; };
@@ -310,8 +307,6 @@
 				803B0820282069ED0033737B /* Primitives.hpp */,
 				803B0822282075090033737B /* RenderState.cpp */,
 				803B0823282075090033737B /* RenderState.hpp */,
-				80BD716C2822F00300AAFD92 /* Names.cpp */,
-				80BD716D2822F00300AAFD92 /* Names.hpp */,
 			);
 			path = OpenGL;
 			sourceTree = "<group>";
@@ -319,8 +314,6 @@
 		8075225B2811832F00C0AD39 /* Renderer */ = {
 			isa = PBXGroup;
 			children = (
-				8075225C2811834700C0AD39 /* Renderer.cpp */,
-				8075225D2811834700C0AD39 /* Renderer.hpp */,
 				80C4915E2812359E009FC5E3 /* OrthographicCamera.cpp */,
 				80C4915D2812359E009FC5E3 /* OrthographicCamera.hpp */,
 			);
@@ -340,6 +333,8 @@
 				809B4742281E920C0083DBD2 /* Index */,
 				809B4763281EF51B0083DBD2 /* VertexArray */,
 				809B476D281EFF840083DBD2 /* Pipeline */,
+				80DBC77D2827FDAE00480E1F /* SceneCamera.cpp */,
+				80DBC77E2827FDAE00480E1F /* SceneCamera.hpp */,
 			);
 			path = Editor;
 			sourceTree = "<group>";
@@ -483,13 +478,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8075225E2811834700C0AD39 /* Renderer.cpp in Sources */,
 				803B0824282075090033737B /* RenderState.cpp in Sources */,
 				809B4748281E933B0083DBD2 /* VertexArrayContainer.cpp in Sources */,
 				8075225A28117F0900C0AD39 /* VertexArray.cpp in Sources */,
 				8075220428108FCF00C0AD39 /* Application.cpp in Sources */,
 				809B473A281E0CBA0083DBD2 /* VertexView.cpp in Sources */,
-				80BD716E2822F00300AAFD92 /* Names.cpp in Sources */,
 				809B4720281DDAA80083DBD2 /* Context.cpp in Sources */,
 				80BD717A28233C8900AAFD92 /* TextEditorPanel.cpp in Sources */,
 				8075225728117C6B00C0AD39 /* Buffer.cpp in Sources */,
@@ -516,6 +509,7 @@
 				809B472C281DECC70083DBD2 /* InspectorPanel.cpp in Sources */,
 				8075220A28109CA700C0AD39 /* EditorApplication.cpp in Sources */,
 				80DCD45C2812C2C200610807 /* MacosXUtils.mm in Sources */,
+				80DBC77F2827FDAE00480E1F /* SceneCamera.cpp in Sources */,
 				809B4766281EF5F60083DBD2 /* Pipeline.cpp in Sources */,
 				803AFF3F281068F7005C6FA6 /* EntryPoint.cpp in Sources */,
 				80BD71742822F40100AAFD92 /* ShaderRenderState.cpp in Sources */,

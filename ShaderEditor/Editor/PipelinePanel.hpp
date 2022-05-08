@@ -33,6 +33,7 @@ private:
     
     MeshInspector m_MeshInspector;
     ShaderRenderStateInspector m_RenderStateInspector;
+    SceneCameraInspector m_CameraInspector;
 };
 
 }

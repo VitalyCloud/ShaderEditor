@@ -26,7 +26,7 @@ Pipeline::Pipeline() {
     
     shaderPass->GetShaderPassObjects().push_back(Core::CreateRef<ShaderRenderState>("RS"));
     shaderPass->GetShaderPassObjects().push_back(Core::CreateRef<Mesh>(DefaultMesh::Triangle));
-    
+    shaderPass->SetAutoCompile(true);
     m_ShaderPasses.push_back(shaderPass);
 }
 
@@ -35,8 +35,15 @@ Pipeline::~Pipeline() {
 }
 
 void Pipeline::OnUpdate() {
+    m_SceneCamera.OnUpdate();
     for(auto& shaderPass: m_ShaderPasses) {
         OpenGL::RenderState::BindDefault();
+        
+        if(auto shader = shaderPass->GetShader(); shader != nullptr) {
+            m_SceneCamera.Upload(shader);
+        }
+            
+        
         shaderPass->OnUpdate();
     }
 }
