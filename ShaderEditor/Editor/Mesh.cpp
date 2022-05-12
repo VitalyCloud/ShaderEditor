@@ -7,6 +7,7 @@
 #include "pch.h"
 #include "Mesh.hpp"
 #include "ImGuiHelper.hpp"
+#include "PropertyTable.hpp"
 #include "OpenGL/RenderCommand.hpp"
 
 namespace Editor {
@@ -73,17 +74,7 @@ MeshInspector::MeshInspector() {
     m_ScaleSettings = settings;
 }
 
-//Points,
-//
-//Lines,
-//LineStrip,
-//LineLoop,
-//
-//Triangles,
-//TriangleStrip,
-//TrinagleFan
-
-static const char* const s_Primitives[] = {
+static const char* s_Primitives[] = {
     "Points",
     "Lines",
     "Line Strip",
@@ -95,54 +86,55 @@ static const char* const s_Primitives[] = {
 
 void MeshInspector::Draw() {
     if(m_Context == nullptr) return;
+
+    ImGui::Text("Mesh"); ImGui::Separator();
+    if(PropertyTable::Begin("MeshPropertiesTable")) {
+        
+        PropertyTable::Text("Title", m_Context->m_Title);
+        
+        PropertyTable::Checkbox("Use Index Buffer", m_Context->m_UseIndexBuffer);
+        
+        bool positionAction = false;
+        ImGui::PushID("Pos");
+        PropertyTable::InputFloat("Position", &m_Context->m_Transform.Translation.x, &m_PositionSettings, 3, &positionAction);
+        if(positionAction)
+            ImGui::OpenPopup("MeshPositionInputSettings");
+        if(ImGui::BeginPopup("MeshPositionInputSettings")) {
+            ImGui::DrawInputSettingsView(OpenGL::ShaderDataType::Float3, &m_PositionSettings);
+            ImGui::EndPopup();
+        }
+        ImGui::PopID();
+        
+        ImGui::PushID("Rot");
+        bool rotationAction = false;
+        PropertyTable::InputFloat("Rotation", &m_Context->m_Transform.Rotation.x, &m_RrotationSettings, 3, &rotationAction);
+        if(rotationAction)
+            ImGui::OpenPopup("MeshRotationInputSettings");
+        if(ImGui::BeginPopup("MeshRotationInputSettings")) {
+            ImGui::DrawInputSettingsView(OpenGL::ShaderDataType::Float3, &m_RrotationSettings);
+            ImGui::EndPopup();
+        }
+        ImGui::PopID();
+        
+        ImGui::PushID("Scl");
+        bool scaleAction = false;
+        PropertyTable::InputFloat("Scale", &m_Context->m_Transform.Scale.x, &m_ScaleSettings, 3, &scaleAction);
+        if(scaleAction)
+            ImGui::OpenPopup("MeshScaleInputSettings");
+        if(ImGui::BeginPopup("MeshScaleInputSettings")) {
+            ImGui::DrawInputSettingsView(OpenGL::ShaderDataType::Float3, &m_ScaleSettings);
+            ImGui::EndPopup();
+        }
+        ImGui::PopID();
+        
+        PropertyTable::Combo("Topology", s_Primitives, IM_ARRAYSIZE(s_Primitives), m_Context->m_Topology);
+        
+        PropertyTable::End();
+    }
     
-    ImGui::PushID(1);
-    ImGui::InputText("Title##MeshTitle", &m_Context->m_Title);
     m_VertexArrayView.SetContext(m_Context->m_VertexArrayContainer);
     m_VertexArrayView.Draw();
-    ImGui::Checkbox("Use Index Buffer", &m_Context->m_UseIndexBuffer);
 
-    ImGui::Text("Position"); ImGui::SameLine();
-    ImGui::PushID("PositionInput");
-    ImGui::DrawInputFloat(&m_Context->m_Transform.Translation.x, &m_PositionSettings, 3);
-    ImGui::PopID();
-    ImGui::SameLine();
-    if(ImGui::Button(":##PositionSettings")) {
-        m_PopupContext = &m_PositionSettings;
-        ImGui::OpenPopup("InputSettings");
-    }
-    
-    ImGui::Text("Rotation"); ImGui::SameLine();
-    ImGui::PushID("RotationInput");
-    ImGui::DrawInputFloat(&m_Context->m_Transform.Rotation.x, &m_RrotationSettings, 3);
-    ImGui::PopID();
-    ImGui::SameLine();
-    if(ImGui::Button(":##RotationSettings")) {
-        m_PopupContext = &m_RrotationSettings;
-        ImGui::OpenPopup("InputSettings");
-    }
-    
-    ImGui::Text("Scale"); ImGui::SameLine();
-    ImGui::PushID("ScaleInput");
-    ImGui::DrawInputFloat(&m_Context->m_Transform.Scale.x, &m_ScaleSettings, 3);
-    ImGui::PopID();
-    ImGui::SameLine();
-    if(ImGui::Button(":##ScaleSettings")) {
-        m_PopupContext = &m_ScaleSettings;
-        ImGui::OpenPopup("InputSettings");
-    }
-    
-    if(ImGui::BeginPopup("InputSettings") && m_PopupContext != nullptr) {
-        ImGui::DrawInputSettingsView(OpenGL::ShaderDataType::Float3, m_PopupContext);
-        ImGui::EndPopup();
-    }
-    
-    ImGui::Text("Topology"); ImGui::SameLine();
-    int selectedTopology = static_cast<int>(m_Context->m_Topology);
-    if(ImGui::Combo("##TopologyType", &selectedTopology, s_Primitives, IM_ARRAYSIZE(s_Primitives)))
-        m_Context->m_Topology = OpenGL::Primitive(selectedTopology);
-    
-    ImGui::PopID();
 }
 
 Core::Ref<VertexArrayContainer> DefaultMesh::CreateTriangle() {
