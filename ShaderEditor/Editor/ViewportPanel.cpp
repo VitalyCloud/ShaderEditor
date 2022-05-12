@@ -11,6 +11,8 @@
 #define IMGUI_DEFINE_MATH_OPERATORS
 #include "imgui_internal.h"
 
+#include "Editor/EditorUniforms.hpp"
+
 namespace Editor {
 
 
@@ -23,7 +25,14 @@ void ViewportPanel::SetFramebuffer(const Core::Ref<OpenGL::Framebuffer>& framebu
     m_TextureID = 0;
     if(m_Framebuffer != nullptr) {
         m_TextureID = (ImTextureID)(uintptr_t)m_Framebuffer->GetColorAttachmentRendererID();
+        EditorUniforms::Get().SetResolution({m_Framebuffer->GetSpecification().Width, m_Framebuffer->GetSpecification().Height});
     }
+}
+
+void ViewportPanel::Resize(uint32_t width, uint32_t height) {
+    if(m_Framebuffer != nullptr)
+        m_Framebuffer->Resize(width, height);
+    EditorUniforms::Get().SetResolution({width, height});
 }
 
 void ViewportPanel::Draw(const char* title, bool* p_open) {
@@ -40,7 +49,7 @@ void ViewportPanel::Draw(const char* title, bool* p_open) {
         auto size = ImGui::GetContentRegionAvail();
         auto specification = m_Framebuffer->GetSpecification();
         if(specification.Width != size.x || specification.Height != size.y) {
-            m_Framebuffer->Resize(size.x, size.y);
+            Resize(size.x, size.y);
             m_ResizeTime = Core::Input::GetTime();
             m_Resized = true;
         }

@@ -31,6 +31,8 @@ Shader::Shader(const std::string &vertexSrc, const std::string &fragmentSrc) {
         glDeleteShader(vertexShader);
         
         EN_CORE_ERROR("Vertex Shader Compilation Failed: {0}", infoLog.data());
+        m_ErrorMessage = infoLog.data();
+        
         return;
     }
     
@@ -52,6 +54,7 @@ Shader::Shader(const std::string &vertexSrc, const std::string &fragmentSrc) {
         glDeleteShader(vertexShader);
     
         EN_CORE_ERROR("Fragment Shader Compilation Failed: {0}", infoLog.data());
+        m_ErrorMessage = infoLog.data();
         return;
     }
     
@@ -78,6 +81,7 @@ Shader::Shader(const std::string &vertexSrc, const std::string &fragmentSrc) {
         glDeleteShader(fragmentShader);
         
         EN_CORE_ERROR("Program Linking Failed: {0}", infoLog.data());
+        m_ErrorMessage = infoLog.data();
         return;
     }
     

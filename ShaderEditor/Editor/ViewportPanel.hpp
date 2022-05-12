@@ -27,6 +27,7 @@ public:
 private:
     void DrawImage();
     void DrawMenuBar();
+    void Resize(uint32_t width, uint32_t height);
     
 private:
     ImTextureID m_TextureID;

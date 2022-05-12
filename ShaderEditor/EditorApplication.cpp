@@ -10,10 +10,14 @@
 
 #include "Editor/ViewportPanel.hpp"
 #include "Editor/InspectorPanel.hpp"
+#include "Editor/MessagePanel.hpp"
 
 #include "Editor/Pipeline.hpp"
 #include "Editor/PipelinePanel.hpp"
 #include "Editor/TextEditorPanel.hpp"
+
+#include "Editor/EditorUniforms.hpp"
+
 
 namespace Editor {
 
@@ -46,6 +50,8 @@ public:
                 m_ShowPipeline = !m_ShowPipeline;
             if (ImGui::MenuItem("Text Editor", nullptr, m_ShowTextEditor))
                 m_ShowTextEditor = !m_ShowTextEditor;
+            if (ImGui::MenuItem("Message", nullptr, m_ShowMessagePanel))
+                m_ShowMessagePanel = !m_ShowMessagePanel;
             if (ImGui::MenuItem("Debug", nullptr, m_ShowDebug))
                 m_ShowDebug = !m_ShowDebug;
             
@@ -85,6 +91,8 @@ public:
     }
     
     virtual void OnUpdate() override {
+        EditorUniforms::Get().SetTime(Core::Input::GetTime());
+        
         m_Framebuffer->Bind();
         OpenGL::RenderCommand::SetClearColor(glm::vec4(0.3));
         OpenGL::RenderCommand::Clear();
@@ -102,6 +110,8 @@ public:
             m_PipelinePanel.Draw("Pipeline", &m_ShowPipeline);
         if(m_ShowTextEditor)
             m_TextEditorPanel.Draw("Text Editor", &m_ShowTextEditor);
+        if(m_ShowMessagePanel)
+            m_MessagePanel.Draw("Message", &m_ShowMessagePanel);
     
         if(m_ShowDebug) {
             ImGui::Begin("Debug", &m_ShowDebug);
@@ -112,6 +122,8 @@ public:
             
             ImGui::End();
         }
+        
+        ImGui::ShowDemoWindow();
         
     }
         
@@ -127,9 +139,12 @@ private:
     bool m_ShowDebug = false;
     TextEditorPanel m_TextEditorPanel;
     bool m_ShowTextEditor = true;
+    MessagePanel m_MessagePanel;
+    bool m_ShowMessagePanel = true;
     
     Core::Ref<Pipeline> m_Pipeline = nullptr;
     Core::Ref<OpenGL::Framebuffer> m_Framebuffer = nullptr;
+    EditorUniforms m_EditorUniforms;
 };
 
 }

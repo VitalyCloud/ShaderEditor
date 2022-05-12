@@ -51,6 +51,16 @@ Mesh::~Mesh() {
 void Mesh::OnUpdate(const Core::Ref<OpenGL::Shader>& shader) {
     auto va = m_VertexArrayContainer->GetVA();
     if(va != nullptr && va->GetVertexBuffers().size() > 0) {
+        
+        // Texture binding
+        for(int i=0; i<m_Textures.size(); i++) {
+            auto& texture = m_Textures[i];
+            texture->Bind(i);
+            if(!texture->GetTitle().empty()) {
+                shader->SetInt(texture->GetTitle(), i);
+            }
+        }
+        
         va->Bind();
         shader->SetMat4("u_Transform", m_Transform.GetTransform());
         if(m_UseIndexBuffer)
@@ -134,6 +144,52 @@ void MeshInspector::Draw() {
     
     m_VertexArrayView.SetContext(m_Context->m_VertexArrayContainer);
     m_VertexArrayView.Draw();
+    
+    if(ImGui::CollapsingHeader("Textures")) {
+        if(ImGui::BeginTable("MeshTextrues", 3)) {
+            ImGui::TableSetupColumn("Slot", ImGuiTableColumnFlags_WidthFixed, 40);
+            ImGui::TableSetupColumn("Title");
+            ImGui::TableSetupColumn("Path");
+            ImGui::TableHeadersRow();
+            
+            for(int i=0; i<m_Context->m_Textures.size(); i++) {
+                auto& texture = m_Context->m_Textures[i];
+                ImGui::PushID(i);
+                ImGui::TableNextRow();
+                
+                // Slot
+                ImGui::TableSetColumnIndex(0);
+                if(ImGui::Button("x")) {
+                    m_Context->m_Textures.erase(m_Context->m_Textures.begin() + i);
+                }
+                ImGui::SameLine();
+                ImGui::Text("%d", i);
+                
+                // Title
+                ImGui::TableSetColumnIndex(1);
+                ImGui::PushItemWidth(ImGui::GetColumnWidth());
+                ImGui::InputText("##textureTitle", &texture->GetTitle());
+                ImGui::PopItemWidth();
+                
+                // Path
+                ImGui::TableSetColumnIndex(2);
+                ImGui::PushItemWidth(ImGui::GetColumnWidth());
+                ImGui::InputText("##texturePath", &texture->GetFilePath(), ImGuiInputTextFlags_ReadOnly);
+                ImGui::PopItemWidth();
+                
+                ImGui::PopID();
+            }
+            
+            ImGui::EndTable();
+        }
+        
+        if(ImGui::Button("+##AddTexture")) {
+            auto path = Core::Utils::FileDialogs::OpenFile("");
+            if(!path.empty()) {
+                m_Context->m_Textures.push_back(Core::CreateRef<OpenGL::Texture>(path));
+            }
+        }
+    }
 
 }
 

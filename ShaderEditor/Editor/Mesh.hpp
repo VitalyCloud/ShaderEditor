@@ -15,6 +15,7 @@
 #include "Components.hpp"
 #include "ImGuiHelper.hpp"
 #include "OpenGL/Primitives.hpp"
+#include "OpenGL/Texture.hpp"
 
 
 namespace Editor {
@@ -61,6 +62,7 @@ private:
     friend MeshInspector;
     std::string m_Title;
     Core::Ref<VertexArrayContainer> m_VertexArrayContainer;
+    std::vector<Core::Ref<OpenGL::Texture>> m_Textures;
     
     bool m_UseIndexBuffer = true;
     

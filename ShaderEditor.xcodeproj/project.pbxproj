@@ -12,6 +12,8 @@
 		803AFF3F281068F7005C6FA6 /* EntryPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 803AFF3E281068F7005C6FA6 /* EntryPoint.cpp */; };
 		803B081E28200C3F0033737B /* Components.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 803B081C28200C3F0033737B /* Components.cpp */; };
 		803B0824282075090033737B /* RenderState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 803B0822282075090033737B /* RenderState.cpp */; };
+		80663606282D3C3900E1515B /* EditorUniforms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80663604282D3C3900E1515B /* EditorUniforms.cpp */; };
+		80663609282D4CD500E1515B /* MessagePanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80663607282D4CD500E1515B /* MessagePanel.cpp */; };
 		807521F728106D6800C0AD39 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 807521F628106D6800C0AD39 /* OpenGL.framework */; };
 		807521F928106D8600C0AD39 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 807521F828106D8600C0AD39 /* Cocoa.framework */; };
 		807521FB28106D8D00C0AD39 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 807521FA28106D8D00C0AD39 /* IOKit.framework */; };
@@ -74,6 +76,10 @@
 		803B0820282069ED0033737B /* Primitives.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Primitives.hpp; sourceTree = "<group>"; };
 		803B0822282075090033737B /* RenderState.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RenderState.cpp; sourceTree = "<group>"; };
 		803B0823282075090033737B /* RenderState.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RenderState.hpp; sourceTree = "<group>"; };
+		80663604282D3C3900E1515B /* EditorUniforms.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = EditorUniforms.cpp; sourceTree = "<group>"; };
+		80663605282D3C3900E1515B /* EditorUniforms.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EditorUniforms.hpp; sourceTree = "<group>"; };
+		80663607282D4CD500E1515B /* MessagePanel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MessagePanel.cpp; sourceTree = "<group>"; };
+		80663608282D4CD500E1515B /* MessagePanel.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MessagePanel.hpp; sourceTree = "<group>"; };
 		807521F428106CEB00C0AD39 /* ShaderEditor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShaderEditor.entitlements; sourceTree = "<group>"; };
 		807521F628106D6800C0AD39 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		807521F828106D8600C0AD39 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -352,6 +358,8 @@
 				809B476B281EF8880083DBD2 /* PipelinePanel.hpp */,
 				80BD717828233C8900AAFD92 /* TextEditorPanel.cpp */,
 				80BD717928233C8900AAFD92 /* TextEditorPanel.hpp */,
+				80663607282D4CD500E1515B /* MessagePanel.cpp */,
+				80663608282D4CD500E1515B /* MessagePanel.hpp */,
 			);
 			name = Panels;
 			sourceTree = "<group>";
@@ -409,6 +417,8 @@
 				809B476F281EFF9F0083DBD2 /* Mesh.hpp */,
 				80BD71722822F40100AAFD92 /* ShaderRenderState.cpp */,
 				80BD71732822F40100AAFD92 /* ShaderRenderState.hpp */,
+				80663604282D3C3900E1515B /* EditorUniforms.cpp */,
+				80663605282D3C3900E1515B /* EditorUniforms.hpp */,
 			);
 			name = Pipeline;
 			sourceTree = "<group>";
@@ -490,6 +500,7 @@
 				809B476C281EF8880083DBD2 /* PipelinePanel.cpp in Sources */,
 				8075223E2810B52900C0AD39 /* Framebuffer.cpp in Sources */,
 				8075224E2811764D00C0AD39 /* Shader.cpp in Sources */,
+				80663609282D4CD500E1515B /* MessagePanel.cpp in Sources */,
 				809B4733281DFB670083DBD2 /* UniformView.cpp in Sources */,
 				809B473E281E8E940083DBD2 /* IndexBufferContainer.cpp in Sources */,
 				80372B02281B6152005031C7 /* Texture.cpp in Sources */,
@@ -508,6 +519,7 @@
 				80C4915F2812359E009FC5E3 /* OrthographicCamera.cpp in Sources */,
 				809B472C281DECC70083DBD2 /* InspectorPanel.cpp in Sources */,
 				8075220A28109CA700C0AD39 /* EditorApplication.cpp in Sources */,
+				80663606282D3C3900E1515B /* EditorUniforms.cpp in Sources */,
 				80DCD45C2812C2C200610807 /* MacosXUtils.mm in Sources */,
 				80DBC77F2827FDAE00480E1F /* SceneCamera.cpp in Sources */,
 				809B4766281EF5F60083DBD2 /* Pipeline.cpp in Sources */,

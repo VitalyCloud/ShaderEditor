@@ -9,6 +9,8 @@
 #include "ImGuiHelper.hpp"
 #include "TextEditorPanel.hpp"
 #include "PropertyTable.hpp"
+#include "EditorUniforms.hpp"
+#include "MessagePanel.hpp"
 
 namespace Editor {
 
@@ -18,7 +20,7 @@ ShaderPass::ShaderPass(const std::string& title)
 }
 
 ShaderPass::~ShaderPass() {
-    
+    MessagePanel::Get().DeleteMessage(this);
 }
 
 void ShaderPass::OnUpdate() {
@@ -31,6 +33,7 @@ void ShaderPass::OnUpdate() {
     }
     
     if(m_Shader != nullptr) {
+        EditorUniforms::Get().Upload(m_Shader);
         m_Shader->Bind();
         for(auto& object: m_ShaderPassObjects) {
             object->OnUpdate(m_Shader);
@@ -78,6 +81,10 @@ void ShaderPass::UpdateShader() {
             return;
         }
         m_Shader = Core::CreateRef<OpenGL::Shader>(vertexContent.value(), fragmentContent.value());
+        if(m_Shader->HasError())
+            MessagePanel::Get().SetMessage(this, m_Shader->GetErrorMessage());
+        else
+            MessagePanel::Get().DeleteMessage(this);
     }
 }
 

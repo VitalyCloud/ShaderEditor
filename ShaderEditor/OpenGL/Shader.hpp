@@ -44,8 +44,12 @@ public:
     bool SetMat4(const std::string& name, const glm::mat4& value);
     bool SetMat4(const std::string& name, const float* values);
     
+    bool HasError() { return !m_ErrorMessage.empty(); }
+    const std::string& GetErrorMessage() { return m_ErrorMessage; }
+    
 private:
     unsigned int m_RendererID;
+    std::string m_ErrorMessage;
 };
 
 
