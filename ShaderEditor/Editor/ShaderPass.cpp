@@ -16,7 +16,7 @@ namespace Editor {
 
 ShaderPass::ShaderPass(const std::string& title)
 : m_Title(title) {
-    
+    m_Uniforms = Core::CreateRef<UniformBufferContainer>();
 }
 
 ShaderPass::~ShaderPass() {
@@ -34,6 +34,7 @@ void ShaderPass::OnUpdate() {
     
     if(m_Shader != nullptr) {
         EditorUniforms::Get().Upload(m_Shader);
+        m_Uniforms->UploadUniforms(m_Shader);
         m_Shader->Bind();
         for(auto& object: m_ShaderPassObjects) {
             object->OnUpdate(m_Shader);
@@ -127,9 +128,14 @@ void ShaderPassInspector::Draw()  {
         ImGui::Separator();
         PropertyTable::Checkbox("Auto compilation", m_Context->m_AutoCompile);
         
-        
         PropertyTable::End();
     }
+    
+    if(ImGui::CollapsingHeader("Uniforms")) {
+        m_UniformView.SetContext(m_Context->m_Uniforms);
+        m_UniformView.Draw();
+    }
+    
     ImGui::Separator();
     
     ImGui::PopID();

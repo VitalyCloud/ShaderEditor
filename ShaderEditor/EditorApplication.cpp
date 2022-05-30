@@ -88,6 +88,7 @@ public:
     
         m_Pipeline = Core::CreateRef<Pipeline>();
         m_PipelinePanel.SerContext(m_Pipeline);
+        ImGui::StyleColorsLight();
     }
     
     virtual void OnUpdate() override {
@@ -123,7 +124,7 @@ public:
             ImGui::End();
         }
         
-        ImGui::ShowDemoWindow();
+//        ImGui::ShowDemoWindow();
         
     }
         

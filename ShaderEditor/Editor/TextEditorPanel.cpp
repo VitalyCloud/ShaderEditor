@@ -20,7 +20,7 @@ TextEditorPanel::TextEditorPanel() {
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     ImFontConfig fontConfig;
     fontConfig.FontDataOwnedByAtlas = false;
-    m_Font = io.Fonts->AddFontFromMemoryTTF((void*)g_MenloRegular, sizeof(g_MenloRegular), 20, &fontConfig);
+    m_Font = io.Fonts->AddFontFromMemoryTTF((void*)g_MenloRegular, sizeof(g_MenloRegular), 16, &fontConfig);
 }
 
 TextEditorPanel::~TextEditorPanel() {
@@ -265,7 +265,7 @@ TextBuffer::TextBuffer(const Core::Ref<Core::Utils::File>& file) {
     auto lang = TextEditor::LanguageDefinition::GLSL();
     Buffer.SetLanguageDefinition(lang);
     Buffer.SetShowWhitespaces(false);
-    Buffer.SetPalette(TextEditor::GetDarkPalette());
+    Buffer.SetPalette(TextEditor::GetLightPalette());
     if(file != nullptr) {
         if(!OpenFile(file))
             Buffer.SetText("");

@@ -24,7 +24,6 @@ public:
     
     void SetResolution(const glm::vec2& resolution);
     void SetTime(float time);
-    void SetViewProjection(const glm::mat4& viewProjection);
     
     static EditorUniforms& Get() { return *s_EditorUniforms; }
 private:

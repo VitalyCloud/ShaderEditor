@@ -29,12 +29,12 @@ void PipelinePanel::Draw(const char* title, bool* p_open) {
         return;
     }
     
-    if(ImGui::Selectable("Camera##CameraTree")) {
-        m_CameraInspector.SetContext(&m_Context->GetSceneCamera());
-        InspectorPanel::Get().SetContext(&m_CameraInspector);
-    }
-    
-    ImGui::Separator();
+//    if(ImGui::Selectable("Camera##CameraTree")) {
+//        m_CameraInspector.SetContext(&m_Context->GetSceneCamera());
+//        InspectorPanel::Get().SetContext(&m_CameraInspector);
+//    }
+//    
+//    ImGui::Separator();
     for(int i=0; i<m_Context->GetShaderPasses().size(); i++) {
         ImGui::PushID(i);
         

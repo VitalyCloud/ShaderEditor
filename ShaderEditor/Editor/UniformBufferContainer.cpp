@@ -108,7 +108,7 @@ void UniformBufferContainer::UploadUniforms(const Core::Ref<OpenGL::Shader>& sha
 }
 
 uint32_t UniformBufferContainer::GetDataOffsetForIndex(int index) {
-    EN_ASSERT(index < m_Data.size(), "Index out of range");
+//    EN_ASSERT(index < m_Data.size(), "Index out of range");
     uint32_t offset = 0;
     for(size_t i=0; i<m_Uniforms.size(); i++) {
         if(i == index)

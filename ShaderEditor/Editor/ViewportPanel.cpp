@@ -37,7 +37,8 @@ void ViewportPanel::Resize(uint32_t width, uint32_t height) {
 
 void ViewportPanel::Draw(const char* title, bool* p_open) {
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
-    static ImGuiWindowFlags windowFlags = ImGuiWindowFlags_MenuBar |  ImGuiWindowFlags_NoScrollbar;
+    static ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoScrollbar;
+//    windowFlags |= ImGuiWindowFlags_MenuBar;
     if(!ImGui::Begin(title, p_open, windowFlags)) {
         ImGui::End();
         ImGui::PopStyleVar();

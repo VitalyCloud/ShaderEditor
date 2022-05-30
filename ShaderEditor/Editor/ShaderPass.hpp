@@ -10,6 +10,8 @@
 
 #include "OpenGL/Shader.hpp"
 #include "InspectorPanel.hpp"
+#include "UniformBufferContainer.hpp"
+#include "UniformView.hpp"
 
 namespace Editor {
 
@@ -45,6 +47,7 @@ private:
     friend ShaderPassInspector;
     std::string m_Title;
     std::vector<Core::Ref<ShaderPassObject>> m_ShaderPassObjects;
+    Core::Ref<UniformBufferContainer> m_Uniforms = nullptr;
     
     Core::Ref<OpenGL::Shader> m_Shader = nullptr;
     Core::Ref<Core::Utils::File> m_VertexPath = nullptr;
@@ -63,6 +66,7 @@ public:
     
 private:
     Core::Ref<ShaderPass> m_Context = nullptr;
+    UniformView m_UniformView;
 };
 
 
